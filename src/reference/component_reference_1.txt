@@ -1,0 +1,427 @@
+// COMPONENT REFERENCE FILE 1
+// Components: CardFolder, RouteGlobe, TiltedGridHero
+
+/* =========================================================================
+   1. CARD FOLDER (SKIP FOR RELAY AI - Payment Card UI)
+   ========================================================================= */
+card-folder.tsx
+"use client";
+// beui.dev/components/blocks/card-folder
+
+import { EllipsisVertical, Eye, EyeOff } from "lucide-react";
+import {
+  AnimatePresence,
+  animate,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useTransform,
+} from "motion/react";
+import { type ReactNode, useCallback, useEffect, useState } from "react";
+import { DigitSwap } from "@/components/ui/card-folder-utils/digit-swap";
+import {
+  EASE_IN_OUT,
+  EASE_OUT,
+  SPRING_LAYOUT,
+  SPRING_PRESS,
+} from "@/components/ui/card-folder-utils/ease";
+import { cn } from "@/lib/utils";
+
+const PURSE_MORPH_TRANSITION = {
+  duration: 0.28,
+  ease: EASE_IN_OUT,
+} as const;
+const PURSE_REDUCED_TRANSITION = {
+  duration: 0.16,
+  ease: EASE_OUT,
+} as const;
+
+export interface CardFolderProps {
+  title: string;
+  cardNumber: string;
+  expiry: string;
+  cvv: string;
+  card: ReactNode;
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  detailsVisible?: boolean;
+  defaultDetailsVisible?: boolean;
+  onDetailsVisibleChange?: (visible: boolean) => void;
+  onClick?: () => void;
+  onAction?: () => void;
+  ariaLabel?: string;
+  actionLabel?: string;
+  disabled?: boolean;
+  className?: string;
+  cardClassName?: string;
+}
+
+export function CardFolder({
+  title,
+  cardNumber,
+  expiry,
+  cvv,
+  card,
+  open,
+  defaultOpen = false,
+  onOpenChange,
+  detailsVisible,
+  defaultDetailsVisible = false,
+  onDetailsVisibleChange,
+  onClick,
+  onAction,
+  ariaLabel,
+  actionLabel,
+  disabled = false,
+  className,
+  cardClassName,
+}: CardFolderProps) {
+  const reduce = useReducedMotion();
+  const [internalOpen, setInternalOpen] = useState(defaultOpen);
+  const [internalDetailsVisible, setInternalDetailsVisible] = useState(
+    defaultDetailsVisible,
+  );
+  const openControlled = open !== undefined;
+  const detailsControlled = detailsVisible !== undefined;
+  const isOpen = open ?? internalOpen;
+  const areDetailsVisible = detailsVisible ?? internalDetailsVisible;
+  const transition = reduce ? { duration: 0 } : SPRING_LAYOUT;
+  const normalizedCardNumber = cardNumber.replace(/\D/g, "");
+  const visibleLastFour = normalizedCardNumber.slice(-4).padStart(4, "•");
+  const revealedCardNumber =
+    normalizedCardNumber.match(/.{1,4}/g)?.join(" ") ?? visibleLastFour;
+  const maskedCvv = "•".repeat(Math.max(3, cvv.length));
+  const defaultAriaLabel = `${isOpen ? "Close" : "Open"} ${title}, card ending in ${visibleLastFour}, expires ${expiry}`;
+  const progress = useMotionValue(isOpen ? 1 : 0);
+  const cardTransform = useTransform(progress, (value) => {
+    const boundedProgress = Math.min(1, Math.max(0, value));
+    const lift = Math.sin(Math.PI * boundedProgress);
+    return `translateY(${-8 * lift}%) scale(${1 + 0.01 * lift})`;
+  });
+  const backTransform = useTransform(
+    progress,
+    [0, 1],
+    ["translateY(0%) scaleY(1)", "translateY(18%) scaleY(0.18)"],
+  );
+  const frontTransform = useTransform(
+    progress,
+    [0, 1],
+    ["translateY(0%) rotateX(0deg)", "translateY(18%) rotateX(-72deg)"],
+  );
+  const purseOpacity = useTransform(progress, [0, 0.76, 1], [1, 1, 0]);
+
+  useEffect(() => {
+    const controls = animate(
+      progress,
+      isOpen ? 1 : 0,
+      reduce ? { duration: 0 } : PURSE_MORPH_TRANSITION,
+    );
+    return () => controls.stop();
+  }, [isOpen, progress, reduce]);
+
+  const setOpen = useCallback(
+    (nextOpen: boolean) => {
+      if (disabled) return;
+      if (!openControlled) setInternalOpen(nextOpen);
+      onOpenChange?.(nextOpen);
+    },
+    [disabled, onOpenChange, openControlled],
+  );
+
+  const handleClick = () => {
+    setOpen(!isOpen);
+    onClick?.();
+  };
+
+  const toggleDetails = () => {
+    if (disabled) return;
+    const nextVisible = !areDetailsVisible;
+    if (!detailsControlled) setInternalDetailsVisible(nextVisible);
+    onDetailsVisibleChange?.(nextVisible);
+  };
+
+  return (
+    <div
+      data-open={isOpen ? "true" : "false"}
+      data-details-visible={areDetailsVisible ? "true" : "false"}
+      className={cn(
+        "relative aspect-[1029/592] w-96 max-w-full select-none [perspective:1200px]",
+        className,
+      )}
+    >
+      <motion.button
+        type="button"
+        disabled={disabled}
+        aria-label={ariaLabel ?? defaultAriaLabel}
+        aria-expanded={isOpen}
+        onClick={handleClick}
+        whileTap={reduce || disabled ? undefined : { scale: 0.96 }}
+        transition={reduce ? { duration: 0 } : SPRING_PRESS}
+        className="absolute inset-0 block rounded-2xl text-left outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        <motion.span
+          data-slot="card-folder-back"
+          aria-hidden="true"
+          initial={false}
+          animate={reduce ? { opacity: isOpen ? 0 : 1 } : undefined}
+          transition={PURSE_REDUCED_TRANSITION}
+          style={
+            reduce
+              ? undefined
+              : { opacity: purseOpacity, transform: backTransform }
+          }
+          className="absolute inset-x-0 bottom-0 top-[10%] rounded-2xl border border-foreground/10 bg-background [transform-origin:center_bottom]"
+        />
+
+        <motion.span
+          aria-hidden="true"
+          initial={false}
+          animate={
+            reduce ? { transform: "translateY(0%) scale(1)" } : undefined
+          }
+          style={reduce ? undefined : { transform: cardTransform }}
+          className={cn(
+            "absolute left-[4.7%] right-[4.7%] top-0 z-10 aspect-[1.586/1] overflow-hidden rounded-xl border border-foreground/10 bg-background [transform-origin:center_bottom] will-change-transform",
+            cardClassName,
+          )}
+        >
+          {card}
+        </motion.span>
+      </motion.button>
+    </div>
+  );
+}
+
+export default CardFolder;
+
+/* =========================================================================
+   2. ROUTE GLOBE (SKIP FOR RELAY AI - Flight route UI)
+   ========================================================================= */
+export type Place = { name: string; lon: number; lat: number; note?: string };
+export type GlobeTheme = {
+  ground: string;
+  land: string;
+  arc: string;
+  glow: string;
+  text: string;
+  muted: string;
+};
+
+/* =========================================================================
+   3. TILTED GRID HERO (OPTIONAL)
+   ========================================================================= */
+tilted-grid-hero.tsx
+"use client";
+
+import * as React from "react";
+import { cn } from "@/lib/utils";
+
+const SLICES = 16;
+const CAMERA = 1.6;
+
+function arc(bend: number) {
+  return (CAMERA - 1 + Math.cos(bend)) / (2 * CAMERA * Math.sin(bend));
+}
+
+const MAX_WIDTH = 55;
+
+function measure(
+  width: number,
+  height: number,
+  tile: number,
+  aspect: number,
+  gap: number,
+  bend: number,
+) {
+  const h = Math.min(
+    (tile / 100) * height,
+    ((MAX_WIDTH / 100) * width) / aspect,
+  );
+  const radius = width * arc(bend);
+  if (!(h > 0) || !(radius > 0))
+    return { columns: 2, sweep: 0, unit: 0, limit: 0 };
+  const deg = (rad: number) => (rad * 180) / Math.PI;
+  const unit = deg(h / radius);
+  const pitch = (aspect + gap / 100) * unit;
+  const limit = deg(bend) + (aspect * unit) / 2;
+  const columns = Math.min(60, Math.max(2, Math.ceil((2 * limit) / pitch)));
+  const round = (n: number) => +n.toFixed(4);
+  const sweep = round((columns * pitch) / 2);
+  return {
+    columns,
+    sweep,
+    unit: round(unit),
+    limit: round(Math.min(sweep, limit)),
+  };
+}
+
+export type TiltedGridImage = {
+  src: string;
+  alt?: string;
+};
+
+export type TiltedGridHeroProps = {
+  images: TiltedGridImage[];
+  speed?: number;
+  tileHeight?: number;
+  aspectRatio?: number;
+  gap?: number;
+  axis?: number;
+  curve?: number;
+  fade?: number;
+  children?: React.ReactNode;
+  className?: string;
+};
+
+export function TiltedGridHero({
+  images,
+  speed = 4,
+  tileHeight = 26,
+  aspectRatio = 16 / 9,
+  gap = 6,
+  axis = 56,
+  curve = 80,
+  fade = 12,
+  children,
+  className,
+  ...props
+}: React.ComponentProps<"div"> & TiltedGridHeroProps) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const id = React.useId().replace(/[^a-zA-Z0-9]/g, "");
+  const orbit = `tgh-o-${id}`;
+  const tile = `tgh-t-${id}`;
+  const bend = (Math.min(85, Math.max(5, curve)) * Math.PI) / 180;
+
+  const [layout, setLayout] = React.useState<ReturnType<typeof measure> | null>(
+    null,
+  );
+  const [shown, setShown] = React.useState<Record<number, number>>({});
+
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      const next = measure(width, height, tileHeight, aspectRatio, gap, bend);
+      setLayout((prev) =>
+        prev?.columns === next.columns &&
+        prev.sweep === next.sweep &&
+        prev.unit === next.unit
+          ? prev
+          : next,
+      );
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [tileHeight, aspectRatio, gap, bend]);
+
+  React.useEffect(() => {
+    for (const { src } of images) new Image().src = src;
+  }, [images]);
+
+  const { columns, sweep, unit, limit } =
+    layout ?? measure(1200, 560, tileHeight, aspectRatio, gap, bend);
+
+  const u = (n: number) =>
+    `calc(${+n.toFixed(4)} * min(${tileHeight}cqh, ${+(
+      MAX_WIDTH / aspectRatio
+    ).toFixed(4)}cqw))`;
+
+  const r = 100 * arc(bend);
+  const radius = `${+r.toFixed(3)}cqw`;
+  const turn = (deg: number) =>
+    `translateZ(${radius}) rotateY(${+deg.toFixed(4)}deg) translateZ(-${radius})`;
+
+  const hide = +(((sweep - limit) / (2 * sweep || 1)) * 100).toFixed(4);
+  const css =
+    `@keyframes ${orbit}{` +
+    `from{transform:${turn(-sweep)}}to{transform:${turn(sweep)}}` +
+    `0%,${hide}%,${100 - hide}%,100%{visibility:hidden}` +
+    `${hide + 0.001}%,${100 - hide - 0.001}%{visibility:visible}}` +
+    `@media(prefers-reduced-motion:reduce){.${tile}{animation-play-state:paused}}`;
+
+  const share = aspectRatio / SLICES;
+  const duration = columns * speed;
+  const mask = `linear-gradient(90deg,transparent,#000 ${fade}%,#000 ${
+    100 - fade
+  }%,transparent)`;
+
+  return (
+    <div
+      ref={ref}
+      className={cn("relative overflow-hidden", className)}
+      {...props}
+      style={{ containerType: "size", ...props.style }}
+    >
+      <style>{css}</style>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 transition-opacity duration-500"
+        style={{
+          opacity: layout ? 1 : 0,
+          perspective: `${+(r * CAMERA).toFixed(3)}cqw`,
+          perspectiveOrigin: `50% ${axis}%`,
+          maskImage: mask,
+          WebkitMaskImage: mask,
+        }}
+      >
+        {Array.from({ length: columns }, (_, t) => {
+          const first = columns - 1 - t;
+          const img = images[(shown[t] ?? first) % Math.max(images.length, 1)];
+          return (
+            <div
+              key={t}
+              className={cn(tile, "absolute")}
+              style={{
+                left: `calc(50% - ${u(aspectRatio / 2)})`,
+                top: `calc(${axis}% - ${u(0.5)})`,
+                width: u(aspectRatio),
+                height: u(1),
+                transformStyle: "preserve-3d",
+                animation: `${orbit} ${duration}s linear ${-t * speed}s infinite`,
+              }}
+            >
+              {Array.from({ length: SLICES }, (_, k) => (
+                <div
+                  key={k}
+                  className={cn(
+                    "absolute top-0 overflow-hidden bg-muted",
+                    k === 0 && "rounded-l-lg",
+                    k === SLICES - 1 && "rounded-r-lg",
+                  )}
+                  style={{
+                    left: u((aspectRatio - share) / 2),
+                    width:
+                      k === SLICES - 1 ? u(share) : `calc(${u(share)} + 1px)`,
+                    height: u(1),
+                    transform: turn(
+                      (aspectRatio / 2 - (k + 0.5) * share) * unit,
+                    ),
+                  }}
+                >
+                  {img ? (
+                    <img
+                      src={img.src}
+                      alt={k === 0 ? (img.alt ?? "") : ""}
+                      draggable={false}
+                      className="absolute top-0 max-w-none object-cover"
+                      style={{
+                        left: u(-k * share),
+                        width: u(aspectRatio),
+                        height: u(1),
+                      }}
+                    />
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          );
+        })}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+export default TiltedGridHero;

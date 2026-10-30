@@ -1,0 +1,176 @@
+{
+  "metadata": {
+    "evaluation_timestamp": "2026-10-30T17:34:39.935324",
+    "model_version": "6.0.0-final",
+    "model_architecture": "Combined_w1_c15_Calibrated",
+    "training_samples": 18810,
+    "classes_count": 27,
+    "categories_count": 11,
+    "target_threshold": 0.7,
+    "target_achieved": true,
+    "dependencies": {
+      "python": "3.13.9",
+      "scikit-learn": "1.7.2",
+      "joblib": "1.5.2",
+      "numpy": "2.3.5",
+      "pandas": "2.3.3"
+    },
+    "feature_extraction_settings": {
+      "preprocessor": "TextPreprocessor (Unicode NFKC, lowercase, punctuation spacing, negation preserved)",
+      "word_vectorizer": {
+        "analyzer": "word",
+        "ngram_range": [
+          1,
+          2
+        ],
+        "sublinear_tf": true,
+        "weight": 1.0
+      },
+      "char_vectorizer": {
+        "analyzer": "char_wb",
+        "ngram_range": [
+          3,
+          5
+        ],
+        "sublinear_tf": true,
+        "weight": 1.5
+      },
+      "classifier": {
+        "type": "LinearSVC",
+        "C": 1.0,
+        "loss": "squared_hinge",
+        "dual": "auto",
+        "random_state": 42
+      },
+      "calibration": {
+        "method": "sigmoid (Platt scaling)",
+        "cv_folds": 5
+      }
+    }
+  },
+  "overall_validation": {
+    "total_examples": 4031,
+    "correct_predictions": 4031,
+    "incorrect_predictions": 0,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "top_3_accuracy": 1.0,
+    "prediction_latency_ms_per_query": 0.372
+  },
+  "unseen_query_validation": {
+    "unseen_instructions_count": 3572,
+    "unseen_share_percent": 88.61,
+    "correct_predictions": 3572,
+    "incorrect_predictions": 0,
+    "accuracy": 1.0,
+    "macro_f1": 1.0
+  },
+  "category_evaluation": {
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "categories_evaluated": 11
+  },
+  "calibration_and_reliability": {
+    "expected_calibration_error_ece": 0.011922533456866155,
+    "maximum_calibration_error_mce": 0.3611669706436039,
+    "brier_score": 0.0005445474614295001,
+    "mean_calibrated_confidence": 0.9880774665431338,
+    "min_calibrated_confidence": 0.6237789297019971,
+    "max_calibrated_confidence": 0.9962384367999917,
+    "reliability_bins": [
+      {
+        "bin_index": 0,
+        "bin_range": "[0.00, 0.10)",
+        "count": 0,
+        "proportion": 0.0,
+        "avg_confidence": 0.05,
+        "empirical_accuracy": 0.0,
+        "calibration_error": 0.0
+      },
+      {
+        "bin_index": 1,
+        "bin_range": "[0.10, 0.20)",
+        "count": 0,
+        "proportion": 0.0,
+        "avg_confidence": 0.15000000000000002,
+        "empirical_accuracy": 0.0,
+        "calibration_error": 0.0
+      },
+      {
+        "bin_index": 2,
+        "bin_range": "[0.20, 0.30)",
+        "count": 0,
+        "proportion": 0.0,
+        "avg_confidence": 0.25,
+        "empirical_accuracy": 0.0,
+        "calibration_error": 0.0
+      },
+      {
+        "bin_index": 3,
+        "bin_range": "[0.30, 0.40)",
+        "count": 0,
+        "proportion": 0.0,
+        "avg_confidence": 0.35000000000000003,
+        "empirical_accuracy": 0.0,
+        "calibration_error": 0.0
+      },
+      {
+        "bin_index": 4,
+        "bin_range": "[0.40, 0.50)",
+        "count": 0,
+        "proportion": 0.0,
+        "avg_confidence": 0.45,
+        "empirical_accuracy": 0.0,
+        "calibration_error": 0.0
+      },
+      {
+        "bin_index": 5,
+        "bin_range": "[0.50, 0.60)",
+        "count": 0,
+        "proportion": 0.0,
+        "avg_confidence": 0.55,
+        "empirical_accuracy": 0.0,
+        "calibration_error": 0.0
+      },
+      {
+        "bin_index": 6,
+        "bin_range": "[0.60, 0.70)",
+        "count": 3,
+        "proportion": 0.0007442322004465393,
+        "avg_confidence": 0.6388330293563961,
+        "empirical_accuracy": 1.0,
+        "calibration_error": 0.3611669706436039
+      },
+      {
+        "bin_index": 7,
+        "bin_range": "[0.70, 0.80)",
+        "count": 3,
+        "proportion": 0.0007442322004465393,
+        "avg_confidence": 0.7521942421772838,
+        "empirical_accuracy": 1.0,
+        "calibration_error": 0.2478057578227162
+      },
+      {
+        "bin_index": 8,
+        "bin_range": "[0.80, 0.90)",
+        "count": 16,
+        "proportion": 0.003969238402381543,
+        "avg_confidence": 0.8638052461695234,
+        "empirical_accuracy": 1.0,
+        "calibration_error": 0.13619475383047663
+      },
+      {
+        "bin_index": 9,
+        "bin_range": "[0.90, 1.00)",
+        "count": 4009,
+        "proportion": 0.9945422971967254,
+        "avg_confidence": 0.9890113000454126,
+        "empirical_accuracy": 1.0,
+        "calibration_error": 0.0109886999545874
+      }
+    ]
+  }
+}

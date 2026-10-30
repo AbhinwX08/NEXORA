@@ -1,0 +1,508 @@
+{
+  "metadata": {
+    "hackathon_title": "RELAY AI \u2014 Final Dataset-Only Competition Evaluation",
+    "timestamp": "2026-10-30T18:07:44.700876",
+    "compliance": "Dataset-Only (Zero External Data, Zero Synthetic Query Injection)",
+    "train_dataset": {
+      "file": "data/raw/train.csv",
+      "record_count": 18810,
+      "sha256": "a183846ada07ffe0d439edaa4c80638c804455e9521c3ca4955cdcfee445f69b"
+    },
+    "validation_dataset": {
+      "file": "data/raw/validation.csv",
+      "record_count": 4031,
+      "unseen_instruction_count": 3572,
+      "sha256": "63737674eaffb1d735ff1d647baa8707752870647ced2a927669d9d56c0a7184"
+    }
+  },
+  "task_1_reproduced_a1_results": {
+    "overall_validation": {
+      "record_count": 4031,
+      "correct_predictions": 4031,
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "weighted_f1": 1.0,
+      "top_3_accuracy": 1.0,
+      "reproduction_status": "EXACT_REPRODUCTION_VERIFIED"
+    },
+    "unseen_instruction_subset": {
+      "record_count": 3572,
+      "correct_predictions": 3572,
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "reproduction_status": "EXACT_REPRODUCTION_VERIFIED"
+    },
+    "category_classification": {
+      "categories_count": 11,
+      "accuracy": 1.0,
+      "macro_f1": 1.0
+    },
+    "calibration": {
+      "expected_calibration_error_ece": 0.011922533456866155,
+      "maximum_calibration_error_mce": 0.3611669706436039,
+      "brier_score": 0.0005445474614295001
+    }
+  },
+  "task_2_dataset_isolation_audit": {
+    "train_file": {
+      "path": "/Users/abhinavupadhyay/.gemini/antigravity/scratch/relay-ai/data/raw/train.csv",
+      "record_count": 18810,
+      "sha256": "a183846ada07ffe0d439edaa4c80638c804455e9521c3ca4955cdcfee445f69b",
+      "unique_instructions": 17514,
+      "unique_responses": 18809
+    },
+    "validation_file": {
+      "path": "/Users/abhinavupadhyay/.gemini/antigravity/scratch/relay-ai/data/raw/validation.csv",
+      "record_count": 4031,
+      "sha256": "63737674eaffb1d735ff1d647baa8707752870647ced2a927669d9d56c0a7184",
+      "exact_unseen_instructions_count": 3572,
+      "exact_unseen_share_percent": 88.61,
+      "overlapping_rows_in_val": 459,
+      "distinct_overlapping_instructions": 368,
+      "validation_responses_in_train_count": 0,
+      "validation_response_overlap_percent": 0.0
+    },
+    "model_isolation_confirmed": {
+      "model_fitted_on_train_only": true,
+      "validation_excluded_from_training": true,
+      "validation_excluded_from_retrieval_index": true,
+      "no_external_data_used": true
+    }
+  },
+  "task_3_a2_retrieval_evaluation": {
+    "recall_at_1": 1.0,
+    "recall_at_3": 1.0,
+    "recall_at_5": 1.0,
+    "mean_reciprocal_rank_mrr": 1.0,
+    "mean_cosine_similarity": 0.8466715455222029,
+    "verbatim_reference_response_overlap": 0.0
+  },
+  "task_4_multi_agent_sample_evaluation": {
+    "queries_audited": 12,
+    "intent_accuracy": 1.0,
+    "category_accuracy": 1.0,
+    "raw_placeholder_leakage_count": 0,
+    "audit_samples": [
+      {
+        "validation_index": 4,
+        "description": "delivery_period with missing slot (DELIVERY)",
+        "query": "I need assistance to shop several of your product",
+        "true_intent": "place_order",
+        "predicted_intent": "place_order",
+        "intent_correct": true,
+        "true_category": "ORDER",
+        "predicted_category": "ORDER",
+        "category_correct": true,
+        "calibrated_confidence": 0.9903,
+        "retrieval_similarity": 0.8212,
+        "placeholder_status": "resolved",
+        "final_decision": "HIGH_CONFIDENCE: PROCEED_AUTOMATED",
+        "final_response_snippet": "Thank you for your interest in shopping several of our products! I'm here to guide you through the process and help you find exactly what yo...",
+        "raw_braces_absent": true,
+        "total_latency_ms": 11.31,
+        "agent_trace_summary": [
+          {
+            "agent": "A1_IntentAnalyst",
+            "status": "SUCCESS",
+            "ms": 7.82
+          },
+          {
+            "agent": "A2_ResponseSpecialist",
+            "status": "SUCCESS",
+            "ms": 2.89
+          },
+          {
+            "agent": "ValidationAgent",
+            "status": "SUCCESS",
+            "ms": 0.31
+          }
+        ]
+      },
+      {
+        "validation_index": 9,
+        "description": "switch_account requiring parameter (ACCOUNT)",
+        "query": "have a problem with the deletion of my {{Account Category}} account",
+        "true_intent": "delete_account",
+        "predicted_intent": "delete_account",
+        "intent_correct": true,
+        "true_category": "ACCOUNT",
+        "predicted_category": "ACCOUNT",
+        "category_correct": true,
+        "calibrated_confidence": 0.9932,
+        "retrieval_similarity": 1.0,
+        "placeholder_status": "clarification_required",
+        "final_decision": "HIGH_CONFIDENCE: NEED_SLOT_CLARIFICATION",
+        "final_response_snippet": "To assist you accurately with your delete account request, could you please provide your Account Category?...",
+        "raw_braces_absent": true,
+        "total_latency_ms": 7.5,
+        "agent_trace_summary": [
+          {
+            "agent": "A1_IntentAnalyst",
+            "status": "SUCCESS",
+            "ms": 5.43
+          },
+          {
+            "agent": "A2_ResponseSpecialist",
+            "status": "CLARIFICATION_REQUIRED",
+            "ms": 2.02
+          },
+          {
+            "agent": "ValidationAgent",
+            "status": "CLARIFICATION_REQUIRED",
+            "ms": 0.02
+          }
+        ]
+      },
+      {
+        "validation_index": 48,
+        "description": "get_invoice with invoice number (INVOICE)",
+        "query": "update purchase {{Order Number}}",
+        "true_intent": "change_order",
+        "predicted_intent": "change_order",
+        "intent_correct": true,
+        "true_category": "ORDER",
+        "predicted_category": "ORDER",
+        "category_correct": true,
+        "calibrated_confidence": 0.9894,
+        "retrieval_similarity": 1.0,
+        "placeholder_status": "clarification_required",
+        "final_decision": "HIGH_CONFIDENCE: NEED_SLOT_CLARIFICATION",
+        "final_response_snippet": "To assist you accurately with your change order request, could you please provide your Order Number?...",
+        "raw_braces_absent": true,
+        "total_latency_ms": 6.46,
+        "agent_trace_summary": [
+          {
+            "agent": "A1_IntentAnalyst",
+            "status": "SUCCESS",
+            "ms": 4.87
+          },
+          {
+            "agent": "A2_ResponseSpecialist",
+            "status": "CLARIFICATION_REQUIRED",
+            "ms": 1.55
+          },
+          {
+            "agent": "ValidationAgent",
+            "status": "CLARIFICATION_REQUIRED",
+            "ms": 0.02
+          }
+        ]
+      },
+      {
+        "validation_index": 73,
+        "description": "contact_customer_service (CONTACT/ESCALATION)",
+        "query": "where do I check how long it takes for my item to arrive?",
+        "true_intent": "delivery_period",
+        "predicted_intent": "delivery_period",
+        "intent_correct": true,
+        "true_category": "DELIVERY",
+        "predicted_category": "DELIVERY",
+        "category_correct": true,
+        "calibrated_confidence": 0.9923,
+        "retrieval_similarity": 0.8844,
+        "placeholder_status": "clarification_required",
+        "final_decision": "HIGH_CONFIDENCE: NEED_SLOT_CLARIFICATION",
+        "final_response_snippet": "To assist you accurately with your delivery period request, could you please provide your Order Number, Tracking Number?...",
+        "raw_braces_absent": true,
+        "total_latency_ms": 6.74,
+        "agent_trace_summary": [
+          {
+            "agent": "A1_IntentAnalyst",
+            "status": "SUCCESS",
+            "ms": 5.08
+          },
+          {
+            "agent": "A2_ResponseSpecialist",
+            "status": "CLARIFICATION_REQUIRED",
+            "ms": 1.62
+          },
+          {
+            "agent": "ValidationAgent",
+            "status": "CLARIFICATION_REQUIRED",
+            "ms": 0.02
+          }
+        ]
+      },
+      {
+        "validation_index": 105,
+        "description": "cancel_order with customer intent (ORDER)",
+        "query": "can you help me checking the early exit fees?",
+        "true_intent": "check_cancellation_fee",
+        "predicted_intent": "check_cancellation_fee",
+        "intent_correct": true,
+        "true_category": "CANCEL",
+        "predicted_category": "CANCEL",
+        "category_correct": true,
+        "calibrated_confidence": 0.9868,
+        "retrieval_similarity": 0.8758,
+        "placeholder_status": "resolved",
+        "final_decision": "HIGH_CONFIDENCE: PROCEED_AUTOMATED",
+        "final_response_snippet": "Sure! I can help you check the early exit fees. To do that, please provide me with your account details, such as your account number or regi...",
+        "raw_braces_absent": true,
+        "total_latency_ms": 6.35,
+        "agent_trace_summary": [
+          {
+            "agent": "A1_IntentAnalyst",
+            "status": "SUCCESS",
+            "ms": 4.9
+          },
+          {
+            "agent": "A2_ResponseSpecialist",
+            "status": "SUCCESS",
+            "ms": 1.42
+          },
+          {
+            "agent": "ValidationAgent",
+            "status": "SUCCESS",
+            "ms": 0.01
+          }
+        ]
+      },
+      {
+        "validation_index": 142,
+        "description": "recover_password flow (ACCOUNT)",
+        "query": "when am i ovtaining my money back",
+        "true_intent": "get_refund",
+        "predicted_intent": "get_refund",
+        "intent_correct": true,
+        "true_category": "REFUND",
+        "predicted_category": "REFUND",
+        "category_correct": true,
+        "calibrated_confidence": 0.9839,
+        "retrieval_similarity": 0.523,
+        "placeholder_status": "resolved",
+        "final_decision": "HIGH_CONFIDENCE: PROCEED_AUTOMATED",
+        "final_response_snippet": "I understand your frustration and urgency in wanting to get your money back. Rest assured, I'm here to assist you every step of the way. To ...",
+        "raw_braces_absent": true,
+        "total_latency_ms": 6.17,
+        "agent_trace_summary": [
+          {
+            "agent": "A1_IntentAnalyst",
+            "status": "SUCCESS",
+            "ms": 4.81
+          },
+          {
+            "agent": "A2_ResponseSpecialist",
+            "status": "SUCCESS",
+            "ms": 1.33
+          },
+          {
+            "agent": "ValidationAgent",
+            "status": "SUCCESS",
+            "ms": 0.01
+          }
+        ]
+      },
+      {
+        "validation_index": 189,
+        "description": "track_order flow (ORDER)",
+        "query": "can uhelp me checking the payment optgions",
+        "true_intent": "check_payment_methods",
+        "predicted_intent": "check_payment_methods",
+        "intent_correct": true,
+        "true_category": "PAYMENT",
+        "predicted_category": "PAYMENT",
+        "category_correct": true,
+        "calibrated_confidence": 0.9661,
+        "retrieval_similarity": 0.5835,
+        "placeholder_status": "resolved",
+        "final_decision": "HIGH_CONFIDENCE: PROCEED_AUTOMATED",
+        "final_response_snippet": "For sure! I'm here to guide you in viewing our allowed payment options. To do so, you can follow these simple steps:\n\n1. Visit our website a...",
+        "raw_braces_absent": true,
+        "total_latency_ms": 6.43,
+        "agent_trace_summary": [
+          {
+            "agent": "A1_IntentAnalyst",
+            "status": "SUCCESS",
+            "ms": 4.91
+          },
+          {
+            "agent": "A2_ResponseSpecialist",
+            "status": "SUCCESS",
+            "ms": 1.48
+          },
+          {
+            "agent": "ValidationAgent",
+            "status": "SUCCESS",
+            "ms": 0.01
+          }
+        ]
+      },
+      {
+        "validation_index": 230,
+        "description": "check_refund_policy flow (REFUND)",
+        "query": "I want information about opening a pro account",
+        "true_intent": "create_account",
+        "predicted_intent": "create_account",
+        "intent_correct": true,
+        "true_category": "ACCOUNT",
+        "predicted_category": "ACCOUNT",
+        "category_correct": true,
+        "calibrated_confidence": 0.9931,
+        "retrieval_similarity": 0.7974,
+        "placeholder_status": "resolved",
+        "final_decision": "HIGH_CONFIDENCE: PROCEED_AUTOMATED",
+        "final_response_snippet": "Thank you for your interest in opening a Pro account! You can find detailed information about opening a Pro account on our website. Simply v...",
+        "raw_braces_absent": true,
+        "total_latency_ms": 6.31,
+        "agent_trace_summary": [
+          {
+            "agent": "A1_IntentAnalyst",
+            "status": "SUCCESS",
+            "ms": 4.87
+          },
+          {
+            "agent": "A2_ResponseSpecialist",
+            "status": "SUCCESS",
+            "ms": 1.41
+          },
+          {
+            "agent": "ValidationAgent",
+            "status": "SUCCESS",
+            "ms": 0.01
+          }
+        ]
+      },
+      {
+        "validation_index": 310,
+        "description": "payment_issue flow (PAYMENT)",
+        "query": "could i recover  my damn profile key",
+        "true_intent": "recover_password",
+        "predicted_intent": "recover_password",
+        "intent_correct": true,
+        "true_category": "ACCOUNT",
+        "predicted_category": "ACCOUNT",
+        "category_correct": true,
+        "calibrated_confidence": 0.9871,
+        "retrieval_similarity": 0.7508,
+        "placeholder_status": "resolved",
+        "final_decision": "HIGH_CONFIDENCE: PROCEED_AUTOMATED",
+        "final_response_snippet": "Definitely! I understand that you're frustrated and in need of assistance to recover your user profile key. I apologize for any inconvenienc...",
+        "raw_braces_absent": true,
+        "total_latency_ms": 6.6,
+        "agent_trace_summary": [
+          {
+            "agent": "A1_IntentAnalyst",
+            "status": "SUCCESS",
+            "ms": 5.2
+          },
+          {
+            "agent": "A2_ResponseSpecialist",
+            "status": "SUCCESS",
+            "ms": 1.37
+          },
+          {
+            "agent": "ValidationAgent",
+            "status": "SUCCESS",
+            "ms": 0.01
+          }
+        ]
+      },
+      {
+        "validation_index": 450,
+        "description": "newsletter_subscription flow (SUBSCRIPTION)",
+        "query": "I try to see order {{Order Number}} status",
+        "true_intent": "track_order",
+        "predicted_intent": "track_order",
+        "intent_correct": true,
+        "true_category": "ORDER",
+        "predicted_category": "ORDER",
+        "category_correct": true,
+        "calibrated_confidence": 0.9948,
+        "retrieval_similarity": 0.9088,
+        "placeholder_status": "clarification_required",
+        "final_decision": "HIGH_CONFIDENCE: NEED_SLOT_CLARIFICATION",
+        "final_response_snippet": "To assist you accurately with your track order request, could you please provide your Order Number?...",
+        "raw_braces_absent": true,
+        "total_latency_ms": 6.31,
+        "agent_trace_summary": [
+          {
+            "agent": "A1_IntentAnalyst",
+            "status": "SUCCESS",
+            "ms": 4.8
+          },
+          {
+            "agent": "A2_ResponseSpecialist",
+            "status": "CLARIFICATION_REQUIRED",
+            "ms": 1.48
+          },
+          {
+            "agent": "ValidationAgent",
+            "status": "CLARIFICATION_REQUIRED",
+            "ms": 0.01
+          }
+        ]
+      },
+      {
+        "validation_index": 520,
+        "description": "set_up_shipping_address flow (SHIPPING)",
+        "query": "need assistanbce to make a complaint",
+        "true_intent": "complaint",
+        "predicted_intent": "complaint",
+        "intent_correct": true,
+        "true_category": "FEEDBACK",
+        "predicted_category": "FEEDBACK",
+        "category_correct": true,
+        "calibrated_confidence": 0.9851,
+        "retrieval_similarity": 0.9272,
+        "placeholder_status": "resolved",
+        "final_decision": "HIGH_CONFIDENCE: PROCEED_AUTOMATED",
+        "final_response_snippet": "I'm sorry to hear that you have a complaint. Your feedback is of utmost importance to us, and I want to ensure that your concerns are addres...",
+        "raw_braces_absent": true,
+        "total_latency_ms": 6.21,
+        "agent_trace_summary": [
+          {
+            "agent": "A1_IntentAnalyst",
+            "status": "SUCCESS",
+            "ms": 4.79
+          },
+          {
+            "agent": "A2_ResponseSpecialist",
+            "status": "SUCCESS",
+            "ms": 1.39
+          },
+          {
+            "agent": "ValidationAgent",
+            "status": "SUCCESS",
+            "ms": 0.01
+          }
+        ]
+      },
+      {
+        "validation_index": 610,
+        "description": "complaint handling flow (FEEDBACK)",
+        "query": "i do not know how to speak with an opeator",
+        "true_intent": "contact_human_agent",
+        "predicted_intent": "contact_human_agent",
+        "intent_correct": true,
+        "true_category": "CONTACT",
+        "predicted_category": "CONTACT",
+        "category_correct": true,
+        "calibrated_confidence": 0.9824,
+        "retrieval_similarity": null,
+        "placeholder_status": null,
+        "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+        "final_response_snippet": "I am connecting you with a member of our human support team right away. Our representatives are available Monday to Friday, 9:00 AM \u2013 6:00 P...",
+        "raw_braces_absent": true,
+        "total_latency_ms": 4.85,
+        "agent_trace_summary": [
+          {
+            "agent": "A1_IntentAnalyst",
+            "status": "ESCALATION_REQUIRED",
+            "ms": 4.83
+          },
+          {
+            "agent": "A2_ResponseSpecialist",
+            "status": "SKIPPED",
+            "ms": 0.0
+          },
+          {
+            "agent": "ValidationAgent",
+            "status": "ESCALATION_REQUIRED",
+            "ms": 0.01
+          }
+        ]
+      }
+    ]
+  }
+}

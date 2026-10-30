@@ -1,0 +1,37 @@
+{
+  "calibration_metadata": {
+    "version": "1.0.0",
+    "method": "sigmoid (Platt scaling)",
+    "internal_cv_folds": 5,
+    "training_samples": 18810,
+    "classes_count": 27,
+    "frozen_at": "2026-10-30T17:26:12.327123",
+    "source_dataset": "data/raw/train.csv strictly"
+  },
+  "intent_confidence_thresholds": {
+    "high_confidence_min_prob": 0.65,
+    "high_confidence_min_margin": 0.25,
+    "unsupported_max_prob": 0.35,
+    "unsupported_max_margin": 0.05
+  },
+  "retrieval_thresholds": {
+    "high_confidence_min_similarity": 0.45,
+    "unsupported_similarity_threshold": 0.3
+  },
+  "human_escalation_intents": [
+    "contact_customer_service",
+    "contact_human_agent"
+  ],
+  "human_escalation_keywords": [
+    "human agent",
+    "live agent",
+    "real person",
+    "speak to human",
+    "talk to human",
+    "human representative",
+    "supervisor",
+    "manager",
+    "customer care officer",
+    "connect me to person"
+  ]
+}
