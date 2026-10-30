@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: relay-ai-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - HOST=0.0.0.0
+      - CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173
+      - MAX_QUERY_LENGTH=2000
+      - PRELOAD_MODELS=true
+      - OPTIONAL_LLM_ENABLED=false
+      - OPTIONAL_DB_ENABLED=false
+    volumes:
+      - ./artifacts/models:/app/artifacts/models:ro
+      - ./data:/app/data
+      - ./reports:/app/reports
+    restart: unless-stopped
+

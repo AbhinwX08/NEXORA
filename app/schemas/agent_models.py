@@ -90,3 +90,15 @@ class OrchestratorResult(BaseModel):
     final_response: str
     complete_agent_trace: List[AgentTrace]
     total_duration_ms: float
+    workflow_execution: Optional[Dict[str, Any]] = None
+    conflict_record: Optional[Dict[str, Any]] = None
+
+
+class ErrorResponse(BaseModel):
+    """Standardized error envelope defined in docs/contracts/relay-api-v1.md."""
+    status: str = "error"
+    error: str
+    error_code: str
+    request_id: str
+    timestamp: str
+

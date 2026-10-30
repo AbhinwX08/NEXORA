@@ -36,28 +36,32 @@ class ResponseAgent:
     Retrieves, validates, and parameterizes customer support responses.
     """
 
-    # Static business & platform constants
+    # Neutral platform navigation references.
+    # Note: Invented phone numbers (1-800-RELAY-AI), fake emails (support@relay.ai),
+    # fake URLs (https://relay.ai), fabricated support hours and unverified delivery
+    # times have been removed. Any business-specific contact channels or integration
+    # values must be provided via customer_slots or external business configuration.
     SYSTEM_CONSTANTS = {
-        "Company": "RELAY AI",
-        "Company Name": "RELAY AI",
-        "CompanyName": "RELAY AI",
-        "Website URL": "https://relay.ai",
-        "Online Company Portal Info": "RELAY AI Online Portal",
-        "Customer Support Phone Number": "1-800-RELAY-AI",
-        "Customer Support Hours": "Monday to Friday, 9:00 AM - 6:00 PM EST",
-        "Customer Support Email": "support@relay.ai",
-        "Customer Assistance Phone Number": "1-800-RELAY-AI",
-        "Customer Assistance Hours": "Monday to Friday, 9:00 AM - 6:00 PM EST",
-        "Customer Assistance Email": "support@relay.ai",
-        "Login Page URL": "https://app.relay.ai/login",
-        "Login URL": "https://app.relay.ai/login",
-        "Store Location": "Official RELAY AI Store",
+        "Company": "Customer Support",
+        "Company Name": "Customer Support",
+        "CompanyName": "Customer Support",
+        "Website URL": "our official website",
+        "Online Company Portal Info": "customer account portal",
+        "Customer Support Phone Number": "our customer support line",
+        "Customer Support Hours": "operating support hours",
+        "Customer Support Email": "our customer support team",
+        "Customer Assistance Phone Number": "our customer assistance line",
+        "Customer Assistance Hours": "operating support hours",
+        "Customer Assistance Email": "our customer assistance team",
+        "Login Page URL": "the customer login page",
+        "Login URL": "the customer login page",
+        "Store Location": "our official store",
         "Online Order Interaction": "Order Details",
-        "Key Recovery Page URL": "https://app.relay.ai/recovery",
-        "Password Recovery Page URL": "https://app.relay.ai/forgot-password",
-        "Account Recovery Page URL": "https://app.relay.ai/account-recovery",
-        "Date Range": "3-5",
-        "Delivery Time": "2-4 business days",
+        "Key Recovery Page URL": "the account recovery page",
+        "Password Recovery Page URL": "the password reset page",
+        "Account Recovery Page URL": "the account recovery page",
+        "Date Range": "applicable policy window",
+        "Delivery Time": "standard delivery timeframe",
     }
 
     # Customer-specific slots that require actual customer input
@@ -113,23 +117,63 @@ class ResponseAgent:
 
     def extract_slots_from_query(self, query: str) -> Dict[str, str]:
         """
-        Extracts known entity values from the customer's query.
+        Extracts known entity values from the customer's query with contextual disambiguation.
+        Prevents treating an order number simultaneously as an invoice number without context.
         """
         slots = {}
         if not isinstance(query, str):
             return slots
 
-        # 1. Order / Invoice numbers (e.g. #84920, order 113542617735902, #00108)
-        order_m = re.search(r'(?:order|purchase|invoice|bill)?\s*#?([0-9]{4,18})\b', query, re.I)
-        if order_m:
-            val = order_m.group(1)
-            slots["Order Number"] = val
+        q_lower = query.lower()
+
+        # 1. Explicit Tracking Numbers (e.g. TRK-88219, tracking #9821, courier TRK9901)
+        track_explicit = re.search(r'\b(?:TRK|TRACK)[-_]?([A-Z0-9]{5,20})\b', query, re.I)
+        track_context = re.search(r'\b(?:tracking|track|courier)\s*(?:#|number|id|no\.?)?\s*([A-Z0-9]{5,20})\b', query, re.I)
+        if track_explicit:
+            val = track_explicit.group(0).upper()
+            slots["Tracking Number"] = val
+            slots["tracking number"] = val
+        elif track_context:
+            val = track_context.group(1).upper()
+            slots["Tracking Number"] = val
+            slots["tracking number"] = val
+
+        # 2. Invoice / Billing Identifiers (e.g. INV-9042, BILL-102, invoice #1234)
+        inv_explicit = re.search(r'\b(?:INV|BILL)[-_]?([0-9]{3,12})\b', query, re.I)
+        inv_context = re.search(r'\b(?:invoice|bill|receipt|billing)\s*(?:#|number|id|no\.?)?\s*([0-9]{3,12})\b', query, re.I)
+        if inv_explicit:
+            val = inv_explicit.group(0).upper()
             slots["Invoice Number"] = val
+        elif inv_context:
+            val = inv_context.group(1)
+            slots["Invoice Number"] = val
+
+        # 3. Order Identifiers (e.g. order #98214, ord 113542617735902, purchase #1002)
+        order_context = re.search(r'\b(?:order|ord|purchase)\s*(?:#|number|id|no\.?)?\s*([0-9]{4,18})\b', query, re.I)
+        if order_context:
+            val = order_context.group(1)
+            slots["Order Number"] = val
             slots["order number"] = val
             slots["Order/Claim Number"] = val
             slots["Order/Transaction ID"] = val
 
-        # 2. Monetary amounts ($50, $29.99, 50 dollars)
+        # 4. Bare numeric hashes (e.g. #98214) disambiguated by query context
+        if "Order Number" not in slots and "Invoice Number" not in slots and "Tracking Number" not in slots:
+            bare_hash = re.search(r'#([0-9]{4,18})\b', query)
+            if bare_hash:
+                val = bare_hash.group(1)
+                if any(w in q_lower for w in ["invoice", "bill", "billing", "receipt"]):
+                    slots["Invoice Number"] = val
+                elif any(w in q_lower for w in ["track", "ship", "courier", "delivery"]):
+                    slots["Tracking Number"] = val
+                    slots["tracking number"] = val
+                else:
+                    slots["Order Number"] = val
+                    slots["order number"] = val
+                    slots["Order/Claim Number"] = val
+                    slots["Order/Transaction ID"] = val
+
+        # 5. Monetary amounts ($50, $29.99, 50 dollars)
         money_m = re.search(r'(\$\s*[0-9]+(?:\.[0-9]{2})?|[0-9]+(?:\.[0-9]{2})?\s*(?:dollars|usd))', query, re.I)
         if money_m:
             val = money_m.group(1).strip()
@@ -139,7 +183,7 @@ class ResponseAgent:
             slots["Money Amount"] = clean_num
             slots["Currency Symbol"] = "$"
 
-        # 3. Account types (gold, platinum, premium, pro, standard, freemium, free)
+        # 6. Account types (gold, platinum, premium, pro, standard, freemium, free)
         acc_m = re.search(r'\b(gold|platinum|premium|pro|standard|freemium|free)\b', query, re.I)
         if acc_m:
             val = acc_m.group(1).capitalize()
@@ -147,7 +191,7 @@ class ResponseAgent:
             slots["Account Category"] = val
             slots["Profile Type"] = val
 
-        # 4. Email address
+        # 7. Email address
         email_m = re.search(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', query)
         if email_m:
             slots["Email Address"] = email_m.group(0)

@@ -22,11 +22,32 @@
     margin-bottom: 0 !important;
   }
 
-  /* Hide scrollbars for clean presentation while preserving scrollability */
+  /* Refined, modern custom scrollbar for accessible scrolling */
   ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+  }
+}
+
+/* Scoped utility for explicitly hiding scrollbars where required */
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-  * {
+  .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }

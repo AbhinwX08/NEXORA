@@ -1,19 +1,43 @@
 """
-RELAY AI — Response Retrieval Service
+RELAY AI — Response Retrieval Service (Phase 5 / Prompt B4)
 Indexes training customer support instructions and responses.
-Supports Word-level, Character-level, and Combined TF-IDF cosine similarity search.
-Enables Global and Intent-Restricted retrieval modes.
+Supports:
+- Word-level TF-IDF
+- Character-level TF-IDF (char_wb n-grams)
+- Combined FeatureUnion TF-IDF
+- Hybrid Reciprocal Rank Fusion (RRF) between lexical word & char models
+- Contextual intent-restricted candidate filtering
+- Exact source tracking (source_id: train_<index>)
+
+Strictly trained on train.csv only (never indexes validation.csv).
 """
 
 import os
 import re
+from typing import List, Dict, Any, Optional
 import numpy as np
 import pandas as pd
-from typing import List, Dict, Any, Optional
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import FeatureUnion
 from sklearn.preprocessing import normalize
 import joblib
+
+_PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+
+def normalize_query_preserving_entities(query: str) -> str:
+    """
+    Normalizes text while preserving entity tokens:
+    - Order/invoice identifiers (#12345, INV-1002, TRK-98214)
+    - Currency and amounts ($50.00, 20 USD)
+    - Email addresses
+    """
+    if not query:
+        return ""
+    q = query.strip()
+    # Normalize excessive whitespace but preserve casing for identifier regexes
+    q = re.sub(r'\s+', ' ', q)
+    return q
 
 
 class RetrievalService:
@@ -65,9 +89,7 @@ class RetrievalService:
             self.fit_from_csv(train_path)
 
     def fit_from_csv(self, train_path: str):
-        """
-        Builds the retrieval index from train.csv.
-        """
+        """Builds the retrieval index from train.csv."""
         print(f"[RetrievalService] Indexing training knowledge base from: {train_path}...")
         self.df = pd.read_csv(train_path)
         required_cols = {"instruction", "intent", "category", "response"}
@@ -107,14 +129,21 @@ class RetrievalService:
         min_confidence: float = 0.5
     ) -> List[Dict[str, Any]]:
         """
-        Retrieves top_k most similar training examples using cosine similarity.
+        Retrieves top_k most similar training examples using cosine similarity or Reciprocal Rank Fusion.
+        Methods:
+        - 'combined': FeatureUnion (Word + Char TF-IDF) cosine similarity (default)
+        - 'hybrid': Reciprocal Rank Fusion (RRF) fusing Word TF-IDF and Char TF-IDF rankings
+        - 'word': Word n-gram TF-IDF cosine similarity
+        - 'char': Character n-gram TF-IDF cosine similarity
         """
         if self.df is None:
             raise RuntimeError("Retrieval index has not been initialized.")
 
         method = method.lower()
-        if method not in ("combined", "char", "word"):
-            raise ValueError(f"Unknown retrieval method '{method}'. Must be 'combined', 'char', or 'word'.")
+        if method not in ("combined", "hybrid", "char", "word"):
+            raise ValueError(f"Unknown retrieval method '{method}'. Must be 'combined', 'hybrid', 'char', or 'word'.")
+
+        norm_query = normalize_query_preserving_entities(query)
 
         # Determine search subset (intent-restricted vs global)
         use_intent_filter = (
@@ -132,33 +161,52 @@ class RetrievalService:
         if len(target_indices) == 0:
             return []
 
-        # Vectorize query
-        if method == "word":
-            q_vec = self.word_vectorizer.transform([query])
-            X_sub = self.X_word[target_indices]
-        elif method == "char":
-            q_vec = self.char_vectorizer.transform([query])
-            X_sub = self.X_char[target_indices]
-        else:  # combined
-            q_vec = self.combined_vectorizer.transform([query])
-            X_sub = self.X_combined[target_indices]
+        # Vectorize and score
+        if method == "hybrid":
+            # Reciprocal Rank Fusion between Word and Char rankings
+            q_word = normalize(self.word_vectorizer.transform([norm_query]), norm="l2", axis=1)
+            q_char = normalize(self.char_vectorizer.transform([norm_query]), norm="l2", axis=1)
 
-        q_vec = normalize(q_vec, norm="l2", axis=1)
+            scores_word = (self.X_word[target_indices] * q_word.T).toarray().ravel()
+            scores_char = (self.X_char[target_indices] * q_char.T).toarray().ravel()
 
-        # Compute cosine similarity (dot product between unit-normalized sparse vectors)
-        sim_scores = (X_sub * q_vec.T).toarray().ravel()
+            ranks_word = np.argsort(scores_word)[::-1]
+            ranks_char = np.argsort(scores_char)[::-1]
 
-        # Get top-k indices within subset
-        k = min(top_k, len(target_indices))
-        if k == 0:
-            return []
+            rrf_scores = np.zeros(len(target_indices))
+            k_rrf = 60.0
+            for rank_pos, idx in enumerate(ranks_word):
+                rrf_scores[idx] += 1.0 / (k_rrf + rank_pos + 1)
+            for rank_pos, idx in enumerate(ranks_char):
+                rrf_scores[idx] += 1.0 / (k_rrf + rank_pos + 1)
 
-        top_local_idx = np.argsort(sim_scores)[::-1][:k]
+            # Combined cosine for reporting
+            q_comb = normalize(self.combined_vectorizer.transform([norm_query]), norm="l2", axis=1)
+            comb_sim = (self.X_combined[target_indices] * q_comb.T).toarray().ravel()
+
+            top_local_idx = np.argsort(rrf_scores)[::-1][:min(top_k, len(target_indices))]
+            sim_scores_for_reporting = comb_sim
+
+        else:
+            if method == "word":
+                q_vec = self.word_vectorizer.transform([norm_query])
+                X_sub = self.X_word[target_indices]
+            elif method == "char":
+                q_vec = self.char_vectorizer.transform([norm_query])
+                X_sub = self.X_char[target_indices]
+            else:  # combined
+                q_vec = self.combined_vectorizer.transform([norm_query])
+                X_sub = self.X_combined[target_indices]
+
+            q_vec = normalize(q_vec, norm="l2", axis=1)
+            sim_scores = (X_sub * q_vec.T).toarray().ravel()
+            top_local_idx = np.argsort(sim_scores)[::-1][:min(top_k, len(target_indices))]
+            sim_scores_for_reporting = sim_scores
 
         candidates = []
         for rank, local_idx in enumerate(top_local_idx, start=1):
-            global_idx = target_indices[local_idx]
-            sim = float(sim_scores[local_idx])
+            global_idx = int(target_indices[local_idx])
+            sim = float(sim_scores_for_reporting[local_idx])
             row = self.df.iloc[global_idx]
             candidates.append({
                 "rank": rank,
@@ -169,7 +217,9 @@ class RetrievalService:
                 "category": str(row["category"]),
                 "retrieval_method": method,
                 "intent_restricted": bool(use_intent_filter),
-                "train_index": int(global_idx)
+                "train_index": global_idx,
+                "source_id": f"train_{global_idx}",
+                "source_split": "train"
             })
 
         return candidates

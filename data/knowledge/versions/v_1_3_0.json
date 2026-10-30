@@ -1,0 +1,55 @@
+{
+  "corpus_version": "1.0.0",
+  "name": "RELAY AI Product & Architecture Guide",
+  "last_updated": "2026-10-30",
+  "documents": [
+    {
+      "id": "guide_overview",
+      "title": "RELAY AI Platform Overview",
+      "category": "PLATFORM",
+      "content": "RELAY AI is a coordinated, explainable customer-support NLP intelligence platform. Its mission is 'From customer query to verified resolution'. Unlike ungrounded chatbots, RELAY AI combines classical machine learning, calibrated probabilistic confidence, vector-space retrieval, and deterministic safety verification gates."
+    },
+    {
+      "id": "guide_architecture",
+      "title": "Multi-Agent Pipeline Architecture",
+      "category": "ARCHITECTURE",
+      "content": "The RELAY AI pipeline executes four coordinated stages: 1. A1 Intent Analyst predicts customer intent with Platt-scaled calibrated confidence and margin separation. 2. A2 Response Specialist performs hybrid lexical retrieval over training exemplars and dynamically binds customer parameters. 3. Validation Agent enforces a 7-point quality, safety, and anti-fabrication gate. 4. Support Orchestrator manages end-to-end trace auditing and renders the canonical decision."
+    },
+    {
+      "id": "guide_dataset_scope",
+      "title": "Dataset & Corpus Scope",
+      "category": "DATASET",
+      "content": "The underlying customer support corpus comprises 22,841 total records divided into 18,810 training samples and 4,031 held-out validation samples. It covers 27 unique customer intents across 11 business categories: ACCOUNT, CANCEL, CONTACT, DELIVERY, FEEDBACK, INVOICE, ORDER, PAYMENT, REFUND, SHIPPING, and SUBSCRIPTION."
+    },
+    {
+      "id": "guide_api_endpoints",
+      "title": "RELAY AI REST API Endpoints",
+      "category": "API",
+      "content": "RELAY AI exposes core REST API endpoints: GET /api/health for multi-component runtime readiness checks, GET /api/info for system and dataset metadata, POST /api/chat for full multi-agent orchestration, and POST /api/intent for fast A1 intent evaluation. Extended services include POST /api/assistant/chat, POST /api/voice/transcribe, POST /api/voice/speech, POST /api/feedback, and POST /api/replay."
+    },
+    {
+      "id": "guide_safety_guardrails",
+      "title": "Safety Policies & Anti-Fabrication Guardrails",
+      "category": "SAFETY",
+      "content": "RELAY AI adheres to strict anti-fabrication guarantees. The system never invents tracking locations, payment transactions, customer refund balances, or company contact details. Missing customer parameters trigger a polite CLARIFICATION_REQUIRED outcome rather than hallucinating answers. Queries outside the 11 supported categories trigger an UNSUPPORTED outcome, and explicit requests for a representative route to ESCALATION_RECOMMENDED."
+    },
+    {
+      "id": "guide_voice_services",
+      "title": "Voice Support & Turn-Taking Contract",
+      "category": "VOICE",
+      "content": "RELAY AI supports speech-to-text transcription via POST /api/voice/transcribe and text-to-speech synthesis via POST /api/voice/speech. Voice interaction follows a strict half-duplex turn-taking contract where microphone capture is paused during speech playback to avoid acoustic feedback and race conditions."
+    },
+    {
+      "id": "guide_calibration_metrics",
+      "title": "Probability Calibration & Uncertainty Metrics",
+      "category": "EVALUATION",
+      "content": "RELAY AI uses Platt sigmoid calibration P(y=k|s) = 1 / (1 + exp(A*s + B)) fitted exclusively via out-of-fold internal cross-validation on the training set. This achieves an Expected Calibration Error (ECE) of 0.0119 (1.19%) on the baseline and 0.0099 (0.99%) on Candidate C, ensuring confidence scores reflect genuine empirical posterior probabilities and reliable decision margins."
+    },
+    {
+      "id": "faq_6a30c0",
+      "title": "Frequently Asked Question: ",
+      "category": "SUPPORT_GAP",
+      "content": "Frequently Asked Question: \n\nFor inquiries regarding , please check your account dashboard under Support_Gap or contact support with your verified customer identifiers for personal assistance."
+    }
+  ]
+}

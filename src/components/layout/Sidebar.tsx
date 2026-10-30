@@ -4,21 +4,25 @@ import {
   Terminal,
   Database,
   CheckCircle2,
-  GitBranch,
   Network,
+  ShieldCheck,
+  GitCompare,
+  FileCheck2,
 } from "lucide-react";
+import { ViewType } from "./Header";
+import { SidebarThemeToggle } from "@/lib/theme";
 
 export interface SidebarProps {
-  currentView: "landing" | "workspace";
-  onNavigate: (view: "landing" | "workspace") => void;
+  currentView: ViewType;
+  onNavigate: (view: ViewType) => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
   return (
-    <aside className="fixed left-0 top-0 h-full w-72 bg-[#101A2B] z-50 hidden lg:flex flex-col justify-between border-r border-white/10 select-none">
+    <aside className="fixed left-0 top-0 h-full w-72 bg-[#101A2B] z-50 hidden lg:flex flex-col justify-between border-r border-white/10 select-none text-left">
       <div className="flex flex-col">
         {/* Brand Header */}
-        <div 
+        <div
           className="h-16 px-6 flex items-center gap-3 border-b border-white/10 bg-[#101A2B] cursor-pointer"
           onClick={() => onNavigate("landing")}
         >
@@ -26,10 +30,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => 
             <Network className="w-5 h-5 text-white" />
           </div>
           <div className="flex flex-col">
-            <span className="font-headline-sm text-headline-sm text-white tracking-tight uppercase font-bold">
+            <span className="text-white tracking-tight uppercase font-bold text-sm">
               RELAY AI
             </span>
-            <span className="font-code-inline text-[10px] text-white/50 tracking-wider">
+            <span className="text-[10px] text-white/50 tracking-wider font-mono">
               MULTI-AGENT INTELLIGENCE
             </span>
           </div>
@@ -37,104 +41,115 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => 
 
         {/* Navigation Section */}
         <div className="p-4">
-          <span className="px-3 text-[11px] font-code-inline uppercase tracking-wider text-white/40 block mb-2">
-            Navigation
+          <span className="px-3 text-[11px] font-mono uppercase tracking-wider text-white/40 block mb-2">
+            Platform Views
           </span>
-          <nav className="flex flex-col gap-1">
+          <nav className="flex flex-col gap-1.5">
             <button
               onClick={() => onNavigate("landing")}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded text-left transition-colors w-full ${
+              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-left transition-all w-full text-xs sm:text-sm ${
                 currentView === "landing"
                   ? "bg-[#17263D] text-white font-semibold border-l-2 border-[#456BFA]"
                   : "text-white/70 hover:bg-[#17263D] hover:text-white"
               }`}
             >
-              <LayoutDashboard className={`w-5 h-5 ${currentView === "landing" ? "text-[#456BFA]" : "text-white/50"}`} />
-              <span className="font-body-md text-body-md">Overview &amp; Landing</span>
+              <LayoutDashboard className={`w-4 h-4 ${currentView === "landing" ? "text-[#456BFA]" : "text-white/50"}`} />
+              <span>Overview &amp; Landing</span>
             </button>
 
             <button
               onClick={() => onNavigate("workspace")}
-              className={`flex items-center justify-between px-3 py-2.5 rounded text-left transition-colors w-full ${
+              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left transition-all w-full text-xs sm:text-sm ${
                 currentView === "workspace"
                   ? "bg-[#17263D] text-white font-semibold border-l-2 border-[#20C6B6]"
                   : "text-white/70 hover:bg-[#17263D] hover:text-white"
               }`}
             >
               <div className="flex items-center gap-3">
-                <Terminal className={`w-5 h-5 ${currentView === "workspace" ? "text-[#20C6B6]" : "text-white/50"}`} />
-                <span className="font-body-md text-body-md">Live AI Workspace</span>
+                <Terminal className={`w-4 h-4 ${currentView === "workspace" ? "text-[#20C6B6]" : "text-white/50"}`} />
+                <span>Live AI Workspace</span>
               </div>
               <span className="w-2 h-2 rounded-full bg-[#20C6B6] animate-pulse"></span>
             </button>
 
-            <a
-              href="#problem-solution"
-              onClick={(e) => {
-                if (currentView !== "landing") {
-                  e.preventDefault();
-                  onNavigate("landing");
-                  setTimeout(() => {
-                    document.getElementById("problem-solution")?.scrollIntoView({ behavior: "smooth" });
-                  }, 100);
-                }
-              }}
-              className="flex items-center gap-3 px-3 py-2.5 rounded text-white/70 hover:bg-[#17263D] hover:text-white transition-colors"
+            <button
+              onClick={() => onNavigate("evidence")}
+              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-left transition-all w-full text-xs sm:text-sm ${
+                currentView === "evidence"
+                  ? "bg-[#17263D] text-white font-semibold border-l-2 border-[#20C6B6]"
+                  : "text-white/70 hover:bg-[#17263D] hover:text-white"
+              }`}
             >
-              <Database className="w-5 h-5 text-white/50" />
-              <span className="font-body-md text-body-md">Dataset Explorer</span>
-            </a>
+              <FileCheck2 className={`w-4 h-4 ${currentView === "evidence" ? "text-[#20C6B6]" : "text-white/50"}`} />
+              <span>Evidence Ledger</span>
+            </button>
 
-            <a
-              href="#system-differentiators"
-              onClick={(e) => {
-                if (currentView !== "landing") {
-                  e.preventDefault();
-                  onNavigate("landing");
-                  setTimeout(() => {
-                    document.getElementById("system-differentiators")?.scrollIntoView({ behavior: "smooth" });
-                  }, 100);
-                }
-              }}
-              className="flex items-center gap-3 px-3 py-2.5 rounded text-white/70 hover:bg-[#17263D] hover:text-white transition-colors"
+            <button
+              onClick={() => onNavigate("replay")}
+              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-left transition-all w-full text-xs sm:text-sm ${
+                currentView === "replay"
+                  ? "bg-[#17263D] text-white font-semibold border-l-2 border-[#456BFA]"
+                  : "text-white/70 hover:bg-[#17263D] hover:text-white"
+              }`}
             >
-              <CheckCircle2 className="w-5 h-5 text-white/50" />
-              <span className="font-body-md text-body-md">Evaluation &amp; Checkpoint</span>
-            </a>
+              <GitCompare className={`w-4 h-4 ${currentView === "replay" ? "text-[#456BFA]" : "text-white/50"}`} />
+              <span>Decision Replay Lab</span>
+            </button>
 
-            <a
-              href="#agent-architecture"
-              onClick={(e) => {
-                if (currentView !== "landing") {
-                  e.preventDefault();
-                  onNavigate("landing");
-                  setTimeout(() => {
-                    document.getElementById("agent-architecture")?.scrollIntoView({ behavior: "smooth" });
-                  }, 100);
-                }
-              }}
-              className="flex items-center gap-3 px-3 py-2.5 rounded text-white/70 hover:bg-[#17263D] hover:text-white transition-colors"
+            <button
+              onClick={() => onNavigate("dataset")}
+              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-left transition-all w-full text-xs sm:text-sm ${
+                currentView === "dataset"
+                  ? "bg-[#17263D] text-white font-semibold border-l-2 border-[#F4B860]"
+                  : "text-white/70 hover:bg-[#17263D] hover:text-white"
+              }`}
             >
-              <GitBranch className="w-5 h-5 text-white/50" />
-              <span className="font-body-md text-body-md">Architecture &amp; Pipeline</span>
-            </a>
+              <Database className={`w-4 h-4 ${currentView === "dataset" ? "text-[#F4B860]" : "text-white/50"}`} />
+              <span>Dataset Explorer</span>
+            </button>
+
+            <button
+              onClick={() => onNavigate("evaluation")}
+              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-left transition-all w-full text-xs sm:text-sm ${
+                currentView === "evaluation"
+                  ? "bg-[#17263D] text-white font-semibold border-l-2 border-[#20C6B6]"
+                  : "text-white/70 hover:bg-[#17263D] hover:text-white"
+              }`}
+            >
+              <CheckCircle2 className={`w-4 h-4 ${currentView === "evaluation" ? "text-[#20C6B6]" : "text-white/50"}`} />
+              <span>Evaluation &amp; Checkpoints</span>
+            </button>
           </nav>
         </div>
       </div>
 
-      {/* Telemetry Status Strip in Sidebar */}
+      {/* Footer Strip: Telemetry + Sole Theme Control */}
       <div className="p-4 border-t border-white/10 bg-[#101A2B] flex flex-col gap-3">
-        <div className="flex items-center justify-between text-white/60 font-caption text-caption">
-          <span>Active Telemetry</span>
-          <span className="flex items-center gap-1.5 text-[#20C6B6]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#20C6B6] animate-pulse"></span>
-            Online
-          </span>
+        {/* Genuine Telemetry Indicator */}
+        <div className="flex flex-col gap-1.5 text-[11px] font-mono text-white/50 bg-[#17263D]/60 p-2.5 rounded-lg border border-white/5">
+          <div className="flex items-center justify-between text-white/70 font-semibold mb-0.5">
+            <span className="flex items-center gap-1.5 text-white/80">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#20C6B6]" />
+              Corpus Grounding
+            </span>
+            <span className="text-[#20C6B6]">Verified</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Training Corpus:</span>
+            <span className="text-white/80 font-bold">18,810</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Validation Set:</span>
+            <span className="text-white/80 font-bold">4,031</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Actionable Intents:</span>
+            <span className="text-[#20C6B6] font-bold">27</span>
+          </div>
         </div>
-        <div className="flex items-center justify-between text-white/50 font-code-inline text-code-inline">
-          <span>Latency: 42ms</span>
-          <span>F1: 99.42%</span>
-        </div>
+
+        {/* Sole Theme Toggle at Bottom of Sidebar */}
+        <SidebarThemeToggle />
       </div>
     </aside>
   );

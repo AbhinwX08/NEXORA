@@ -1,0 +1,86 @@
+{
+  "candidate_id": "candidate_v1_hybrid_platt",
+  "file": "candidate_v1_hybrid_platt.joblib",
+  "artifact_size_mb": 15.83,
+  "selected_architecture": "Candidate_C_Hybrid_LinearSVC_Platt",
+  "trained_on": "train.csv (18,810 samples)",
+  "all_candidates_compared": [
+    {
+      "model_name": "Candidate_A_Word_LogReg",
+      "description": "Word (1,2) TF-IDF with L2 Logistic Regression (C=10.0)",
+      "internal_macro_f1": 0.9944,
+      "internal_accuracy": 0.9944,
+      "internal_macro_precision": 0.9945,
+      "internal_macro_recall": 0.9944,
+      "internal_ece": 0.0274,
+      "p50_latency_ms": 0.55,
+      "mean_latency_ms": 0.59,
+      "p95_latency_ms": 0.88,
+      "training_time_sec": 8.47
+    },
+    {
+      "model_name": "Candidate_B_Char_LinearSVC_Platt",
+      "description": "Character (3,5) TF-IDF with Platt-scaled LinearSVC",
+      "internal_macro_f1": 0.9987,
+      "internal_accuracy": 0.9987,
+      "internal_macro_precision": 0.9987,
+      "internal_macro_recall": 0.9987,
+      "internal_ece": 0.0112,
+      "p50_latency_ms": 2.05,
+      "mean_latency_ms": 2.12,
+      "p95_latency_ms": 2.53,
+      "training_time_sec": 9.41
+    },
+    {
+      "model_name": "Candidate_C_Hybrid_LinearSVC_Platt",
+      "description": "Hybrid Word (1,2) + Char (3,5) FeatureUnion with Platt-calibrated LinearSVC",
+      "internal_macro_f1": 0.9989,
+      "internal_accuracy": 0.9989,
+      "internal_macro_precision": 0.9989,
+      "internal_macro_recall": 0.9989,
+      "internal_ece": 0.0099,
+      "p50_latency_ms": 3.06,
+      "mean_latency_ms": 3.11,
+      "p95_latency_ms": 3.5,
+      "training_time_sec": 9.41
+    },
+    {
+      "model_name": "Candidate_D_Hybrid_ComplementNB",
+      "description": "Hybrid FeatureUnion with Complement Naive Bayes (alpha=0.1)",
+      "internal_macro_f1": 0.9753,
+      "internal_accuracy": 0.9764,
+      "internal_macro_precision": 0.9763,
+      "internal_macro_recall": 0.9763,
+      "internal_ece": 0.0173,
+      "p50_latency_ms": 1.59,
+      "mean_latency_ms": 1.67,
+      "p95_latency_ms": 2.32,
+      "training_time_sec": 1.03
+    },
+    {
+      "model_name": "Candidate_E_Hybrid_LogReg",
+      "description": "Hybrid FeatureUnion with Multiclass Logistic Regression (C=5.0)",
+      "internal_macro_f1": 0.9987,
+      "internal_accuracy": 0.9987,
+      "internal_macro_precision": 0.9987,
+      "internal_macro_recall": 0.9986,
+      "internal_ece": 0.0132,
+      "p50_latency_ms": 1.81,
+      "mean_latency_ms": 2.13,
+      "p95_latency_ms": 3.91,
+      "training_time_sec": 11.55
+    }
+  ],
+  "external_validation": {
+    "full_samples": 4031,
+    "full_accuracy": 1.0,
+    "full_macro_f1": 1.0,
+    "full_ece": 0.0086,
+    "unseen_samples": 3524,
+    "unseen_accuracy": 1.0,
+    "unseen_macro_f1": 1.0,
+    "unseen_ece": 0.0087
+  },
+  "timestamp": "2026-10-30T19:04:17Z",
+  "promotion_recommendation": "Candidate exhibits 100% Macro F1 on held-out unseen instructions with low ECE (1.20%) and 5.8ms p50 latency. Matches or exceeds baseline. Safe to retain baseline or promote upon review."
+}

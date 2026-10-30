@@ -1,12 +1,14 @@
 """
-RELAY AI — Multi-Agent Orchestrator (Phase 5)
-Coordinates Agent 1 (Intent Analyst), Agent 2 (Response Specialist), and Validation Agent.
+RELAY AI — Multi-Agent Orchestrator (Phase 5 + Part 1/2/3/4 Intelligence Core)
+Coordinates Agent 1 (Intent Analyst), Agent 2 (Response Specialist), Validation Agent,
+Dynamic Workflow Planner, Conflict Resolution Engine, and Self-Improving Knowledge Gap capture.
 Enforces typed Pydantic contracts, failure handling, uncertainty routing, and full execution traces.
 """
 
 import os
 import sys
 import time
+import uuid
 import json
 from typing import Dict, Any, List, Optional
 
@@ -28,15 +30,24 @@ from app.schemas.agent_models import (
     ValidationHandoff,
     OrchestratorResult,
 )
+from app.schemas.conflict_models import AgentDisagreementRecord
 from app.agents.intent_agent import IntentAnalystAgent
 from app.agents.response_agent import ResponseAgent
 from app.agents.validation_agent import ValidationAgent
+from app.orchestration.conflict_engine import ConflictResolutionEngine
+from app.orchestration.capability_registry import CapabilityRegistry
+from app.orchestration.workflow_planner import WorkflowPlanner
+from app.services.knowledge_intelligence_service import (
+    get_knowledge_intelligence_service,
+    KnowledgeGapType,
+)
 
 
 class SupportOrchestrator:
     """
     Coordinates the multi-agent customer support workflow:
-    Query -> A1 Intent -> Confidence Check -> A2 Retrieval -> Validation -> Final Resolution.
+    Query -> Dynamic Team Planning -> A1 Intent -> A2 Retrieval ->
+    Conflict Resolution -> Validation -> Canonical Decision -> Knowledge Gap Intelligence.
     """
 
     def __init__(
@@ -72,18 +83,36 @@ class SupportOrchestrator:
             config_path=final_config
         )
 
+        # Intelligence Core Subsystems
+        self.conflict_engine = ConflictResolutionEngine()
+        self.registry = CapabilityRegistry()
+        self.planner = WorkflowPlanner(registry=self.registry)
+        self.knowledge_service = get_knowledge_intelligence_service()
+
     def process_query(
         self,
         query: str,
-        customer_slots: Optional[Dict[str, str]] = None
+        customer_slots: Optional[Dict[str, str]] = None,
+        conversation_id: Optional[str] = None,
+        trace_id: Optional[str] = None
     ) -> OrchestratorResult:
         """
-        Executes end-to-end multi-agent support workflow with complete trace and error handling.
+        Executes end-to-end multi-agent support workflow with complete trace,
+        dynamic workflow planning, conflict detection, and error handling.
         """
         t0_total = time.time()
         agent_traces: List[AgentTrace] = []
+        exec_trace_id = trace_id or f"trace_{uuid.uuid4().hex[:8]}"
 
         query_clean = query.strip() if query else ""
+
+        # =========================================================================
+        # STEP 0: DYNAMIC WORKFLOW PLANNING
+        # =========================================================================
+        workflow_plan = self.planner.plan_workflow(
+            query=query_clean,
+            session_slots=customer_slots
+        )
 
         # =========================================================================
         # STEP 1: A1 — INTENT ANALYST
@@ -114,17 +143,22 @@ class SupportOrchestrator:
                     )
                 ],
                 final_decision="SERVICE_ERROR: INTENT_ANALYST_UNAVAILABLE",
-                final_response="Our customer support service is currently experiencing technical difficulties. Please try again shortly or contact support@relay.ai.",
+                final_response="Our customer support service is currently experiencing technical difficulties. Please try again shortly.",
                 complete_agent_trace=agent_traces,
-                total_duration_ms=dur_total_ms
+                total_duration_ms=dur_total_ms,
+                workflow_execution={
+                    "workflow_id": workflow_plan.workflow_id,
+                    "workflow_type": workflow_plan.workflow_type.value,
+                    "rationale": workflow_plan.rationale,
+                    "planned_capabilities": workflow_plan.planned_capabilities,
+                    "skipped_capabilities": workflow_plan.skipped_capabilities
+                }
             )
 
         # =========================================================================
         # STEP 2: A2 — RESPONSE SPECIALIST (Contextual Retrieval)
-        # Passed original query AND predicted intent AND category
         # =========================================================================
         a2_handoff = None
-        # Only query retrieval if not an immediate escalation
         if a1_handoff.uncertainty_verdict != "ESCALATE":
             a2_handoff, a2_trace = self.response_agent.process(
                 query=query_clean,
@@ -133,7 +167,6 @@ class SupportOrchestrator:
             )
             agent_traces.append(a2_trace)
         else:
-            # Escalation: A2 skipped
             skip_trace = AgentTrace(
                 agent_name="A2_ResponseSpecialist",
                 processing_status=AgentStatus.SKIPPED,
@@ -169,11 +202,31 @@ class SupportOrchestrator:
                 final_decision="SERVICE_ERROR: RESPONSE_SPECIALIST_UNAVAILABLE",
                 final_response="We have identified your intent, but our response generation system is temporarily offline. A support representative will review your inquiry shortly.",
                 complete_agent_trace=agent_traces,
-                total_duration_ms=dur_total_ms
+                total_duration_ms=dur_total_ms,
+                workflow_execution={
+                    "workflow_id": workflow_plan.workflow_id,
+                    "workflow_type": workflow_plan.workflow_type.value,
+                    "rationale": workflow_plan.rationale,
+                    "planned_capabilities": workflow_plan.planned_capabilities,
+                    "skipped_capabilities": workflow_plan.skipped_capabilities
+                }
             )
 
         # =========================================================================
-        # STEP 3: VALIDATION AGENT (Reliability, Safety, Completeness)
+        # STEP 3: CONFLICT RESOLUTION ARBITRATION
+        # =========================================================================
+        conflict_record = self.conflict_engine.detect_and_resolve(
+            trace_id=exec_trace_id,
+            query=query_clean,
+            a1_output=a1_handoff.model_dump() if a1_handoff else None,
+            a2_output=a2_handoff.model_dump() if a2_handoff else None,
+            validation_output=None,
+            session_slots=customer_slots,
+            conversation_id=conversation_id
+        )
+
+        # =========================================================================
+        # STEP 4: VALIDATION AGENT (Reliability, Safety, Completeness)
         # =========================================================================
         val_handoff, val_trace = self.validation_agent.process(
             query=query_clean,
@@ -182,8 +235,20 @@ class SupportOrchestrator:
         )
         agent_traces.append(val_trace)
 
+        # Check for Validation vs Preliminary Decision conflict
+        if conflict_record is None and not val_handoff.overall_valid:
+            conflict_record = self.conflict_engine.detect_and_resolve(
+                trace_id=exec_trace_id,
+                query=query_clean,
+                a1_output=a1_handoff.model_dump() if a1_handoff else None,
+                a2_output=a2_handoff.model_dump() if a2_handoff else None,
+                validation_output=val_handoff.model_dump() if val_handoff else None,
+                session_slots=customer_slots,
+                conversation_id=conversation_id
+            )
+
         # =========================================================================
-        # STEP 4: FINAL DECISION & OUTPUT SYNTHESIS
+        # STEP 5: FINAL DECISION & OUTPUT SYNTHESIS
         # =========================================================================
         action = val_handoff.final_action
         final_decision = f"{val_handoff.decision_state}: {action}"
@@ -208,19 +273,66 @@ class SupportOrchestrator:
             )
         elif action == "UNSUPPORTED_REJECTION":
             final_response = (
-                "I am trained specifically to help with RELAY AI accounts, orders, invoices, payments, deliveries, and returns. "
+                "I am trained specifically to help with customer account management, orders, invoices, payments, deliveries, refunds, and subscriptions. "
                 "Your inquiry appears to be outside my supported domain. If you need assistance with an existing order or account, please let me know."
             )
         elif action == "ESCALATE_TO_HUMAN":
             final_response = (
-                "I am connecting you with a member of our human support team right away. "
-                "Our representatives are available Monday to Friday, 9:00 AM – 6:00 PM EST at 1-800-RELAY-AI. "
-                "Your conversation context has been transferred to the next available agent."
+                "Your request has been flagged for human support review. Escalation has been recommended, "
+                "and your query context has been prepared for handoff to a support specialist once an external ticketing integration is connected."
             )
         else:
-            final_response = "Our support system encountered an unexpected condition. Please contact support@relay.ai."
+            final_response = "Our support system encountered an unexpected condition. Please try your request again shortly."
+
+        # =========================================================================
+        # STEP 6: KNOWLEDGE GAP EVENT INGESTION
+        # Automatically capture unaddressed friction points for self-improvement
+        # =========================================================================
+        try:
+            if action == "UNSUPPORTED_REJECTION":
+                self.knowledge_service.record_gap_event(
+                    trace_id=exec_trace_id,
+                    query=query_clean,
+                    gap_type=KnowledgeGapType.UNMATCHED_QUERY,
+                    reason="Customer inquiry fell outside standard 11 customer support domains.",
+                    conversation_id=conversation_id,
+                    intent_hypothesis=a1_handoff.top_intent,
+                    calibrated_confidence=a1_handoff.calibrated_confidence,
+                    retrieval_similarity=a2_handoff.retrieval_similarity if a2_handoff else None
+                )
+            elif action == "ESCALATE_TO_HUMAN":
+                self.knowledge_service.record_gap_event(
+                    trace_id=exec_trace_id,
+                    query=query_clean,
+                    gap_type=KnowledgeGapType.UNRESOLVED_ESCALATION,
+                    reason="Inquiry required human agent or supervisor intervention.",
+                    conversation_id=conversation_id,
+                    intent_hypothesis=a1_handoff.top_intent,
+                    calibrated_confidence=a1_handoff.calibrated_confidence
+                )
+            elif a1_handoff.calibrated_confidence < 0.60:
+                self.knowledge_service.record_gap_event(
+                    trace_id=exec_trace_id,
+                    query=query_clean,
+                    gap_type=KnowledgeGapType.LOW_CONFIDENCE_INTENT,
+                    reason="Confidence below high certainty cutoff (< 60%).",
+                    conversation_id=conversation_id,
+                    intent_hypothesis=a1_handoff.top_intent,
+                    calibrated_confidence=a1_handoff.calibrated_confidence
+                )
+        except Exception:
+            pass  # Never let gap logging disrupt customer response
 
         dur_total_ms = round((time.time() - t0_total) * 1000, 2)
+
+        workflow_exec_summary = {
+            "workflow_id": workflow_plan.workflow_id,
+            "workflow_type": workflow_plan.workflow_type.value,
+            "rationale": workflow_plan.rationale,
+            "planned_capabilities": workflow_plan.planned_capabilities,
+            "skipped_capabilities": workflow_plan.skipped_capabilities,
+            "conflict_detected": conflict_record is not None,
+        }
 
         return OrchestratorResult(
             original_customer_query=query_clean,
@@ -238,7 +350,9 @@ class SupportOrchestrator:
             final_decision=final_decision,
             final_response=final_response,
             complete_agent_trace=agent_traces,
-            total_duration_ms=dur_total_ms
+            total_duration_ms=dur_total_ms,
+            workflow_execution=workflow_exec_summary,
+            conflict_record=conflict_record.model_dump() if conflict_record else None
         )
 
 

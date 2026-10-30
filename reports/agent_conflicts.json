@@ -1,0 +1,806 @@
+[
+  {
+    "conflict_id": "conf_ef6c6b7b",
+    "trace_id": "tr_affirm_test",
+    "conversation_id": null,
+    "conflict_type": "EVIDENCE_VS_RESPONSE_DISAGREEMENT",
+    "severity": "HIGH",
+    "detected_at": "2026-10-30T20:10:32Z",
+    "affected_agents": [
+      "A2_ResponseSpecialist",
+      "ValidationAgent"
+    ],
+    "agent_outputs": {
+      "A2_ResponseSpecialist": {
+        "unresolved_placeholders": [
+          "order_id"
+        ]
+      },
+      "ValidationAgent": {
+        "safety_gate": "parameter_completeness_check"
+      }
+    },
+    "evidence_references": [
+      {
+        "missing_slots": [
+          "order_id"
+        ],
+        "text_excerpt": "Your order has been cancelled and refunded."
+      }
+    ],
+    "description": "Response template contains definitive action verb but required transaction identifier is unresolved.",
+    "reason_codes": [
+      "UNSUPPORTED_ACTION_CLAIM",
+      "MISSING_REQUIRED_SLOTS"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "CLARIFICATION_REQUIRED",
+    "resolution_explanation": "Definitive execution statement rejected because transaction slot is missing.",
+    "retry_count": 0,
+    "final_decision": "CLARIFICATION_REQUIRED: MISSING_PARAMETER"
+  },
+  {
+    "conflict_id": "conf_b44ec12d",
+    "trace_id": "tr_intent_test",
+    "conversation_id": null,
+    "conflict_type": "INTENT_DISAGREEMENT",
+    "severity": "MEDIUM",
+    "detected_at": "2026-10-30T20:10:32Z",
+    "affected_agents": [
+      "A1_IntentAnalyst"
+    ],
+    "agent_outputs": {
+      "rank_1": {
+        "intent": "cancel_order",
+        "category": "CANCEL",
+        "prob": 0.52
+      },
+      "rank_2": {
+        "intent": "refund_request",
+        "category": "REFUND",
+        "prob": 0.48
+      }
+    },
+    "evidence_references": [
+      {
+        "rank": 1,
+        "intent": "cancel_order",
+        "confidence": 0.52
+      },
+      {
+        "rank": 2,
+        "intent": "refund_request",
+        "confidence": 0.48
+      }
+    ],
+    "description": "Close competing intents across domains: 'cancel_order' (CANCEL) vs 'refund_request' (REFUND).",
+    "reason_codes": [
+      "BORDERLINE_INTENT_MARGIN",
+      "CROSS_CATEGORY_COMPETITOR"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "CLARIFICATION_REQUIRED",
+    "resolution_explanation": "Tightly split intent probabilities between distinct categories require disambiguation clarification.",
+    "retry_count": 0,
+    "final_decision": "CLARIFICATION_REQUIRED: AMBIGUOUS_INTENT"
+  },
+  {
+    "conflict_id": "conf_3fcfd8da",
+    "trace_id": "tr_ret_test",
+    "conversation_id": null,
+    "conflict_type": "RETRIEVAL_EVIDENCE_DISAGREEMENT",
+    "severity": "HIGH",
+    "detected_at": "2026-10-30T20:10:32Z",
+    "affected_agents": [
+      "A1_IntentAnalyst",
+      "A2_ResponseSpecialist"
+    ],
+    "agent_outputs": {
+      "A1_IntentAnalyst": {
+        "predicted_intent": "refund_request",
+        "confidence": 0.92
+      },
+      "A2_ResponseSpecialist": {
+        "similarity": 0.22,
+        "source_example": "unrelated exemplar"
+      }
+    },
+    "evidence_references": [
+      {
+        "classifier_confidence": 0.92,
+        "retrieval_similarity": 0.22
+      }
+    ],
+    "description": "A1 classified intent with high confidence (92.0%), but A2 found no matching exemplar in train corpus (sim=22.0%).",
+    "reason_codes": [
+      "CLASSIFIER_RETRIEVAL_DIVERGENCE"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "ESCALATION_RECOMMENDED",
+    "resolution_explanation": "High intent confidence with non-existent exemplar match indicates out-of-distribution nuance requiring human review.",
+    "retry_count": 0,
+    "final_decision": "ESCALATION_RECOMMENDED: UNVERIFIED_EXEMPLAR"
+  },
+  {
+    "conflict_id": "conf_6f25fb01",
+    "trace_id": "tr_slot_test",
+    "conversation_id": null,
+    "conflict_type": "SLOT_DISAGREEMENT",
+    "severity": "HIGH",
+    "detected_at": "2026-10-30T20:10:32Z",
+    "affected_agents": [
+      "SessionMemory",
+      "A2_ResponseSpecialist"
+    ],
+    "agent_outputs": {
+      "SessionMemory": {
+        "order_id": "11223"
+      },
+      "A2_ResponseSpecialist": {
+        "order_id": "99887"
+      }
+    },
+    "evidence_references": [
+      {
+        "source_type": "session_memory",
+        "key": "order_id",
+        "stored_value": "11223"
+      },
+      {
+        "source_type": "current_query",
+        "key": "order_id",
+        "extracted_value": "99887"
+      }
+    ],
+    "description": "Conflicting value for parameter 'order_id': stored '11223' vs current '99887'.",
+    "reason_codes": [
+      "SLOT_VALUE_MUTATION_WITHOUT_CONFIRMATION"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "CLARIFICATION_REQUIRED",
+    "resolution_explanation": "Identified parameter conflict on 'order_id'. Rather than silently overwriting the confirmed identifier, the system asks the customer to confirm which identifier should be used.",
+    "retry_count": 0,
+    "final_decision": "CLARIFICATION_REQUIRED: PARAMETER_MISMATCH"
+  },
+  {
+    "conflict_id": "conf_0e0ec159",
+    "trace_id": "tr_val_test",
+    "conversation_id": null,
+    "conflict_type": "VALIDATION_VS_DECISION_DISAGREEMENT",
+    "severity": "CRITICAL",
+    "detected_at": "2026-10-30T20:10:32Z",
+    "affected_agents": [
+      "ValidationAgent",
+      "DecisionPolicyEngine"
+    ],
+    "agent_outputs": {
+      "ValidationAgent": {
+        "overall_valid": false,
+        "failed_checks": [
+          "slot_completeness"
+        ]
+      },
+      "DecisionPolicy": {
+        "preliminary_action": "PROCEED_AUTOMATED"
+      }
+    },
+    "evidence_references": [
+      {
+        "check_name": "slot_completeness",
+        "passed": false
+      }
+    ],
+    "description": "Preliminary action suggested resolution, but ValidationAgent gate rejected output.",
+    "reason_codes": [
+      "VALIDATION_SAFETY_GATE_TRIGGERED"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "ESCALATION_RECOMMENDED",
+    "resolution_explanation": "Validation safety rules take absolute precedence over preliminary suggestions.",
+    "retry_count": 0,
+    "final_decision": "ESCALATION_RECOMMENDED: SAFETY_CHECK_FAILED"
+  },
+  {
+    "conflict_id": "conf_8dbd1e9d",
+    "trace_id": "tr_affirm_test",
+    "conversation_id": null,
+    "conflict_type": "EVIDENCE_VS_RESPONSE_DISAGREEMENT",
+    "severity": "HIGH",
+    "detected_at": "2026-10-30T20:11:47Z",
+    "affected_agents": [
+      "A2_ResponseSpecialist",
+      "ValidationAgent"
+    ],
+    "agent_outputs": {
+      "A2_ResponseSpecialist": {
+        "unresolved_placeholders": [
+          "order_id"
+        ]
+      },
+      "ValidationAgent": {
+        "safety_gate": "parameter_completeness_check"
+      }
+    },
+    "evidence_references": [
+      {
+        "missing_slots": [
+          "order_id"
+        ],
+        "text_excerpt": "Your order has been cancelled and refunded."
+      }
+    ],
+    "description": "Response template contains definitive action verb but required transaction identifier is unresolved.",
+    "reason_codes": [
+      "UNSUPPORTED_ACTION_CLAIM",
+      "MISSING_REQUIRED_SLOTS"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "CLARIFICATION_REQUIRED",
+    "resolution_explanation": "Definitive execution statement rejected because transaction slot is missing.",
+    "retry_count": 0,
+    "final_decision": "CLARIFICATION_REQUIRED: MISSING_PARAMETER"
+  },
+  {
+    "conflict_id": "conf_ded7c150",
+    "trace_id": "tr_intent_test",
+    "conversation_id": null,
+    "conflict_type": "INTENT_DISAGREEMENT",
+    "severity": "MEDIUM",
+    "detected_at": "2026-10-30T20:11:47Z",
+    "affected_agents": [
+      "A1_IntentAnalyst"
+    ],
+    "agent_outputs": {
+      "rank_1": {
+        "intent": "cancel_order",
+        "category": "CANCEL",
+        "prob": 0.52
+      },
+      "rank_2": {
+        "intent": "refund_request",
+        "category": "REFUND",
+        "prob": 0.48
+      }
+    },
+    "evidence_references": [
+      {
+        "rank": 1,
+        "intent": "cancel_order",
+        "confidence": 0.52
+      },
+      {
+        "rank": 2,
+        "intent": "refund_request",
+        "confidence": 0.48
+      }
+    ],
+    "description": "Close competing intents across domains: 'cancel_order' (CANCEL) vs 'refund_request' (REFUND).",
+    "reason_codes": [
+      "BORDERLINE_INTENT_MARGIN",
+      "CROSS_CATEGORY_COMPETITOR"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "CLARIFICATION_REQUIRED",
+    "resolution_explanation": "Tightly split intent probabilities between distinct categories require disambiguation clarification.",
+    "retry_count": 0,
+    "final_decision": "CLARIFICATION_REQUIRED: AMBIGUOUS_INTENT"
+  },
+  {
+    "conflict_id": "conf_f4f37e7e",
+    "trace_id": "tr_ret_test",
+    "conversation_id": null,
+    "conflict_type": "RETRIEVAL_EVIDENCE_DISAGREEMENT",
+    "severity": "HIGH",
+    "detected_at": "2026-10-30T20:11:47Z",
+    "affected_agents": [
+      "A1_IntentAnalyst",
+      "A2_ResponseSpecialist"
+    ],
+    "agent_outputs": {
+      "A1_IntentAnalyst": {
+        "predicted_intent": "refund_request",
+        "confidence": 0.92
+      },
+      "A2_ResponseSpecialist": {
+        "similarity": 0.22,
+        "source_example": "unrelated exemplar"
+      }
+    },
+    "evidence_references": [
+      {
+        "classifier_confidence": 0.92,
+        "retrieval_similarity": 0.22
+      }
+    ],
+    "description": "A1 classified intent with high confidence (92.0%), but A2 found no matching exemplar in train corpus (sim=22.0%).",
+    "reason_codes": [
+      "CLASSIFIER_RETRIEVAL_DIVERGENCE"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "ESCALATION_RECOMMENDED",
+    "resolution_explanation": "High intent confidence with non-existent exemplar match indicates out-of-distribution nuance requiring human review.",
+    "retry_count": 0,
+    "final_decision": "ESCALATION_RECOMMENDED: UNVERIFIED_EXEMPLAR"
+  },
+  {
+    "conflict_id": "conf_99b74f29",
+    "trace_id": "tr_slot_test",
+    "conversation_id": null,
+    "conflict_type": "SLOT_DISAGREEMENT",
+    "severity": "HIGH",
+    "detected_at": "2026-10-30T20:11:47Z",
+    "affected_agents": [
+      "SessionMemory",
+      "A2_ResponseSpecialist"
+    ],
+    "agent_outputs": {
+      "SessionMemory": {
+        "order_id": "11223"
+      },
+      "A2_ResponseSpecialist": {
+        "order_id": "99887"
+      }
+    },
+    "evidence_references": [
+      {
+        "source_type": "session_memory",
+        "key": "order_id",
+        "stored_value": "11223"
+      },
+      {
+        "source_type": "current_query",
+        "key": "order_id",
+        "extracted_value": "99887"
+      }
+    ],
+    "description": "Conflicting value for parameter 'order_id': stored '11223' vs current '99887'.",
+    "reason_codes": [
+      "SLOT_VALUE_MUTATION_WITHOUT_CONFIRMATION"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "CLARIFICATION_REQUIRED",
+    "resolution_explanation": "Identified parameter conflict on 'order_id'. Rather than silently overwriting the confirmed identifier, the system asks the customer to confirm which identifier should be used.",
+    "retry_count": 0,
+    "final_decision": "CLARIFICATION_REQUIRED: PARAMETER_MISMATCH"
+  },
+  {
+    "conflict_id": "conf_f96fef07",
+    "trace_id": "tr_val_test",
+    "conversation_id": null,
+    "conflict_type": "VALIDATION_VS_DECISION_DISAGREEMENT",
+    "severity": "CRITICAL",
+    "detected_at": "2026-10-30T20:11:47Z",
+    "affected_agents": [
+      "ValidationAgent",
+      "DecisionPolicyEngine"
+    ],
+    "agent_outputs": {
+      "ValidationAgent": {
+        "overall_valid": false,
+        "failed_checks": [
+          "slot_completeness"
+        ]
+      },
+      "DecisionPolicy": {
+        "preliminary_action": "PROCEED_AUTOMATED"
+      }
+    },
+    "evidence_references": [
+      {
+        "check_name": "slot_completeness",
+        "passed": false
+      }
+    ],
+    "description": "Preliminary action suggested resolution, but ValidationAgent gate rejected output.",
+    "reason_codes": [
+      "VALIDATION_SAFETY_GATE_TRIGGERED"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "ESCALATION_RECOMMENDED",
+    "resolution_explanation": "Validation safety rules take absolute precedence over preliminary suggestions.",
+    "retry_count": 0,
+    "final_decision": "ESCALATION_RECOMMENDED: SAFETY_CHECK_FAILED"
+  },
+  {
+    "conflict_id": "conf_a0605551",
+    "trace_id": "tr_affirm_test",
+    "conversation_id": null,
+    "conflict_type": "EVIDENCE_VS_RESPONSE_DISAGREEMENT",
+    "severity": "HIGH",
+    "detected_at": "2026-10-30T20:11:59Z",
+    "affected_agents": [
+      "A2_ResponseSpecialist",
+      "ValidationAgent"
+    ],
+    "agent_outputs": {
+      "A2_ResponseSpecialist": {
+        "unresolved_placeholders": [
+          "order_id"
+        ]
+      },
+      "ValidationAgent": {
+        "safety_gate": "parameter_completeness_check"
+      }
+    },
+    "evidence_references": [
+      {
+        "missing_slots": [
+          "order_id"
+        ],
+        "text_excerpt": "Your order has been cancelled and refunded."
+      }
+    ],
+    "description": "Response template contains definitive action verb but required transaction identifier is unresolved.",
+    "reason_codes": [
+      "UNSUPPORTED_ACTION_CLAIM",
+      "MISSING_REQUIRED_SLOTS"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "CLARIFICATION_REQUIRED",
+    "resolution_explanation": "Definitive execution statement rejected because transaction slot is missing.",
+    "retry_count": 0,
+    "final_decision": "CLARIFICATION_REQUIRED: MISSING_PARAMETER"
+  },
+  {
+    "conflict_id": "conf_0cffd8b5",
+    "trace_id": "tr_intent_test",
+    "conversation_id": null,
+    "conflict_type": "INTENT_DISAGREEMENT",
+    "severity": "MEDIUM",
+    "detected_at": "2026-10-30T20:11:59Z",
+    "affected_agents": [
+      "A1_IntentAnalyst"
+    ],
+    "agent_outputs": {
+      "rank_1": {
+        "intent": "cancel_order",
+        "category": "CANCEL",
+        "prob": 0.52
+      },
+      "rank_2": {
+        "intent": "refund_request",
+        "category": "REFUND",
+        "prob": 0.48
+      }
+    },
+    "evidence_references": [
+      {
+        "rank": 1,
+        "intent": "cancel_order",
+        "confidence": 0.52
+      },
+      {
+        "rank": 2,
+        "intent": "refund_request",
+        "confidence": 0.48
+      }
+    ],
+    "description": "Close competing intents across domains: 'cancel_order' (CANCEL) vs 'refund_request' (REFUND).",
+    "reason_codes": [
+      "BORDERLINE_INTENT_MARGIN",
+      "CROSS_CATEGORY_COMPETITOR"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "CLARIFICATION_REQUIRED",
+    "resolution_explanation": "Tightly split intent probabilities between distinct categories require disambiguation clarification.",
+    "retry_count": 0,
+    "final_decision": "CLARIFICATION_REQUIRED: AMBIGUOUS_INTENT"
+  },
+  {
+    "conflict_id": "conf_7e96ead9",
+    "trace_id": "tr_ret_test",
+    "conversation_id": null,
+    "conflict_type": "RETRIEVAL_EVIDENCE_DISAGREEMENT",
+    "severity": "HIGH",
+    "detected_at": "2026-10-30T20:11:59Z",
+    "affected_agents": [
+      "A1_IntentAnalyst",
+      "A2_ResponseSpecialist"
+    ],
+    "agent_outputs": {
+      "A1_IntentAnalyst": {
+        "predicted_intent": "refund_request",
+        "confidence": 0.92
+      },
+      "A2_ResponseSpecialist": {
+        "similarity": 0.22,
+        "source_example": "unrelated exemplar"
+      }
+    },
+    "evidence_references": [
+      {
+        "classifier_confidence": 0.92,
+        "retrieval_similarity": 0.22
+      }
+    ],
+    "description": "A1 classified intent with high confidence (92.0%), but A2 found no matching exemplar in train corpus (sim=22.0%).",
+    "reason_codes": [
+      "CLASSIFIER_RETRIEVAL_DIVERGENCE"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "ESCALATION_RECOMMENDED",
+    "resolution_explanation": "High intent confidence with non-existent exemplar match indicates out-of-distribution nuance requiring human review.",
+    "retry_count": 0,
+    "final_decision": "ESCALATION_RECOMMENDED: UNVERIFIED_EXEMPLAR"
+  },
+  {
+    "conflict_id": "conf_265981d4",
+    "trace_id": "tr_slot_test",
+    "conversation_id": null,
+    "conflict_type": "SLOT_DISAGREEMENT",
+    "severity": "HIGH",
+    "detected_at": "2026-10-30T20:11:59Z",
+    "affected_agents": [
+      "SessionMemory",
+      "A2_ResponseSpecialist"
+    ],
+    "agent_outputs": {
+      "SessionMemory": {
+        "order_id": "11223"
+      },
+      "A2_ResponseSpecialist": {
+        "order_id": "99887"
+      }
+    },
+    "evidence_references": [
+      {
+        "source_type": "session_memory",
+        "key": "order_id",
+        "stored_value": "11223"
+      },
+      {
+        "source_type": "current_query",
+        "key": "order_id",
+        "extracted_value": "99887"
+      }
+    ],
+    "description": "Conflicting value for parameter 'order_id': stored '11223' vs current '99887'.",
+    "reason_codes": [
+      "SLOT_VALUE_MUTATION_WITHOUT_CONFIRMATION"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "CLARIFICATION_REQUIRED",
+    "resolution_explanation": "Identified parameter conflict on 'order_id'. Rather than silently overwriting the confirmed identifier, the system asks the customer to confirm which identifier should be used.",
+    "retry_count": 0,
+    "final_decision": "CLARIFICATION_REQUIRED: PARAMETER_MISMATCH"
+  },
+  {
+    "conflict_id": "conf_6a326799",
+    "trace_id": "tr_val_test",
+    "conversation_id": null,
+    "conflict_type": "VALIDATION_VS_DECISION_DISAGREEMENT",
+    "severity": "CRITICAL",
+    "detected_at": "2026-10-30T20:11:59Z",
+    "affected_agents": [
+      "ValidationAgent",
+      "DecisionPolicyEngine"
+    ],
+    "agent_outputs": {
+      "ValidationAgent": {
+        "overall_valid": false,
+        "failed_checks": [
+          "slot_completeness"
+        ]
+      },
+      "DecisionPolicy": {
+        "preliminary_action": "PROCEED_AUTOMATED"
+      }
+    },
+    "evidence_references": [
+      {
+        "check_name": "slot_completeness",
+        "passed": false
+      }
+    ],
+    "description": "Preliminary action suggested resolution, but ValidationAgent gate rejected output.",
+    "reason_codes": [
+      "VALIDATION_SAFETY_GATE_TRIGGERED"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "ESCALATION_RECOMMENDED",
+    "resolution_explanation": "Validation safety rules take absolute precedence over preliminary suggestions.",
+    "retry_count": 0,
+    "final_decision": "ESCALATION_RECOMMENDED: SAFETY_CHECK_FAILED"
+  },
+  {
+    "conflict_id": "conf_57f091c7",
+    "trace_id": "tr_affirm_test",
+    "conversation_id": null,
+    "conflict_type": "EVIDENCE_VS_RESPONSE_DISAGREEMENT",
+    "severity": "HIGH",
+    "detected_at": "2026-10-30T20:12:07Z",
+    "affected_agents": [
+      "A2_ResponseSpecialist",
+      "ValidationAgent"
+    ],
+    "agent_outputs": {
+      "A2_ResponseSpecialist": {
+        "unresolved_placeholders": [
+          "order_id"
+        ]
+      },
+      "ValidationAgent": {
+        "safety_gate": "parameter_completeness_check"
+      }
+    },
+    "evidence_references": [
+      {
+        "missing_slots": [
+          "order_id"
+        ],
+        "text_excerpt": "Your order has been cancelled and refunded."
+      }
+    ],
+    "description": "Response template contains definitive action verb but required transaction identifier is unresolved.",
+    "reason_codes": [
+      "UNSUPPORTED_ACTION_CLAIM",
+      "MISSING_REQUIRED_SLOTS"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "CLARIFICATION_REQUIRED",
+    "resolution_explanation": "Definitive execution statement rejected because transaction slot is missing.",
+    "retry_count": 0,
+    "final_decision": "CLARIFICATION_REQUIRED: MISSING_PARAMETER"
+  },
+  {
+    "conflict_id": "conf_33c52607",
+    "trace_id": "tr_intent_test",
+    "conversation_id": null,
+    "conflict_type": "INTENT_DISAGREEMENT",
+    "severity": "MEDIUM",
+    "detected_at": "2026-10-30T20:12:07Z",
+    "affected_agents": [
+      "A1_IntentAnalyst"
+    ],
+    "agent_outputs": {
+      "rank_1": {
+        "intent": "cancel_order",
+        "category": "CANCEL",
+        "prob": 0.52
+      },
+      "rank_2": {
+        "intent": "refund_request",
+        "category": "REFUND",
+        "prob": 0.48
+      }
+    },
+    "evidence_references": [
+      {
+        "rank": 1,
+        "intent": "cancel_order",
+        "confidence": 0.52
+      },
+      {
+        "rank": 2,
+        "intent": "refund_request",
+        "confidence": 0.48
+      }
+    ],
+    "description": "Close competing intents across domains: 'cancel_order' (CANCEL) vs 'refund_request' (REFUND).",
+    "reason_codes": [
+      "BORDERLINE_INTENT_MARGIN",
+      "CROSS_CATEGORY_COMPETITOR"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "CLARIFICATION_REQUIRED",
+    "resolution_explanation": "Tightly split intent probabilities between distinct categories require disambiguation clarification.",
+    "retry_count": 0,
+    "final_decision": "CLARIFICATION_REQUIRED: AMBIGUOUS_INTENT"
+  },
+  {
+    "conflict_id": "conf_7abc541c",
+    "trace_id": "tr_ret_test",
+    "conversation_id": null,
+    "conflict_type": "RETRIEVAL_EVIDENCE_DISAGREEMENT",
+    "severity": "HIGH",
+    "detected_at": "2026-10-30T20:12:07Z",
+    "affected_agents": [
+      "A1_IntentAnalyst",
+      "A2_ResponseSpecialist"
+    ],
+    "agent_outputs": {
+      "A1_IntentAnalyst": {
+        "predicted_intent": "refund_request",
+        "confidence": 0.92
+      },
+      "A2_ResponseSpecialist": {
+        "similarity": 0.22,
+        "source_example": "unrelated exemplar"
+      }
+    },
+    "evidence_references": [
+      {
+        "classifier_confidence": 0.92,
+        "retrieval_similarity": 0.22
+      }
+    ],
+    "description": "A1 classified intent with high confidence (92.0%), but A2 found no matching exemplar in train corpus (sim=22.0%).",
+    "reason_codes": [
+      "CLASSIFIER_RETRIEVAL_DIVERGENCE"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "ESCALATION_RECOMMENDED",
+    "resolution_explanation": "High intent confidence with non-existent exemplar match indicates out-of-distribution nuance requiring human review.",
+    "retry_count": 0,
+    "final_decision": "ESCALATION_RECOMMENDED: UNVERIFIED_EXEMPLAR"
+  },
+  {
+    "conflict_id": "conf_144e34cf",
+    "trace_id": "tr_slot_test",
+    "conversation_id": null,
+    "conflict_type": "SLOT_DISAGREEMENT",
+    "severity": "HIGH",
+    "detected_at": "2026-10-30T20:12:07Z",
+    "affected_agents": [
+      "SessionMemory",
+      "A2_ResponseSpecialist"
+    ],
+    "agent_outputs": {
+      "SessionMemory": {
+        "order_id": "11223"
+      },
+      "A2_ResponseSpecialist": {
+        "order_id": "99887"
+      }
+    },
+    "evidence_references": [
+      {
+        "source_type": "session_memory",
+        "key": "order_id",
+        "stored_value": "11223"
+      },
+      {
+        "source_type": "current_query",
+        "key": "order_id",
+        "extracted_value": "99887"
+      }
+    ],
+    "description": "Conflicting value for parameter 'order_id': stored '11223' vs current '99887'.",
+    "reason_codes": [
+      "SLOT_VALUE_MUTATION_WITHOUT_CONFIRMATION"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "CLARIFICATION_REQUIRED",
+    "resolution_explanation": "Identified parameter conflict on 'order_id'. Rather than silently overwriting the confirmed identifier, the system asks the customer to confirm which identifier should be used.",
+    "retry_count": 0,
+    "final_decision": "CLARIFICATION_REQUIRED: PARAMETER_MISMATCH"
+  },
+  {
+    "conflict_id": "conf_4a3b0240",
+    "trace_id": "tr_val_test",
+    "conversation_id": null,
+    "conflict_type": "VALIDATION_VS_DECISION_DISAGREEMENT",
+    "severity": "CRITICAL",
+    "detected_at": "2026-10-30T20:12:07Z",
+    "affected_agents": [
+      "ValidationAgent",
+      "DecisionPolicyEngine"
+    ],
+    "agent_outputs": {
+      "ValidationAgent": {
+        "overall_valid": false,
+        "failed_checks": [
+          "slot_completeness"
+        ]
+      },
+      "DecisionPolicy": {
+        "preliminary_action": "PROCEED_AUTOMATED"
+      }
+    },
+    "evidence_references": [
+      {
+        "check_name": "slot_completeness",
+        "passed": false
+      }
+    ],
+    "description": "Preliminary action suggested resolution, but ValidationAgent gate rejected output.",
+    "reason_codes": [
+      "VALIDATION_SAFETY_GATE_TRIGGERED"
+    ],
+    "resolution_status": "RESOLVED",
+    "resolution_action": "ESCALATION_RECOMMENDED",
+    "resolution_explanation": "Validation safety rules take absolute precedence over preliminary suggestions.",
+    "retry_count": 0,
+    "final_decision": "ESCALATION_RECOMMENDED: SAFETY_CHECK_FAILED"
+  }
+]

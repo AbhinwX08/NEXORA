@@ -1,0 +1,74 @@
+{
+  "audit_version": "1.0.0",
+  "audit_timestamp": "2026-10-31T01:07:30Z",
+  "product": "RELAY AI",
+  "tagline": "From customer query to verified resolution",
+  "canonical_decision_engine": {
+    "outcomes": [
+      "RESOLVED",
+      "CLARIFICATION_REQUIRED",
+      "ESCALATION_RECOMMENDED",
+      "UNSUPPORTED",
+      "SERVICE_ERROR"
+    ],
+    "status": "PASS"
+  },
+  "dataset_audit": {
+    "training_records": 18810,
+    "validation_records": 4031,
+    "total_records": 22841,
+    "unique_intents": 27,
+    "unique_categories": 11,
+    "overlapping_instructions": 368,
+    "overlapping_validation_rows": 459,
+    "unseen_validation_instructions": 3572,
+    "unseen_validation_rows": 3524,
+    "conflicting_labels": 0,
+    "status": "PASS"
+  },
+  "ml_models": {
+    "baseline_model": {
+      "name": "Baseline_LinearSVC_Platt",
+      "artifact": "artifacts/models/intent_classifier.joblib",
+      "internal_macro_f1": 0.9985,
+      "internal_ece": 0.012,
+      "validation_macro_f1": 1.0,
+      "validation_ece": 0.0119,
+      "status": "ACTIVE_PRODUCTION"
+    },
+    "candidate_c": {
+      "name": "Candidate_C_Hybrid_LinearSVC_Platt",
+      "artifact": "artifacts/models/candidates/candidate_v1_hybrid_platt.joblib",
+      "internal_macro_f1": 0.9989,
+      "internal_ece": 0.0099,
+      "validation_macro_f1": 1.0,
+      "validation_ece": 0.0087,
+      "status": "STAGED_FOR_APPROVAL"
+    }
+  },
+  "retrieval_rag": {
+    "corpus_1_exemplars": 18810,
+    "corpus_2_product_guide": 7,
+    "recall_at_1": 1.0,
+    "mean_reciprocal_rank": 1.0,
+    "mean_cosine_similarity": 0.8467,
+    "status": "PASS"
+  },
+  "test_execution": {
+    "python_tests_total": 53,
+    "python_tests_passed": 53,
+    "python_tests_failed": 0,
+    "vitest_tests_total": 19,
+    "vitest_tests_passed": 19,
+    "vitest_tests_failed": 0,
+    "user_journeys_total": 13,
+    "user_journeys_passed": 13,
+    "production_build": "SUCCESS",
+    "status": "PASS"
+  },
+  "overall_verdict": {
+    "classification": "TECHNICALLY VERIFIED — READY FOR FINAL ACCEPTANCE REVIEW",
+    "score": 96.7
+  }
+}
+
