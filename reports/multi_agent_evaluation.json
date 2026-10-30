@@ -1,0 +1,342 @@
+{
+  "metadata": {
+    "timestamp": "2026-10-30T17:31:15.815733",
+    "queries_evaluated": 999,
+    "total_benchmark_time_sec": 6.39,
+    "throughput_queries_per_sec": 156.32
+  },
+  "latency_metrics_ms": {
+    "a1_intent_analyst": {
+      "mean": 5.08,
+      "p50": 4.84,
+      "p95": 6.54,
+      "p99": 9.48
+    },
+    "a2_response_specialist": {
+      "mean": 1.33,
+      "p50": 1.25,
+      "p95": 1.67,
+      "p99": 2.4
+    },
+    "validation_agent": {
+      "mean": 0.01,
+      "p50": 0.01,
+      "p95": 0.02,
+      "p99": 0.03
+    },
+    "end_to_end_orchestrator": {
+      "mean": 6.34,
+      "p50": 6.12,
+      "p95": 8.19,
+      "p99": 12.03
+    }
+  },
+  "decision_state_distribution": {
+    "HIGH_CONFIDENCE": 922,
+    "UNSUPPORTED": 1,
+    "UNCERTAIN": 2,
+    "HUMAN_ESCALATION": 74
+  },
+  "decision_state_rates": {
+    "HIGH_CONFIDENCE": 0.9229,
+    "UNSUPPORTED": 0.001,
+    "UNCERTAIN": 0.002,
+    "HUMAN_ESCALATION": 0.0741
+  },
+  "action_verdict_distribution": {
+    "NEED_SLOT_CLARIFICATION": 336,
+    "PROCEED_AUTOMATED": 586,
+    "UNSUPPORTED_REJECTION": 1,
+    "AMBIGUOUS_INTENT_CLARIFICATION": 2,
+    "ESCALATE_TO_HUMAN": 74
+  },
+  "action_verdict_rates": {
+    "NEED_SLOT_CLARIFICATION": 0.3363,
+    "PROCEED_AUTOMATED": 0.5866,
+    "UNSUPPORTED_REJECTION": 0.001,
+    "AMBIGUOUS_INTENT_CLARIFICATION": 0.002,
+    "ESCALATE_TO_HUMAN": 0.0741
+  },
+  "sample_inspections": [
+    {
+      "query": "I need help to cancel purchase {{Order Number}}",
+      "intent": "cancel_order",
+      "category": "ORDER",
+      "confidence": 0.9935,
+      "final_decision": "HIGH_CONFIDENCE: NEED_SLOT_CLARIFICATION",
+      "latency_ms": 13.29,
+      "trace": [
+        {
+          "agent": "A1_IntentAnalyst",
+          "status": "SUCCESS",
+          "ms": 9.44,
+          "reason": "High confidence prediction (0.9935 >= 0.65) with distinct margin (0.9918)."
+        },
+        {
+          "agent": "A2_ResponseSpecialist",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 3.32,
+          "reason": "Missing dynamic customer parameter(s): Order Number."
+        },
+        {
+          "agent": "ValidationAgent",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 0.25,
+          "reason": "Intent confident, but dynamic slot values are missing from customer input."
+        }
+      ]
+    },
+    {
+      "query": "can you help me camceling the purchase I made?",
+      "intent": "cancel_order",
+      "category": "ORDER",
+      "confidence": 0.9415,
+      "final_decision": "HIGH_CONFIDENCE: PROCEED_AUTOMATED",
+      "latency_ms": 7.03,
+      "trace": [
+        {
+          "agent": "A1_IntentAnalyst",
+          "status": "SUCCESS",
+          "ms": 5.26,
+          "reason": "High confidence prediction (0.9415 >= 0.65) with distinct margin (0.9022)."
+        },
+        {
+          "agent": "A2_ResponseSpecialist",
+          "status": "SUCCESS",
+          "ms": 1.7,
+          "reason": "Contextual response retrieved with similarity 0.5166; all slots resolved."
+        },
+        {
+          "agent": "ValidationAgent",
+          "status": "SUCCESS",
+          "ms": 0.04,
+          "reason": "All validation checks passed cleanly. Resolution approved for customer delivery."
+        }
+      ]
+    },
+    {
+      "query": "i have a problem with cancelling order {{Order Number}}",
+      "intent": "cancel_order",
+      "category": "ORDER",
+      "confidence": 0.9908,
+      "final_decision": "HIGH_CONFIDENCE: NEED_SLOT_CLARIFICATION",
+      "latency_ms": 7.02,
+      "trace": [
+        {
+          "agent": "A1_IntentAnalyst",
+          "status": "SUCCESS",
+          "ms": 5.54,
+          "reason": "High confidence prediction (0.9908 >= 0.65) with distinct margin (0.9884)."
+        },
+        {
+          "agent": "A2_ResponseSpecialist",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 1.43,
+          "reason": "Missing dynamic customer parameter(s): Order Number."
+        },
+        {
+          "agent": "ValidationAgent",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 0.02,
+          "reason": "Intent confident, but dynamic slot values are missing from customer input."
+        }
+      ]
+    },
+    {
+      "query": "I have problems with cancelling order {{Order Number}}",
+      "intent": "cancel_order",
+      "category": "ORDER",
+      "confidence": 0.991,
+      "final_decision": "HIGH_CONFIDENCE: NEED_SLOT_CLARIFICATION",
+      "latency_ms": 6.28,
+      "trace": [
+        {
+          "agent": "A1_IntentAnalyst",
+          "status": "SUCCESS",
+          "ms": 4.94,
+          "reason": "High confidence prediction (0.9910 >= 0.65) with distinct margin (0.9888)."
+        },
+        {
+          "agent": "A2_ResponseSpecialist",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 1.31,
+          "reason": "Missing dynamic customer parameter(s): Order Number."
+        },
+        {
+          "agent": "ValidationAgent",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 0.02,
+          "reason": "Intent confident, but dynamic slot values are missing from customer input."
+        }
+      ]
+    },
+    {
+      "query": "I do not want this item, cancel order {{Order Number}}",
+      "intent": "cancel_order",
+      "category": "ORDER",
+      "confidence": 0.9937,
+      "final_decision": "HIGH_CONFIDENCE: NEED_SLOT_CLARIFICATION",
+      "latency_ms": 6.52,
+      "trace": [
+        {
+          "agent": "A1_IntentAnalyst",
+          "status": "SUCCESS",
+          "ms": 5.17,
+          "reason": "High confidence prediction (0.9937 >= 0.65) with distinct margin (0.9925)."
+        },
+        {
+          "agent": "A2_ResponseSpecialist",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 1.32,
+          "reason": "Missing dynamic customer parameter(s): Order Number."
+        },
+        {
+          "agent": "ValidationAgent",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 0.02,
+          "reason": "Intent confident, but dynamic slot values are missing from customer input."
+        }
+      ]
+    },
+    {
+      "query": "I do not know how I can cancel order {{Order Number}}",
+      "intent": "cancel_order",
+      "category": "ORDER",
+      "confidence": 0.9933,
+      "final_decision": "HIGH_CONFIDENCE: NEED_SLOT_CLARIFICATION",
+      "latency_ms": 6.22,
+      "trace": [
+        {
+          "agent": "A1_IntentAnalyst",
+          "status": "SUCCESS",
+          "ms": 4.9,
+          "reason": "High confidence prediction (0.9933 >= 0.65) with distinct margin (0.9917)."
+        },
+        {
+          "agent": "A2_ResponseSpecialist",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 1.29,
+          "reason": "Missing dynamic customer parameter(s): Order Number."
+        },
+        {
+          "agent": "ValidationAgent",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 0.02,
+          "reason": "Intent confident, but dynamic slot values are missing from customer input."
+        }
+      ]
+    },
+    {
+      "query": "i want assistance cancelling order {{Order Number}}",
+      "intent": "cancel_order",
+      "category": "ORDER",
+      "confidence": 0.992,
+      "final_decision": "HIGH_CONFIDENCE: NEED_SLOT_CLARIFICATION",
+      "latency_ms": 6.37,
+      "trace": [
+        {
+          "agent": "A1_IntentAnalyst",
+          "status": "SUCCESS",
+          "ms": 4.87,
+          "reason": "High confidence prediction (0.9920 >= 0.65) with distinct margin (0.9900)."
+        },
+        {
+          "agent": "A2_ResponseSpecialist",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 1.46,
+          "reason": "Missing dynamic customer parameter(s): Order Number."
+        },
+        {
+          "agent": "ValidationAgent",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 0.02,
+          "reason": "Intent confident, but dynamic slot values are missing from customer input."
+        }
+      ]
+    },
+    {
+      "query": "i have a question about  canceling order {{Order Number}}",
+      "intent": "cancel_order",
+      "category": "ORDER",
+      "confidence": 0.9905,
+      "final_decision": "HIGH_CONFIDENCE: NEED_SLOT_CLARIFICATION",
+      "latency_ms": 7.11,
+      "trace": [
+        {
+          "agent": "A1_IntentAnalyst",
+          "status": "SUCCESS",
+          "ms": 5.71,
+          "reason": "High confidence prediction (0.9905 >= 0.65) with distinct margin (0.9880)."
+        },
+        {
+          "agent": "A2_ResponseSpecialist",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 1.36,
+          "reason": "Missing dynamic customer parameter(s): Order Number."
+        },
+        {
+          "agent": "ValidationAgent",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 0.02,
+          "reason": "Intent confident, but dynamic slot values are missing from customer input."
+        }
+      ]
+    },
+    {
+      "query": "help canceling purchase {{Order Number}}",
+      "intent": "cancel_order",
+      "category": "ORDER",
+      "confidence": 0.9921,
+      "final_decision": "HIGH_CONFIDENCE: NEED_SLOT_CLARIFICATION",
+      "latency_ms": 6.24,
+      "trace": [
+        {
+          "agent": "A1_IntentAnalyst",
+          "status": "SUCCESS",
+          "ms": 4.87,
+          "reason": "High confidence prediction (0.9921 >= 0.65) with distinct margin (0.9897)."
+        },
+        {
+          "agent": "A2_ResponseSpecialist",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 1.34,
+          "reason": "Missing dynamic customer parameter(s): Order Number."
+        },
+        {
+          "agent": "ValidationAgent",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 0.02,
+          "reason": "Intent confident, but dynamic slot values are missing from customer input."
+        }
+      ]
+    },
+    {
+      "query": "I don't want this item, cancel order {{Order Number}}",
+      "intent": "cancel_order",
+      "category": "ORDER",
+      "confidence": 0.9937,
+      "final_decision": "HIGH_CONFIDENCE: NEED_SLOT_CLARIFICATION",
+      "latency_ms": 6.34,
+      "trace": [
+        {
+          "agent": "A1_IntentAnalyst",
+          "status": "SUCCESS",
+          "ms": 5.05,
+          "reason": "High confidence prediction (0.9937 >= 0.65) with distinct margin (0.9925)."
+        },
+        {
+          "agent": "A2_ResponseSpecialist",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 1.26,
+          "reason": "Missing dynamic customer parameter(s): Order Number."
+        },
+        {
+          "agent": "ValidationAgent",
+          "status": "CLARIFICATION_REQUIRED",
+          "ms": 0.01,
+          "reason": "Intent confident, but dynamic slot values are missing from customer input."
+        }
+      ]
+    }
+  ]
+}

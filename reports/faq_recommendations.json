@@ -1,0 +1,54 @@
+[
+  {
+    "suggestion_id": "sug_89dbcfbe",
+    "cluster_id": "clust_389e5b",
+    "proposed_question": "Frequently Asked Question: ",
+    "proposed_answer": "For inquiries regarding , please check your account dashboard under Support_Gap or contact support with your verified customer identifiers for personal assistance.",
+    "grounding_evidence": [
+      {
+        "source": "cluster_exemplars",
+        "queries": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "source": "category_contract",
+        "category": "SUPPORT_GAP"
+      }
+    ],
+    "category": "SUPPORT_GAP",
+    "status": "DEPLOYED",
+    "created_at": "2026-10-30T20:11:48Z",
+    "reviewed_at": "2026-10-30T20:12:08Z",
+    "reviewed_by": "Lead Reviewer",
+    "rejection_reason": null
+  },
+  {
+    "suggestion_id": "sug_0f019583",
+    "cluster_id": "clust_122b0c",
+    "proposed_question": "Frequently Asked Question: Can I pay with Bitcoin? My email is [REDACTED_EMAIL]",
+    "proposed_answer": "For inquiries regarding can i pay with bitcoin? my email is [redacted_email], please check your account dashboard under Support_Gap or contact support with your verified customer identifiers for personal assistance.",
+    "grounding_evidence": [
+      {
+        "source": "cluster_exemplars",
+        "queries": [
+          "Can I pay with Bitcoin? My email is [REDACTED_EMAIL]"
+        ]
+      },
+      {
+        "source": "category_contract",
+        "category": "SUPPORT_GAP"
+      }
+    ],
+    "category": "SUPPORT_GAP",
+    "status": "PENDING_REVIEW",
+    "created_at": "2026-10-30T20:11:48Z",
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "rejection_reason": null
+  }
+]

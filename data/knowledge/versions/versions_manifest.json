@@ -1,0 +1,38 @@
+[
+  {
+    "version_id": "v_1_0_0",
+    "created_at": "2026-10-30T20:10:32Z",
+    "description": "Baseline Knowledge Base: Platform, Architecture, Dataset, API, Safety, Voice, Calibration.",
+    "total_articles": 7,
+    "is_active": true,
+    "previous_version_id": null,
+    "applied_suggestion_id": null
+  },
+  {
+    "version_id": "v_1_2_0",
+    "created_at": "2026-10-30T20:11:48Z",
+    "description": "Approved FAQ: 'Frequently Asked Question: ...'",
+    "total_articles": 8,
+    "is_active": false,
+    "previous_version_id": "v_1_0_0",
+    "applied_suggestion_id": "sug_89dbcfbe"
+  },
+  {
+    "version_id": "v_1_3_0",
+    "created_at": "2026-10-30T20:12:00Z",
+    "description": "Approved FAQ: 'Frequently Asked Question: ...'",
+    "total_articles": 8,
+    "is_active": false,
+    "previous_version_id": "v_1_2_0",
+    "applied_suggestion_id": "sug_89dbcfbe"
+  },
+  {
+    "version_id": "v_1_4_0",
+    "created_at": "2026-10-30T20:12:08Z",
+    "description": "Approved FAQ: 'Frequently Asked Question: ...'",
+    "total_articles": 8,
+    "is_active": false,
+    "previous_version_id": "v_1_3_0",
+    "applied_suggestion_id": "sug_89dbcfbe"
+  }
+]

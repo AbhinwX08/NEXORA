@@ -1,0 +1,446 @@
+[
+  {
+    "gap_id": "gap_afac8509",
+    "trace_id": "trace_589665ea",
+    "conversation_id": null,
+    "redacted_query": "I need to talk to a live human representative right now",
+    "gap_type": "UNRESOLVED_ESCALATION",
+    "occurred_at": "2026-10-30T20:12:09Z",
+    "intent_hypothesis": "contact_human_agent",
+    "calibrated_confidence": 0.9803,
+    "retrieval_similarity": null,
+    "reason": "Inquiry required human agent or supervisor intervention."
+  },
+  {
+    "query": "What is the weather in London today?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4281,
+    "retrieval_similarity": 0.2818,
+    "final_decision": "UNSUPPORTED: UNSUPPORTED_REJECTION",
+    "logged_at": "2026-10-30T20:12:06Z"
+  },
+  {
+    "gap_id": "gap_0b73b496",
+    "trace_id": "req_7ee6ddd6",
+    "conversation_id": null,
+    "redacted_query": "What is the weather in London today?",
+    "gap_type": "UNMATCHED_QUERY",
+    "occurred_at": "2026-10-30T20:12:06Z",
+    "intent_hypothesis": "check_refund_policy",
+    "calibrated_confidence": 0.4281,
+    "retrieval_similarity": 0.2818,
+    "reason": "Customer inquiry fell outside standard 11 customer support domains."
+  },
+  {
+    "query": "How do I bake a chocolate cake?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4977,
+    "retrieval_similarity": 0.3239,
+    "final_decision": "UNCERTAIN: AMBIGUOUS_INTENT_CLARIFICATION",
+    "logged_at": "2026-10-30T20:12:06Z"
+  },
+  {
+    "gap_id": "gap_813fa1ec",
+    "trace_id": "req_a767bad8",
+    "conversation_id": null,
+    "redacted_query": "How do I bake a chocolate cake?",
+    "gap_type": "LOW_CONFIDENCE_INTENT",
+    "occurred_at": "2026-10-30T20:12:06Z",
+    "intent_hypothesis": "check_refund_policy",
+    "calibrated_confidence": 0.4977,
+    "retrieval_similarity": null,
+    "reason": "Confidence below high certainty cutoff (< 60%)."
+  },
+  {
+    "gap_id": "gap_dcce5ed5",
+    "trace_id": "tr_gap_test",
+    "conversation_id": null,
+    "redacted_query": "Can I pay with Bitcoin? My email is [REDACTED_EMAIL]",
+    "gap_type": "UNMATCHED_QUERY",
+    "occurred_at": "2026-10-30T20:11:48Z",
+    "intent_hypothesis": null,
+    "calibrated_confidence": 0.35,
+    "retrieval_similarity": 0.2,
+    "reason": "Unsupported payment method"
+  },
+  {
+    "query": "Can you give me a recipe for chocolate cake?",
+    "predicted_intent": "create_account",
+    "confidence": 0.1853,
+    "retrieval_similarity": 0.351,
+    "final_decision": "UNSUPPORTED: UNSUPPORTED_REJECTION",
+    "logged_at": "2026-10-30T20:06:55Z"
+  },
+  {
+    "query": "I need to speak to a real human agent right now",
+    "predicted_intent": "contact_human_agent",
+    "confidence": 0.9849,
+    "retrieval_similarity": 0.0,
+    "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+    "logged_at": "2026-10-30T20:06:55Z"
+  },
+  {
+    "query": "I want to make changes to my payment account invoice",
+    "predicted_intent": "payment_issue",
+    "confidence": 0.6082,
+    "retrieval_similarity": 0.3194,
+    "final_decision": "UNCERTAIN: AMBIGUOUS_INTENT_CLARIFICATION",
+    "logged_at": "2026-10-30T20:06:55Z"
+  },
+  {
+    "query": "What is the weather in London today?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4281,
+    "retrieval_similarity": 0.2818,
+    "final_decision": "UNSUPPORTED: UNSUPPORTED_REJECTION",
+    "logged_at": "2026-10-30T20:06:53Z"
+  },
+  {
+    "query": "I need to speak to a real human agent right now",
+    "predicted_intent": "contact_human_agent",
+    "confidence": 0.9849,
+    "retrieval_similarity": 0.0,
+    "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+    "logged_at": "2026-10-30T20:06:53Z"
+  },
+  {
+    "query": "How do I bake a chocolate cake?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4977,
+    "retrieval_similarity": 0.3239,
+    "final_decision": "UNCERTAIN: AMBIGUOUS_INTENT_CLARIFICATION",
+    "logged_at": "2026-10-30T20:06:53Z"
+  },
+  {
+    "query": "Can you give me a recipe for chocolate cake?",
+    "predicted_intent": "create_account",
+    "confidence": 0.1853,
+    "retrieval_similarity": 0.351,
+    "final_decision": "UNSUPPORTED: UNSUPPORTED_REJECTION",
+    "logged_at": "2026-10-30T19:36:59Z"
+  },
+  {
+    "query": "I need to speak to a real human agent right now",
+    "predicted_intent": "contact_human_agent",
+    "confidence": 0.9849,
+    "retrieval_similarity": 0.0,
+    "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+    "logged_at": "2026-10-30T19:36:59Z"
+  },
+  {
+    "query": "I want to make changes to my payment account invoice",
+    "predicted_intent": "payment_issue",
+    "confidence": 0.6082,
+    "retrieval_similarity": 0.3194,
+    "final_decision": "UNCERTAIN: AMBIGUOUS_INTENT_CLARIFICATION",
+    "logged_at": "2026-10-30T19:36:59Z"
+  },
+  {
+    "query": "What is the weather in London today?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4281,
+    "retrieval_similarity": 0.2818,
+    "final_decision": "UNSUPPORTED: UNSUPPORTED_REJECTION",
+    "logged_at": "2026-10-30T19:36:58Z"
+  },
+  {
+    "query": "I need to speak to a real human agent right now",
+    "predicted_intent": "contact_human_agent",
+    "confidence": 0.9849,
+    "retrieval_similarity": 0.0,
+    "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+    "logged_at": "2026-10-30T19:36:58Z"
+  },
+  {
+    "query": "How do I bake a chocolate cake?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4977,
+    "retrieval_similarity": 0.3239,
+    "final_decision": "UNCERTAIN: AMBIGUOUS_INTENT_CLARIFICATION",
+    "logged_at": "2026-10-30T19:36:58Z"
+  },
+  {
+    "query": "Can you give me a recipe for chocolate cake?",
+    "predicted_intent": "create_account",
+    "confidence": 0.1853,
+    "retrieval_similarity": 0.351,
+    "final_decision": "UNSUPPORTED: UNSUPPORTED_REJECTION",
+    "logged_at": "2026-10-30T19:36:50Z"
+  },
+  {
+    "query": "I need to speak to a real human agent right now",
+    "predicted_intent": "contact_human_agent",
+    "confidence": 0.9849,
+    "retrieval_similarity": 0.0,
+    "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+    "logged_at": "2026-10-30T19:36:50Z"
+  },
+  {
+    "query": "I want to make changes to my payment account invoice",
+    "predicted_intent": "payment_issue",
+    "confidence": 0.6082,
+    "retrieval_similarity": 0.3194,
+    "final_decision": "UNCERTAIN: AMBIGUOUS_INTENT_CLARIFICATION",
+    "logged_at": "2026-10-30T19:36:50Z"
+  },
+  {
+    "query": "Can you give me a recipe for chocolate cake?",
+    "predicted_intent": "create_account",
+    "confidence": 0.1853,
+    "retrieval_similarity": 0.351,
+    "final_decision": "UNSUPPORTED: UNSUPPORTED_REJECTION",
+    "logged_at": "2026-10-30T19:35:26Z"
+  },
+  {
+    "query": "I need to speak to a real human agent right now",
+    "predicted_intent": "contact_human_agent",
+    "confidence": 0.9849,
+    "retrieval_similarity": 0.0,
+    "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+    "logged_at": "2026-10-30T19:35:26Z"
+  },
+  {
+    "query": "I want to make changes to my payment account invoice",
+    "predicted_intent": "payment_issue",
+    "confidence": 0.6082,
+    "retrieval_similarity": 0.3194,
+    "final_decision": "UNCERTAIN: AMBIGUOUS_INTENT_CLARIFICATION",
+    "logged_at": "2026-10-30T19:35:26Z"
+  },
+  {
+    "query": "What is the weather in London today?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4281,
+    "retrieval_similarity": 0.2818,
+    "final_decision": "UNSUPPORTED: UNSUPPORTED_REJECTION",
+    "logged_at": "2026-10-30T19:21:04Z"
+  },
+  {
+    "query": "I need to speak to a real human agent right now",
+    "predicted_intent": "contact_human_agent",
+    "confidence": 0.9849,
+    "retrieval_similarity": 0.0,
+    "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+    "logged_at": "2026-10-30T19:21:04Z"
+  },
+  {
+    "query": "How do I bake a chocolate cake?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4977,
+    "retrieval_similarity": 0.3239,
+    "final_decision": "UNCERTAIN: AMBIGUOUS_INTENT_CLARIFICATION",
+    "logged_at": "2026-10-30T19:21:04Z"
+  },
+  {
+    "query": "What is the weather in London today?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4281,
+    "retrieval_similarity": 0.2818,
+    "final_decision": "UNSUPPORTED: UNSUPPORTED_REJECTION",
+    "logged_at": "2026-10-30T19:18:05Z"
+  },
+  {
+    "query": "I need to speak to a real human agent right now",
+    "predicted_intent": "contact_human_agent",
+    "confidence": 0.9849,
+    "retrieval_similarity": 0.0,
+    "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+    "logged_at": "2026-10-30T19:18:05Z"
+  },
+  {
+    "query": "How do I bake a chocolate cake?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4977,
+    "retrieval_similarity": 0.3239,
+    "final_decision": "UNCERTAIN: AMBIGUOUS_INTENT_CLARIFICATION",
+    "logged_at": "2026-10-30T19:18:05Z"
+  },
+  {
+    "query": "What is the weather in London today?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4281,
+    "retrieval_similarity": 0.2818,
+    "final_decision": "UNSUPPORTED: UNSUPPORTED_REJECTION",
+    "logged_at": "2026-10-30T19:11:27Z"
+  },
+  {
+    "query": "I need to speak to a real human agent right now",
+    "predicted_intent": "contact_human_agent",
+    "confidence": 0.9849,
+    "retrieval_similarity": 0.0,
+    "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+    "logged_at": "2026-10-30T19:11:27Z"
+  },
+  {
+    "query": "How do I bake a chocolate cake?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4977,
+    "retrieval_similarity": 0.3239,
+    "final_decision": "UNCERTAIN: AMBIGUOUS_INTENT_CLARIFICATION",
+    "logged_at": "2026-10-30T19:11:27Z"
+  },
+  {
+    "query": "What is the weather in London today?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4281,
+    "retrieval_similarity": 0.2818,
+    "final_decision": "UNSUPPORTED: UNSUPPORTED_REJECTION",
+    "logged_at": "2026-10-30T19:04:31Z"
+  },
+  {
+    "query": "I need to speak to a real human agent right now",
+    "predicted_intent": "contact_human_agent",
+    "confidence": 0.9849,
+    "retrieval_similarity": 0.0,
+    "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+    "logged_at": "2026-10-30T19:04:31Z"
+  },
+  {
+    "query": "How do I bake a chocolate cake?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4977,
+    "retrieval_similarity": 0.3239,
+    "final_decision": "UNCERTAIN: AMBIGUOUS_INTENT_CLARIFICATION",
+    "logged_at": "2026-10-30T19:04:31Z"
+  },
+  {
+    "query": "What is the weather in London today?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4281,
+    "retrieval_similarity": 0.2818,
+    "final_decision": "UNSUPPORTED: UNSUPPORTED_REJECTION",
+    "logged_at": "2026-10-30T18:57:47Z"
+  },
+  {
+    "query": "I need to speak to a real human agent right now",
+    "predicted_intent": "contact_human_agent",
+    "confidence": 0.9849,
+    "retrieval_similarity": 0.0,
+    "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+    "logged_at": "2026-10-30T18:57:47Z"
+  },
+  {
+    "query": "How do I bake a chocolate cake?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4977,
+    "retrieval_similarity": 0.3239,
+    "final_decision": "UNCERTAIN: AMBIGUOUS_INTENT_CLARIFICATION",
+    "logged_at": "2026-10-30T18:57:47Z"
+  },
+  {
+    "query": "What is the weather in London today?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4281,
+    "retrieval_similarity": 0.2818,
+    "final_decision": "UNSUPPORTED: UNSUPPORTED_REJECTION",
+    "logged_at": "2026-10-30T18:56:57Z"
+  },
+  {
+    "query": "I need to speak to a real human agent right now",
+    "predicted_intent": "contact_human_agent",
+    "confidence": 0.9849,
+    "retrieval_similarity": 0.0,
+    "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+    "logged_at": "2026-10-30T18:56:57Z"
+  },
+  {
+    "query": "How do I bake a chocolate cake?",
+    "predicted_intent": "check_refund_policy",
+    "confidence": 0.4977,
+    "retrieval_similarity": 0.3239,
+    "final_decision": "UNCERTAIN: AMBIGUOUS_INTENT_CLARIFICATION",
+    "logged_at": "2026-10-30T18:56:57Z"
+  },
+  {
+    "gap_id": "gap_75395f3c",
+    "trace_id": "tr_gap_test",
+    "conversation_id": null,
+    "redacted_query": "Can I pay with Bitcoin? My email is [REDACTED_EMAIL]",
+    "gap_type": "UNMATCHED_QUERY",
+    "occurred_at": "2026-10-30T20:10:34Z",
+    "intent_hypothesis": null,
+    "calibrated_confidence": 0.35,
+    "retrieval_similarity": 0.2,
+    "reason": "Unsupported payment method"
+  },
+  {
+    "gap_id": "gap_8d3fd1ef",
+    "trace_id": "tr_gap_test",
+    "conversation_id": null,
+    "redacted_query": "Can I pay with Bitcoin? My email is [REDACTED_EMAIL]",
+    "gap_type": "UNMATCHED_QUERY",
+    "occurred_at": "2026-10-30T20:12:00Z",
+    "intent_hypothesis": null,
+    "calibrated_confidence": 0.35,
+    "retrieval_similarity": 0.2,
+    "reason": "Unsupported payment method"
+  },
+  {
+    "gap_id": "gap_03fc3d96",
+    "trace_id": "req_14259983",
+    "conversation_id": null,
+    "redacted_query": "I need to speak to a real human agent right now",
+    "gap_type": "UNRESOLVED_ESCALATION",
+    "occurred_at": "2026-10-30T20:12:06Z",
+    "intent_hypothesis": "contact_human_agent",
+    "calibrated_confidence": 0.9849,
+    "retrieval_similarity": null,
+    "reason": "Inquiry required human agent or supervisor intervention."
+  },
+  {
+    "query": "I need to speak to a real human agent right now",
+    "predicted_intent": "contact_human_agent",
+    "confidence": 0.9849,
+    "retrieval_similarity": 0.0,
+    "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+    "logged_at": "2026-10-30T20:12:06Z"
+  },
+  {
+    "gap_id": "gap_b61d000c",
+    "trace_id": "tr_gap_test",
+    "conversation_id": null,
+    "redacted_query": "Can I pay with Bitcoin? My email is [REDACTED_EMAIL]",
+    "gap_type": "UNMATCHED_QUERY",
+    "occurred_at": "2026-10-30T20:12:08Z",
+    "intent_hypothesis": null,
+    "calibrated_confidence": 0.35,
+    "retrieval_similarity": 0.2,
+    "reason": "Unsupported payment method"
+  },
+  {
+    "query": "I want to make changes to my payment account invoice",
+    "predicted_intent": "payment_issue",
+    "confidence": 0.6082,
+    "retrieval_similarity": 0.3194,
+    "final_decision": "UNCERTAIN: AMBIGUOUS_INTENT_CLARIFICATION",
+    "logged_at": "2026-10-30T20:12:08Z"
+  },
+  {
+    "query": "I need to speak to a real human agent right now",
+    "predicted_intent": "contact_human_agent",
+    "confidence": 0.9849,
+    "retrieval_similarity": 0.0,
+    "final_decision": "HUMAN_ESCALATION: ESCALATE_TO_HUMAN",
+    "logged_at": "2026-10-30T20:12:08Z"
+  },
+  {
+    "query": "Can you give me a recipe for chocolate cake?",
+    "predicted_intent": "create_account",
+    "confidence": 0.1853,
+    "retrieval_similarity": 0.351,
+    "final_decision": "UNSUPPORTED: UNSUPPORTED_REJECTION",
+    "logged_at": "2026-10-30T20:12:08Z"
+  },
+  {
+    "gap_id": "gap_fb877d85",
+    "trace_id": "trace_395ceed6",
+    "conversation_id": null,
+    "redacted_query": "What is the weather in London today?",
+    "gap_type": "UNMATCHED_QUERY",
+    "occurred_at": "2026-10-30T20:12:09Z",
+    "intent_hypothesis": "check_refund_policy",
+    "calibrated_confidence": 0.4281,
+    "retrieval_similarity": 0.2818,
+    "reason": "Customer inquiry fell outside standard 11 customer support domains."
+  }
+]

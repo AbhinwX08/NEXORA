@@ -1,0 +1,68 @@
+[
+  {
+    "cluster_id": "clust_4a75b5",
+    "title": "Recurring inquiries: General",
+    "primary_intent": "general",
+    "category": "SUPPORT_GAP",
+    "query_count": 42,
+    "exemplar_queries": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "avg_similarity": 0.21,
+    "priority_score": 0.58,
+    "status": "ACTIVE",
+    "last_seen_at": "2026-10-30T20:12:09Z"
+  },
+  {
+    "cluster_id": "clust_c6ea2a",
+    "title": "Recurring inquiries: Contact Human Agent",
+    "primary_intent": "contact_human_agent",
+    "category": "SUPPORT_GAP",
+    "query_count": 2,
+    "exemplar_queries": [
+      "I need to speak to a real human agent right now",
+      "I need to talk to a live human representative right now"
+    ],
+    "avg_similarity": 0.25,
+    "priority_score": 0.385,
+    "status": "ACTIVE",
+    "last_seen_at": "2026-10-30T20:12:09Z"
+  },
+  {
+    "cluster_id": "clust_5e820b",
+    "title": "Recurring inquiries: Bitcoin Email",
+    "primary_intent": "bitcoin_email",
+    "category": "SUPPORT_GAP",
+    "query_count": 4,
+    "exemplar_queries": [
+      "Can I pay with Bitcoin? My email is [REDACTED_EMAIL]",
+      "Can I pay with Bitcoin? My email is [REDACTED_EMAIL]",
+      "Can I pay with Bitcoin? My email is [REDACTED_EMAIL]",
+      "Can I pay with Bitcoin? My email is [REDACTED_EMAIL]"
+    ],
+    "avg_similarity": 0.2,
+    "priority_score": 0.355,
+    "status": "ACTIVE",
+    "last_seen_at": "2026-10-30T20:12:09Z"
+  },
+  {
+    "cluster_id": "clust_27cca9",
+    "title": "Recurring inquiries: Check Refund Policy",
+    "primary_intent": "check_refund_policy",
+    "category": "SUPPORT_GAP",
+    "query_count": 3,
+    "exemplar_queries": [
+      "What is the weather in London today?",
+      "How do I bake a chocolate cake?",
+      "What is the weather in London today?"
+    ],
+    "avg_similarity": 0.282,
+    "priority_score": 0.285,
+    "status": "ACTIVE",
+    "last_seen_at": "2026-10-30T20:12:09Z"
+  }
+]

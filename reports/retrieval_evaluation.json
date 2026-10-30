@@ -1,0 +1,722 @@
+{
+  "metadata": {
+    "timestamp": "2026-10-30T17:17:12.296360",
+    "train_index_size": 18810,
+    "val_all_queries": 4031,
+    "val_unseen_queries": 3572,
+    "val_reference_responses_in_train": 0,
+    "methods_evaluated": [
+      "Global_Word",
+      "Global_Char",
+      "Global_Combined",
+      "IntentRestricted_Word",
+      "IntentRestricted_Char",
+      "IntentRestricted_Combined"
+    ]
+  },
+  "retrieval_metrics": [
+    {
+      "config_id": "Global_Word",
+      "description": "Word TF-IDF (1,2) \u2014 Global Search",
+      "method": "word",
+      "intent_restricted": false,
+      "time_sec": 4.8,
+      "val_all": {
+        "recall@1": 0.977424956586455,
+        "recall@3": 0.9930538327958323,
+        "recall@5": 0.9960307615976185,
+        "mrr": 0.9853014140411809,
+        "exact_response_match": 0.0,
+        "mean_similarity": 0.8002856019711095,
+        "low_similarity_rate": 0.0007442322004465393,
+        "candidate_coverage": 1.0
+      },
+      "val_unseen": {
+        "recall@1": 0.9745240761478163,
+        "recall@3": 0.9921612541993281,
+        "recall@5": 0.9955207166853304,
+        "mrr": 0.9834126539753639,
+        "exact_response_match": 0.0,
+        "mean_similarity": 0.7746224136465684,
+        "low_similarity_rate": 0.0008398656215005599,
+        "candidate_coverage": 1.0
+      }
+    },
+    {
+      "config_id": "Global_Char",
+      "description": "Char TF-IDF (3,5) \u2014 Global Search",
+      "method": "char",
+      "intent_restricted": false,
+      "time_sec": 8.89,
+      "val_all": {
+        "recall@1": 0.9836268915901761,
+        "recall@3": 0.9970230711982139,
+        "recall@5": 0.9987596129992558,
+        "mrr": 0.9901720003307698,
+        "exact_response_match": 0.0,
+        "mean_similarity": 0.8913956788871158,
+        "low_similarity_rate": 0.0,
+        "candidate_coverage": 1.0
+      },
+      "val_unseen": {
+        "recall@1": 0.9815229563269877,
+        "recall@3": 0.9966405375139977,
+        "recall@5": 0.9986002239641657,
+        "mrr": 0.9889091078760731,
+        "exact_response_match": 0.0,
+        "mean_similarity": 0.8774400844328006,
+        "low_similarity_rate": 0.0,
+        "candidate_coverage": 1.0
+      }
+    },
+    {
+      "config_id": "Global_Combined",
+      "description": "Combined TF-IDF \u2014 Global Search",
+      "method": "combined",
+      "intent_restricted": false,
+      "time_sec": 9.03,
+      "val_all": {
+        "recall@1": 0.98709997519226,
+        "recall@3": 0.996774993798065,
+        "recall@5": 0.9985115355991069,
+        "mrr": 0.9918547920284462,
+        "exact_response_match": 0.0,
+        "mean_similarity": 0.8479371853356766,
+        "low_similarity_rate": 0.0,
+        "candidate_coverage": 1.0
+      },
+      "val_unseen": {
+        "recall@1": 0.9854423292273237,
+        "recall@3": 0.9963605823068309,
+        "recall@5": 0.9983202687569989,
+        "mrr": 0.9908081373646883,
+        "exact_response_match": 0.0,
+        "mean_similarity": 0.8283971987928648,
+        "low_similarity_rate": 0.0,
+        "candidate_coverage": 1.0
+      }
+    },
+    {
+      "config_id": "IntentRestricted_Word",
+      "description": "Word TF-IDF (1,2) \u2014 Intent-Restricted",
+      "method": "word",
+      "intent_restricted": true,
+      "time_sec": 1.06,
+      "val_all": {
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "recall@5": 1.0,
+        "mrr": 1.0,
+        "exact_response_match": 0.0,
+        "mean_similarity": 0.7983152635048417,
+        "low_similarity_rate": 0.0019846192011907715,
+        "candidate_coverage": 1.0
+      },
+      "val_unseen": {
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "recall@5": 1.0,
+        "mrr": 1.0,
+        "exact_response_match": 0.0,
+        "mean_similarity": 0.7723988877905982,
+        "low_similarity_rate": 0.0022396416573348264,
+        "candidate_coverage": 1.0
+      }
+    },
+    {
+      "config_id": "IntentRestricted_Char",
+      "description": "Char TF-IDF (3,5) \u2014 Intent-Restricted",
+      "method": "char",
+      "intent_restricted": true,
+      "time_sec": 2.09,
+      "val_all": {
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "recall@5": 1.0,
+        "mrr": 1.0,
+        "exact_response_match": 0.0,
+        "mean_similarity": 0.8901025748477339,
+        "low_similarity_rate": 0.0004961548002976929,
+        "candidate_coverage": 1.0
+      },
+      "val_unseen": {
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "recall@5": 1.0,
+        "mrr": 1.0,
+        "exact_response_match": 0.0,
+        "mean_similarity": 0.8759808172483806,
+        "low_similarity_rate": 0.0005599104143337066,
+        "candidate_coverage": 1.0
+      }
+    },
+    {
+      "config_id": "IntentRestricted_Combined",
+      "description": "Combined TF-IDF \u2014 Intent-Restricted",
+      "method": "combined",
+      "intent_restricted": true,
+      "time_sec": 2.57,
+      "val_all": {
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "recall@5": 1.0,
+        "mrr": 1.0,
+        "exact_response_match": 0.0,
+        "mean_similarity": 0.8466713121995935,
+        "low_similarity_rate": 0.0007442322004465393,
+        "candidate_coverage": 1.0
+      },
+      "val_unseen": {
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "recall@5": 1.0,
+        "mrr": 1.0,
+        "exact_response_match": 0.0,
+        "mean_similarity": 0.8269686616675703,
+        "low_similarity_rate": 0.0008398656215005599,
+        "candidate_coverage": 1.0
+      }
+    }
+  ],
+  "placeholder_evaluation": {
+    "resolved_count": 2692,
+    "resolved_rate": 0.6678243612006947,
+    "clarification_count": 1339,
+    "clarification_rate": 0.3321756387993054,
+    "frequent_missing_slots": {
+      "Order Number": 608,
+      "Tracking Number": 140,
+      "Account Change": 83,
+      "Account Type": 171,
+      "Settings": 96,
+      "Upgrade Account": 72,
+      "Account Category": 131,
+      "Profile": 76,
+      "Delivery Country": 27,
+      "Membership Type": 1,
+      "Profile Settings": 11,
+      "Profile Type": 16,
+      "{{Account Type": 1,
+      "Order Status": 28,
+      "Person Name": 34,
+      "Refund Amount": 85,
+      "Client Last Name": 103,
+      "Salutation": 99,
+      "Forgot Password": 31,
+      "Password Reset": 1,
+      "Reset Password": 2,
+      "Submit": 1,
+      "Order Tracking": 10,
+      "Currency Symbol": 64,
+      "Account Management": 1,
+      "PIN Retrieval": 1,
+      "Money Amount": 10,
+      "Client First Name": 4,
+      "Delivery City": 38,
+      "PIN Recovery": 3,
+      "Forgot Access Key": 6,
+      "Account Recovery": 6,
+      "Account Number": 1,
+      "Payment Issue Email": 1,
+      "Payment Issue Phone Number": 1,
+      "Profile PIN Recovery": 2,
+      "Feedback Email": 1,
+      "Recover PIN": 3,
+      "Review Platform 1": 2,
+      "Review Platform 2": 2,
+      "Date": 1,
+      "Cancellation Policy": 1,
+      "Refund Policy": 1,
+      "Return Policy": 1,
+      "Date of the Bill": 3,
+      "Client Full Name": 1,
+      "Forgot PIN": 5,
+      "Invoice Number": 3,
+      "Client Name": 6,
+      "Cancel Purchase": 2,
+      "ETA": 1,
+      "Forgot Key": 3,
+      "Reset Key": 2,
+      "Security": 7,
+      "PIN Reset": 1,
+      "Customer Support Team": 1,
+      "Timeframe": 2,
+      "PIN Management": 3,
+      "Contact Channel": 1,
+      "Feature 1": 1,
+      "Feature 2": 1,
+      "Feature 3": 1,
+      "Key Management": 1,
+      "Review Platform": 1,
+      "Forgot Account Access Key": 2,
+      "Change Account": 1,
+      "Purchase History": 2,
+      "Date of the Invoice": 1,
+      "PIN Code": 2,
+      "Reset PIN": 3,
+      "Confirm": 2,
+      "Save": 2,
+      "Order/Refund/Transaction": 1,
+      "customer_support_phone_number": 1,
+      "Toll-Free Number": 2,
+      "PIN Code Management": 1,
+      "Security & Privacy": 1,
+      "User Profile Settings": 1,
+      "Forgot Pin Code": 1,
+      "Account Closure Process": 1,
+      "Fifth Step": 1,
+      "First Step": 1,
+      "Fourth Step": 1,
+      "Second Step": 1,
+      "Third Step": 1,
+      "PIN code": 1,
+      "Restore Access Key": 1,
+      "Password Recovery": 1,
+      "Reset Access Key": 1,
+      "Track Order": 2,
+      "Update Account": 1,
+      "Choose Account Type": 1,
+      "Support Page URL": 1,
+      "Company Support Page URL": 1,
+      "Forgot User Access Key": 1,
+      "Login Page": 1,
+      "PIN Code Retrieval": 1,
+      "Purchase Details": 1,
+      "Billing": 1,
+      "Forgot User Account Key": 1,
+      "Forgot Profile Key": 1,
+      "Free Account Name": 1,
+      "Live Chat Support": 2,
+      "Access Key Recovery": 1,
+      "Help Center": 1,
+      "Company Account": 2,
+      "Destination": 1,
+      "Shipping Method": 1,
+      "Business Hours": 1,
+      "Feedback Email Address": 1,
+      "Reimbursement ID": 1,
+      "Account Recovery Page": 2
+    }
+  },
+  "curated_samples": [
+    {
+      "val_index": 3,
+      "query": "need help to see how long it takes for my parcel to arrive",
+      "true_intent": "delivery_period",
+      "predicted_intent": "delivery_period",
+      "category": "DELIVERY",
+      "similarity_score": 0.9758,
+      "matched_instruction": "I need to see how long it takes for my parcel to arrive",
+      "status": "clarification_required",
+      "unresolved_placeholders": [
+        "Order Number",
+        "Tracking Number"
+      ],
+      "resolved_slots": {},
+      "selected_response": "To assist you accurately with your request, could you please provide your Order Number, Tracking Number?",
+      "reference_response_preview": "We understand your anticipation in wanting to determine the estimated arrival time of your parcel. To provide you with accurate information, could you please provide us with the {{..."
+    },
+    {
+      "val_index": 8,
+      "query": "i dont know what i need to do to change to the {{Account Type}} account",
+      "true_intent": "switch_account",
+      "predicted_intent": "switch_account",
+      "category": "ACCOUNT",
+      "similarity_score": 0.9533,
+      "matched_instruction": "i dont know what to do to change to the {{Account Type}} account",
+      "status": "clarification_required",
+      "unresolved_placeholders": [
+        "Account Change",
+        "Account Type",
+        "Settings",
+        "Upgrade Account"
+      ],
+      "resolved_slots": {},
+      "selected_response": "To assist you accurately with your request, could you please provide your Account Change, Account Type, Settings, Upgrade Account?",
+      "reference_response_preview": "I understood, you need assistance with switching to the Free account but are unsure about the steps involved. Let me guide you through the process:\n\n1. Log in: Start by logging int..."
+    },
+    {
+      "val_index": 47,
+      "query": "i dont know what to do ti download my invoice #12588",
+      "true_intent": "get_invoice",
+      "predicted_intent": "get_invoice",
+      "category": "INVOICE",
+      "similarity_score": 0.8515,
+      "matched_instruction": "i dont know what i need to do to download my invoice #12588",
+      "status": "resolved",
+      "unresolved_placeholders": [],
+      "resolved_slots": {
+        "Invoice Number": "12588"
+      },
+      "selected_response": "I get that you're unsure about the steps required to download your invoice with number 12588. Let me guide you through the process. First, log in to your account on our website. Once logged in, navigate to the \"Billing\" or \"Invoices\" section. You should be able to locate your invoice with the number 12588 there. Look for a download or print button next to the invoice and click on it to save a copy to your device. If you encounter any difficulties or have further questions, please feel free to let me know. I'm here to help you every step of the way.",
+      "reference_response_preview": "Certainly, I understand your confusion about the process of downloading your invoice with number #{{Invoice Number}}. Let me guide you step by step. First, log in to your account o..."
+    },
+    {
+      "val_index": 72,
+      "query": "I don't know how I can speak with customer support",
+      "true_intent": "contact_customer_service",
+      "predicted_intent": "contact_customer_service",
+      "category": "CONTACT",
+      "similarity_score": 0.7883,
+      "matched_instruction": "I do not know how I can speak to customer support",
+      "status": "resolved",
+      "unresolved_placeholders": [],
+      "resolved_slots": {
+        "Customer Support Phone Number": "1-800-RELAY-AI",
+        "Website URL": "https://relay.ai"
+      },
+      "selected_response": "I'm sorry to hear that you're unsure about how to speak to our customer support. Don't worry, I'm here to help! To speak with our customer support team, you can contact them during their operating hours at 1-800-RELAY-AI or reach out to them through the Live Chat on our website at https://relay.ai. They'll be more than happy to assist you with any questions or concerns you may have. Let me know if there's anything else I can do for you!",
+      "reference_response_preview": "Grateful for your contact! I get the sense that you're unsure about how to contact our customer support team. Our team is available to assist you through various channels, such as ..."
+    },
+    {
+      "val_index": 87,
+      "query": "i want help to contact customer assistance",
+      "true_intent": "contact_customer_service",
+      "predicted_intent": "contact_customer_service",
+      "category": "CONTACT",
+      "similarity_score": 1.0,
+      "matched_instruction": "I want help to contact customer assistance",
+      "status": "resolved",
+      "unresolved_placeholders": [],
+      "resolved_slots": {
+        "Customer Support Hours": "Monday to Friday, 9:00 AM - 6:00 PM EST",
+        "Customer Support Phone Number": "1-800-RELAY-AI",
+        "Website URL": "https://relay.ai"
+      },
+      "selected_response": "Always good to connect! I'm attuned to the fact that you would like assistance in contacting our customer assistance team. I'm here to help you with that. To get in touch with our customer assistance, you can reach them during our Monday to Friday, 9:00 AM - 6:00 PM EST. They are available via phone at 1-800-RELAY-AI or through the Live Chat on our website at https://relay.ai. Our dedicated team is just a call or message away, ready to assist you with any questions or concerns you may have. Feel free to let me know if there's anything else I can do for you.",
+      "reference_response_preview": "I hear you! I'm following you that you need assistance in contacting our customer assistance. Rest assured, I'm here to guide you through the process. You can reach our customer as..."
+    },
+    {
+      "val_index": 5,
+      "query": "i dont know how i can check what delivery methods i have",
+      "true_intent": "delivery_options",
+      "predicted_intent": "delivery_options",
+      "category": "DELIVERY",
+      "similarity_score": 0.7582,
+      "matched_instruction": "i do not know how to see what delivery methods i have",
+      "status": "resolved",
+      "unresolved_placeholders": [],
+      "resolved_slots": {},
+      "selected_response": "Wonderful! Allow me to guide you through the process of checking the available delivery methods.\n\nTo view the delivery options, you can follow these steps:\n\n1. Visit our website and log in to your account.\n2. Navigate to the \"Shipping\" or \"Delivery\" section.\n3. Look for a tab or link related to \"Delivery Methods\" or \"Shipping Options.\"\n4. Once you've found the relevant section, you'll be able to explore the different delivery methods we offer, including standard, expedited, overnight, and in-store pickup.\n\nIf you encounter any difficulties or have specific questions about our delivery methods, please don't hesitate to ask. I'm here to assist you every step of the way!",
+      "reference_response_preview": "No worries, I'm here to help you check the available delivery methods. To find out which delivery options are available to you, simply visit our website and navigate to the checkou..."
+    },
+    {
+      "val_index": 7,
+      "query": "shipping address not valid",
+      "true_intent": "set_up_shipping_address",
+      "predicted_intent": "set_up_shipping_address",
+      "category": "SHIPPING",
+      "similarity_score": 0.5962,
+      "matched_instruction": "why I cannot submit my shipping address valid",
+      "status": "resolved",
+      "unresolved_placeholders": [],
+      "resolved_slots": {},
+      "selected_response": "I'm sorry to hear that you're having trouble submitting your shipping address. Let's work together to address this issue and ensure your shipping address is submitted correctly. Here are some possible reasons why your shipping address might not be valid:\n\n1. Incorrect Format: Make sure you're using the correct format for your shipping address. Double-check that you've included all the necessary details such as street number, street name, city, state, and zip code.\n\n2. Invalid Characters: Check if there are any special characters or symbols in your shipping address that may be causing the submission to fail. Stick to standard alphanumeric characters when entering your address.\n\n3. Autocomplete Errors: If you're using an autofill feature or a browser autocomplete function, it's possible that incorrect information is being populated in the fields. Manually review the address fields to ensure accuracy.\n\n4. System Limitations: Sometimes, certain systems have restrictions on the format or length of addresses they can accept. If you're encountering these limitations, contact our customer support team who can assist you further.\n\nIf you continue to have trouble submitting your shipping address, please provide more specific details about the error message or issues you're encountering. This will help us to better understand the problem and provide you with a more accurate solution.",
+      "reference_response_preview": "I'm sorry to hear that you're encountering difficulties with your shipping address validation. Let's work together to resolve this issue. Here are a few suggestions:\n\n1. Double-che..."
+    },
+    {
+      "val_index": 9,
+      "query": "have a problem with the deletion of my {{Account Category}} account",
+      "true_intent": "delete_account",
+      "predicted_intent": "delete_account",
+      "category": "ACCOUNT",
+      "similarity_score": 1.0,
+      "matched_instruction": "have a problem with the deletion of my {{Account Category}} account",
+      "status": "clarification_required",
+      "unresolved_placeholders": [
+        "Account Category"
+      ],
+      "resolved_slots": {},
+      "selected_response": "To assist you accurately with your request, could you please provide your Account Category?",
+      "reference_response_preview": "I'm sorry to hear that you're experiencing difficulties with deleting your {{Account Category}} account. I understand that this can be frustrating, and I'm here to help. To assist ..."
+    },
+    {
+      "val_index": 31,
+      "query": "where do I leave some feedback about a product?",
+      "true_intent": "review",
+      "predicted_intent": "review",
+      "category": "FEEDBACK",
+      "similarity_score": 0.7804,
+      "matched_instruction": "I try to leave some feedback about  a product",
+      "status": "resolved",
+      "unresolved_placeholders": [],
+      "resolved_slots": {},
+      "selected_response": "Thank you for your interest in leaving feedback about our product! We greatly value your input as it helps us improve the quality and meet the expectations of our customers. To provide feedback, you can visit our website and navigate to the product page. There, you will find a \"Leave a Review\" section where you can share your experience and thoughts about the product. We appreciate the time you take to share your feedback with us!",
+      "reference_response_preview": "Thank you for your interest in providing feedback on our products! We greatly value your input as it helps us improve our offerings. To leave a review for a product, you can visit ..."
+    },
+    {
+      "val_index": 36,
+      "query": "I'm trying to inform of an issue with payments",
+      "true_intent": "payment_issue",
+      "predicted_intent": "payment_issue",
+      "category": "PAYMENT",
+      "similarity_score": 0.7553,
+      "matched_instruction": "i dont know how to inform of an issue with payments",
+      "status": "resolved",
+      "unresolved_placeholders": [],
+      "resolved_slots": {},
+      "selected_response": "I get that you're unsure about the process of informing us about an issue with your payments. Don't worry, I'm here to guide you through it. To report a payment issue, you can contact our dedicated customer support team through our helpline, live chat, or email. They will assist you in resolving the problem and offer suitable solutions. By reaching out to us, you help us improve our payment system and ensure a smooth experience for all our valued customers. Thank you for trusting us with your concerns, and we'll be there to support you every step of the way.",
+      "reference_response_preview": "Thanks for dropping us a line to us and informing us about the issue you are facing with your payments. We appreciate your proactive approach in bringing this to our attention. To ..."
+    },
+    {
+      "val_index": 0,
+      "query": "i cannot see if there are any news on my rebate",
+      "true_intent": "track_refund",
+      "predicted_intent": "track_refund",
+      "category": "REFUND",
+      "similarity_score": 0.8827,
+      "matched_instruction": "help to see if there are any news on my rebate",
+      "status": "resolved",
+      "unresolved_placeholders": [],
+      "resolved_slots": {},
+      "selected_response": "Absolutely, I'm here to assist you in checking the latest updates on your rebate. I know how important it is to stay well-informed. Let me quickly gather the information regarding your rebate and provide you with the most up-to-date details. While I retrieve this information, could you please confirm the email address or any other relevant details associated with your rebate account? Your cooperation will be greatly appreciated, and I'll ensure we get you the answers you need as promptly as possible.",
+      "reference_response_preview": "I understand your concern about not being able to see any news or updates regarding your rebate. It's important for us to keep you informed about the progress of your rebate. Allow..."
+    },
+    {
+      "val_index": 17,
+      "query": "is it possible to order from {{Delivery Country}}?",
+      "true_intent": "delivery_options",
+      "predicted_intent": "delivery_options",
+      "category": "DELIVERY",
+      "similarity_score": 1.0,
+      "matched_instruction": "is it possible to order from {{Delivery Country}}?",
+      "status": "clarification_required",
+      "unresolved_placeholders": [
+        "Delivery Country"
+      ],
+      "resolved_slots": {},
+      "selected_response": "To assist you accurately with your request, could you please provide your Delivery Country?",
+      "reference_response_preview": "How wonderful it is to embrace the culture and history of {{Delivery Country}}! I'm thrilled to inform you that we do offer the possibility to order and ship to {{Delivery Country}..."
+    },
+    {
+      "val_index": 20,
+      "query": "I don't knowhow to cancel purchase {{Order Number}}",
+      "true_intent": "cancel_order",
+      "predicted_intent": "cancel_order",
+      "category": "ORDER",
+      "similarity_score": 0.6875,
+      "matched_instruction": "I don't know how to cancel purchase {{Order Number}}",
+      "status": "clarification_required",
+      "unresolved_placeholders": [
+        "Order Number"
+      ],
+      "resolved_slots": {
+        "Online Company Portal Info": "RELAY AI Online Portal",
+        "Online Order Interaction": "Order Details",
+        "Customer Support Hours": "Monday to Friday, 9:00 AM - 6:00 PM EST",
+        "Customer Support Phone Number": "1-800-RELAY-AI",
+        "Website URL": "https://relay.ai"
+      },
+      "selected_response": "To assist you accurately with your request, could you please provide your Order Number?",
+      "reference_response_preview": "I've grasped that you're unsure about the process of canceling your purchase with the order number {{Order Number}}. Allow me to guide you through it:\n\n1. Sign-in to Your Account: ..."
+    },
+    {
+      "val_index": 27,
+      "query": "i dont know how i can submit my feedback for ur products",
+      "true_intent": "review",
+      "predicted_intent": "review",
+      "category": "FEEDBACK",
+      "similarity_score": 0.8246,
+      "matched_instruction": "I do not know how I can submit my feedback for your products",
+      "status": "resolved",
+      "unresolved_placeholders": [],
+      "resolved_slots": {},
+      "selected_response": "Happy to get your message and expressing your interest in submitting feedback about our products. I'm here to help you with the process. The easiest way to submit your feedback is by visiting our website and locating the \"Feedback\" or \"Contact Us\" section. There, you can fill out a feedback form or find contact information to get in touch with our customer support team directly. You can also check if there is a specific email address dedicated to feedback or a feedback submission feature on our website. We value your insights and look forward to hearing from you soon!",
+      "reference_response_preview": "We appreciate your interest in providing feedback on our products! To submit your feedback, you can visit our website and navigate to the \"Feedback\" section. There, you will find a..."
+    },
+    {
+      "val_index": 49,
+      "query": "i want help to check in what cases can i ask for a reufnd",
+      "true_intent": "check_refund_policy",
+      "predicted_intent": "check_refund_policy",
+      "category": "REFUND",
+      "similarity_score": 0.7511,
+      "matched_instruction": "I need help seeing in which cases can I ask for a reufnd",
+      "status": "resolved",
+      "unresolved_placeholders": [],
+      "resolved_slots": {},
+      "selected_response": "I'll make it happen! I understand that you would like assistance in understanding the situations in which you can request a refund. Allow me to provide you with the necessary information.\n\nTypically, there are several circumstances under which you may be eligible for a refund:\n\n1. **Product/Service Defect:** If the product or service you purchased has a defect or does not meet the description provided, you would usually qualify for a refund.\n\n2. **Cancellation within Grace Period:** Should you change your mind and decide to cancel your purchase within the specified grace period, you are generally entitled to a refund.\n\n3. **Unauthorized Charges:** If you notice any charges on your account that you did not authorize or are unfamiliar with, our team will investigate the issue and assist you in resolving it.\n\n4. **Event Cancellation:** If you have purchased tickets for an event that is subsequently canceled and not rescheduled, you would typically be eligible for a refund.\n\n5. **Duplicate Charges:** In the event that you are charged multiple times for the same item or service, please reach out to us immediately so that we can rectify the situation and issue a refund if necessary.\n\n6. **Non-receipt of Goods:** If you have not received your purchased product within the expected timeframe, please notify us as soon as possible. In such cases, you may be eligible for a refund.\n\nPlease note that refund policies can vary depending on the vendor or service provider. It is always prudent to consult the specific terms and conditions or contact the relevant party directly for complete clarity.\n\nIf you have a specific order or concern related to a refund, please provide me with the relevant details, such as the order number, and I will be more than happy to dive deeper and assist you further.\n\nRemember, your satisfaction is our top priority, and we are here to ensure a smooth and seamless experience. Let me know if there's anything else I can assist you with today!\"",
+      "reference_response_preview": "Of course! I completely understand your desire to have a clear understanding of the situations in which you can request a refund and get your money back. Here are the common scenar..."
+    },
+    {
+      "val_index": 11,
+      "query": "help seeing how long it takes for my shipment to arrive",
+      "true_intent": "delivery_period",
+      "predicted_intent": "delivery_period",
+      "category": "DELIVERY",
+      "similarity_score": 0.9789,
+      "matched_instruction": "want help seeing how long it takes for my shipment to arrive",
+      "status": "clarification_required",
+      "unresolved_placeholders": [
+        "Order Number",
+        "Tracking Number"
+      ],
+      "resolved_slots": {},
+      "selected_response": "To assist you accurately with your request, could you please provide your Order Number, Tracking Number?",
+      "reference_response_preview": "We understand your anticipation to receive your shipment and your desire to know the estimated delivery timeframe. To provide you with accurate information, could you please provid..."
+    },
+    {
+      "val_index": 14,
+      "query": "hjow to use the gold profile?",
+      "true_intent": "switch_account",
+      "predicted_intent": "switch_account",
+      "category": "ACCOUNT",
+      "similarity_score": 0.9236,
+      "matched_instruction": "can I use the gold profile?",
+      "status": "clarification_required",
+      "unresolved_placeholders": [
+        "Account Change",
+        "Profile",
+        "Settings",
+        "Upgrade Account"
+      ],
+      "resolved_slots": {
+        "Account Type": "Gold",
+        "Profile Type": "Gold"
+      },
+      "selected_response": "To assist you accurately with your request, could you please provide your Account Change, Profile, Settings, Upgrade Account?",
+      "reference_response_preview": "For sure! I'm thrilled to assist you with using the prestigious {{Account Type}} profile on our platform. Here's a step-by-step guide to help you make the most of it:\n\n1. Log in: S..."
+    },
+    {
+      "val_index": 18,
+      "query": "where can i download the invoice #85632",
+      "true_intent": "get_invoice",
+      "predicted_intent": "get_invoice",
+      "category": "INVOICE",
+      "similarity_score": 0.8426,
+      "matched_instruction": "I have to download the invoice #85632",
+      "status": "resolved",
+      "unresolved_placeholders": [],
+      "resolved_slots": {
+        "Invoice Number": "85632"
+      },
+      "selected_response": "I understand your need to download the invoice with the number #85632. Let me guide you through the process. To download your invoice, please follow these steps:\n\n1. Login to your account on our website.\n2. Navigate to the \"Billing\" or \"Invoices\" section.\n3. Look for the specific invoice 85632 and click on it.\n4. On the invoice details page, you should find a \"Download\" button. Click on it.\n\nIf you encounter any difficulties or have further questions, feel free to let me know. It's my pleasure to assist you with any concerns you may have.",
+      "reference_response_preview": "Positively! I completely understand your need to download the invoice with the number #{{Invoice Number}}. To access your invoice, please log in to your account on our website and ..."
+    },
+    {
+      "val_index": 22,
+      "query": "can you help me cancel purchase {{Order Number}}?",
+      "true_intent": "cancel_order",
+      "predicted_intent": "cancel_order",
+      "category": "ORDER",
+      "similarity_score": 1.0,
+      "matched_instruction": "can you help me cancel purchase {{Order Number}}?",
+      "status": "clarification_required",
+      "unresolved_placeholders": [
+        "Order Number"
+      ],
+      "resolved_slots": {
+        "Online Company Portal Info": "RELAY AI Online Portal",
+        "Online Order Interaction": "Order Details",
+        "Customer Support Hours": "Monday to Friday, 9:00 AM - 6:00 PM EST",
+        "Customer Support Phone Number": "1-800-RELAY-AI",
+        "Website URL": "https://relay.ai"
+      },
+      "selected_response": "To assist you accurately with your request, could you please provide your Order Number?",
+      "reference_response_preview": "I grasp the urgency and importance of canceling your purchase with the order number {{Order Number}}. Rest assured, I'm here to help you through the cancellation process.\n\nTo proce..."
+    },
+    {
+      "val_index": 33,
+      "query": "i have got to report issues with online payment",
+      "true_intent": "payment_issue",
+      "predicted_intent": "payment_issue",
+      "category": "PAYMENT",
+      "similarity_score": 0.9379,
+      "matched_instruction": "i have to report issues with online payment",
+      "status": "resolved",
+      "unresolved_placeholders": [],
+      "resolved_slots": {},
+      "selected_response": "I gather that you need to report issues with your online payment. Your feedback is greatly appreciated, as it helps us identify and address any problems in our system. To report the issue, I recommend reaching out to our customer support team directly. They will provide you with the necessary instructions and gather all the relevant details to investigate and resolve the problem. Rest assured, we take these matters seriously and will do our best to assist you. Thank you for bringing this to our attention.",
+      "reference_response_preview": "Thank you for bringing these issues with your online payment to our attention. We understand how important it is to have a smooth payment process, and we apologize for any inconven..."
+    },
+    {
+      "val_index": 10,
+      "query": "update information on freemium account",
+      "true_intent": "edit_account",
+      "predicted_intent": "edit_account",
+      "category": "ACCOUNT",
+      "similarity_score": 0.8185,
+      "matched_instruction": "updating information on freemium account",
+      "status": "resolved",
+      "unresolved_placeholders": [],
+      "resolved_slots": {},
+      "selected_response": "How exhilarating it is to embark on the journey of updating the information on your esteemed freemium account!I'm delighted to provide you with exceptional guidance and unwavering support throughout this transformative process. To ensure the accuracy of your account details, please log into your account on our website or contact our dedicated customer support team. They will walk you through the necessary steps and assist you with updating the information on your freemium account. Remember, your satisfaction is our top priority, and we're here to assist you every step of the way. Let's make this experience a remarkable one together!",
+      "reference_response_preview": "We are here to assist you in updating the information on your freemium account! Your dedication to keeping your account up to date is commendable. Rest assured, we will guide you t..."
+    },
+    {
+      "val_index": 15,
+      "query": "where can I check when will my product arrive?",
+      "true_intent": "delivery_period",
+      "predicted_intent": "delivery_period",
+      "category": "DELIVERY",
+      "similarity_score": 0.9499,
+      "matched_instruction": "can I check when will my product arrive?",
+      "status": "clarification_required",
+      "unresolved_placeholders": [
+        "Order Number",
+        "Tracking Number"
+      ],
+      "resolved_slots": {},
+      "selected_response": "To assist you accurately with your request, could you please provide your Order Number, Tracking Number?",
+      "reference_response_preview": "We understand your curiosity about tracking the arrival of your product. To check the estimated delivery time, you can log in to your account on our website and go to the 'Order St..."
+    },
+    {
+      "val_index": 32,
+      "query": "I'm rtying to cancel order {{Order Number}}",
+      "true_intent": "cancel_order",
+      "predicted_intent": "cancel_order",
+      "category": "ORDER",
+      "similarity_score": 0.8068,
+      "matched_instruction": "I'm trying to cancel order {{Order Number}}",
+      "status": "clarification_required",
+      "unresolved_placeholders": [
+        "Order Number"
+      ],
+      "resolved_slots": {
+        "Online Company Portal Info": "RELAY AI Online Portal",
+        "Online Order Interaction": "Order Details",
+        "Customer Support Hours": "Monday to Friday, 9:00 AM - 6:00 PM EST",
+        "Customer Support Phone Number": "1-800-RELAY-AI",
+        "Website URL": "https://relay.ai"
+      },
+      "selected_response": "To assist you accurately with your request, could you please provide your Order Number?",
+      "reference_response_preview": "I'm following the urgency of canceling your order with the order number {{Order Number}}. I apologize for any inconvenience caused. To assist you with the cancellation process, ple..."
+    },
+    {
+      "val_index": 57,
+      "query": "what do i have to do to give a quick look at the bill #37777",
+      "true_intent": "check_invoice",
+      "predicted_intent": "check_invoice",
+      "category": "INVOICE",
+      "similarity_score": 0.8546,
+      "matched_instruction": "I have got to give a quick look at bill #37777",
+      "status": "resolved",
+      "unresolved_placeholders": [],
+      "resolved_slots": {
+        "Invoice Number": "37777"
+      },
+      "selected_response": "Definitely! I completely understand your urgency in needing to take a quick look at bill #37777. Let's work together to find the information you're seeking. Could you please provide me with any relevant details or additional context regarding this bill? This will allow me to assist you more effectively and ensure a successful resolution.",
+      "reference_response_preview": "To quickly look at the bill with number #{{Invoice Number}}, you can follow these steps: \n1. Log in to your account on our website.\n2. Navigate to the \"Billing\" or \"Invoices\" secti..."
+    },
+    {
+      "val_index": 60,
+      "query": "I need assistance using the {{Account Category}} preofile",
+      "true_intent": "switch_account",
+      "predicted_intent": "switch_account",
+      "category": "ACCOUNT",
+      "similarity_score": 0.8279,
+      "matched_instruction": "I want assistance using the {{Account Category}} account",
+      "status": "clarification_required",
+      "unresolved_placeholders": [
+        "Account Category"
+      ],
+      "resolved_slots": {
+        "Customer Support Hours": "Monday to Friday, 9:00 AM - 6:00 PM EST",
+        "Customer Support Phone Number": "1-800-RELAY-AI",
+        "Website URL": "https://relay.ai"
+      },
+      "selected_response": "To assist you accurately with your request, could you please provide your Account Category?",
+      "reference_response_preview": "Positively! I'm thrilled that you're interested in utilizing the {{Account Category}} profile. Together, let's explore the incredible features and benefits it brings:\n\n1. **Accessi..."
+    }
+  ]
+}

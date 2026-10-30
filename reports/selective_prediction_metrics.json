@@ -1,0 +1,591 @@
+{
+  "metadata": {
+    "timestamp": "2026-10-30T17:26:20.697743",
+    "train_samples": 18810,
+    "val_all_samples": 4031,
+    "val_unseen_samples": 3572,
+    "calibration_method": "CalibratedClassifierCV (sigmoid / Platt scaling)",
+    "classes_count": 27
+  },
+  "frozen_thresholds": {
+    "calibration_metadata": {
+      "version": "1.0.0",
+      "method": "sigmoid (Platt scaling)",
+      "internal_cv_folds": 5,
+      "training_samples": 18810,
+      "classes_count": 27,
+      "frozen_at": "2026-10-30T17:26:12.327123",
+      "source_dataset": "data/raw/train.csv strictly"
+    },
+    "intent_confidence_thresholds": {
+      "high_confidence_min_prob": 0.65,
+      "high_confidence_min_margin": 0.25,
+      "unsupported_max_prob": 0.35,
+      "unsupported_max_margin": 0.05
+    },
+    "retrieval_thresholds": {
+      "high_confidence_min_similarity": 0.45,
+      "unsupported_similarity_threshold": 0.3
+    },
+    "human_escalation_intents": [
+      "contact_customer_service",
+      "contact_human_agent"
+    ],
+    "human_escalation_keywords": [
+      "human agent",
+      "live agent",
+      "real person",
+      "speak to human",
+      "talk to human",
+      "human representative",
+      "supervisor",
+      "manager",
+      "customer care officer",
+      "connect me to person"
+    ]
+  },
+  "calibration_metrics": {
+    "val_all": {
+      "ece": 0.011922533456866155,
+      "mce": 0.3611669706436039,
+      "brier_score": 0.0005445474614295001,
+      "mean_confidence": 0.9880774665431338,
+      "min_confidence": 0.6237789297019971,
+      "max_confidence": 0.9962384367999917,
+      "std_confidence": 0.015350256467951275,
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "bin_range": "[0.00, 0.10)",
+          "count": 0,
+          "proportion": 0.0,
+          "avg_confidence": 0.05,
+          "empirical_accuracy": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 1,
+          "bin_range": "[0.10, 0.20)",
+          "count": 0,
+          "proportion": 0.0,
+          "avg_confidence": 0.15000000000000002,
+          "empirical_accuracy": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 2,
+          "bin_range": "[0.20, 0.30)",
+          "count": 0,
+          "proportion": 0.0,
+          "avg_confidence": 0.25,
+          "empirical_accuracy": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 3,
+          "bin_range": "[0.30, 0.40)",
+          "count": 0,
+          "proportion": 0.0,
+          "avg_confidence": 0.35000000000000003,
+          "empirical_accuracy": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 4,
+          "bin_range": "[0.40, 0.50)",
+          "count": 0,
+          "proportion": 0.0,
+          "avg_confidence": 0.45,
+          "empirical_accuracy": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 5,
+          "bin_range": "[0.50, 0.60)",
+          "count": 0,
+          "proportion": 0.0,
+          "avg_confidence": 0.55,
+          "empirical_accuracy": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 6,
+          "bin_range": "[0.60, 0.70)",
+          "count": 3,
+          "proportion": 0.0007442322004465393,
+          "avg_confidence": 0.6388330293563961,
+          "empirical_accuracy": 1.0,
+          "calibration_error": 0.3611669706436039
+        },
+        {
+          "bin_index": 7,
+          "bin_range": "[0.70, 0.80)",
+          "count": 3,
+          "proportion": 0.0007442322004465393,
+          "avg_confidence": 0.7521942421772838,
+          "empirical_accuracy": 1.0,
+          "calibration_error": 0.2478057578227162
+        },
+        {
+          "bin_index": 8,
+          "bin_range": "[0.80, 0.90)",
+          "count": 16,
+          "proportion": 0.003969238402381543,
+          "avg_confidence": 0.8638052461695234,
+          "empirical_accuracy": 1.0,
+          "calibration_error": 0.13619475383047663
+        },
+        {
+          "bin_index": 9,
+          "bin_range": "[0.90, 1.00)",
+          "count": 4009,
+          "proportion": 0.9945422971967254,
+          "avg_confidence": 0.9890113000454126,
+          "empirical_accuracy": 1.0,
+          "calibration_error": 0.0109886999545874
+        }
+      ]
+    },
+    "val_unseen": {
+      "ece": 0.012042561531106192,
+      "mce": 0.3611669706436039,
+      "brier_score": 0.0005764709933772353,
+      "mean_confidence": 0.9879574384688937,
+      "min_confidence": 0.6237789297019971,
+      "max_confidence": 0.9962384367999917,
+      "std_confidence": 0.015916527979908737,
+      "reliability_bins": [
+        {
+          "bin_index": 0,
+          "bin_range": "[0.00, 0.10)",
+          "count": 0,
+          "proportion": 0.0,
+          "avg_confidence": 0.05,
+          "empirical_accuracy": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 1,
+          "bin_range": "[0.10, 0.20)",
+          "count": 0,
+          "proportion": 0.0,
+          "avg_confidence": 0.15000000000000002,
+          "empirical_accuracy": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 2,
+          "bin_range": "[0.20, 0.30)",
+          "count": 0,
+          "proportion": 0.0,
+          "avg_confidence": 0.25,
+          "empirical_accuracy": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 3,
+          "bin_range": "[0.30, 0.40)",
+          "count": 0,
+          "proportion": 0.0,
+          "avg_confidence": 0.35000000000000003,
+          "empirical_accuracy": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 4,
+          "bin_range": "[0.40, 0.50)",
+          "count": 0,
+          "proportion": 0.0,
+          "avg_confidence": 0.45,
+          "empirical_accuracy": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 5,
+          "bin_range": "[0.50, 0.60)",
+          "count": 0,
+          "proportion": 0.0,
+          "avg_confidence": 0.55,
+          "empirical_accuracy": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 6,
+          "bin_range": "[0.60, 0.70)",
+          "count": 3,
+          "proportion": 0.0008398656215005599,
+          "avg_confidence": 0.6388330293563961,
+          "empirical_accuracy": 1.0,
+          "calibration_error": 0.3611669706436039
+        },
+        {
+          "bin_index": 7,
+          "bin_range": "[0.70, 0.80)",
+          "count": 3,
+          "proportion": 0.0008398656215005599,
+          "avg_confidence": 0.7521942421772838,
+          "empirical_accuracy": 1.0,
+          "calibration_error": 0.2478057578227162
+        },
+        {
+          "bin_index": 8,
+          "bin_range": "[0.80, 0.90)",
+          "count": 14,
+          "proportion": 0.003919372900335946,
+          "avg_confidence": 0.8611995372516308,
+          "empirical_accuracy": 1.0,
+          "calibration_error": 0.1388004627483692
+        },
+        {
+          "bin_index": 9,
+          "bin_range": "[0.90, 1.00)",
+          "count": 3552,
+          "proportion": 0.9944008958566629,
+          "avg_confidence": 0.9889510402237514,
+          "empirical_accuracy": 1.0,
+          "calibration_error": 0.011048959776248646
+        }
+      ]
+    }
+  },
+  "selective_prediction_curves": {
+    "val_all": [
+      {
+        "coverage_percent": 100.0,
+        "samples_retained": 4031,
+        "min_confidence_threshold": 0.6237789297019971,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 99.0,
+        "samples_retained": 3991,
+        "min_confidence_threshold": 0.9481961762476253,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 95.0,
+        "samples_retained": 3829,
+        "min_confidence_threshold": 0.9816202612330853,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 90.0,
+        "samples_retained": 3628,
+        "min_confidence_threshold": 0.9849053791417491,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 85.0,
+        "samples_retained": 3426,
+        "min_confidence_threshold": 0.9863972070084068,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 80.0,
+        "samples_retained": 3225,
+        "min_confidence_threshold": 0.9872036117979046,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 70.0,
+        "samples_retained": 2822,
+        "min_confidence_threshold": 0.9882923362179403,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 60.0,
+        "samples_retained": 2419,
+        "min_confidence_threshold": 0.9892997468595149,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 50.0,
+        "samples_retained": 2016,
+        "min_confidence_threshold": 0.9900934531085797,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 30.0,
+        "samples_retained": 1209,
+        "min_confidence_threshold": 0.9913997727543938,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      }
+    ],
+    "val_unseen": [
+      {
+        "coverage_percent": 100.0,
+        "samples_retained": 3572,
+        "min_confidence_threshold": 0.6237789297019971,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 99.0,
+        "samples_retained": 3536,
+        "min_confidence_threshold": 0.9504638416239348,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 95.0,
+        "samples_retained": 3393,
+        "min_confidence_threshold": 0.9811481473109545,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 90.0,
+        "samples_retained": 3215,
+        "min_confidence_threshold": 0.9845922739733689,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 85.0,
+        "samples_retained": 3036,
+        "min_confidence_threshold": 0.9861488994156049,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 80.0,
+        "samples_retained": 2858,
+        "min_confidence_threshold": 0.9871047606203758,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 70.0,
+        "samples_retained": 2500,
+        "min_confidence_threshold": 0.9882042312296944,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 60.0,
+        "samples_retained": 2143,
+        "min_confidence_threshold": 0.989204548629305,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 50.0,
+        "samples_retained": 1786,
+        "min_confidence_threshold": 0.990052103487552,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      },
+      {
+        "coverage_percent": 30.0,
+        "samples_retained": 1072,
+        "min_confidence_threshold": 0.9914118167744148,
+        "accuracy": 1.0,
+        "error_rate_risk": 0.0,
+        "error_count": 0
+      }
+    ]
+  },
+  "decision_system_evaluation": {
+    "total_queries_evaluated": 4031,
+    "state_distribution": {
+      "HIGH_CONFIDENCE": 3722,
+      "UNCERTAIN": 8,
+      "UNSUPPORTED": 1,
+      "HUMAN_ESCALATION": 300
+    },
+    "state_rates": {
+      "HIGH_CONFIDENCE": 0.9233440833540064,
+      "UNCERTAIN": 0.0019846192011907715,
+      "UNSUPPORTED": 0.00024807740014884643,
+      "HUMAN_ESCALATION": 0.07442322004465393
+    },
+    "action_verdict_distribution": {
+      "PROCEED_AUTOMATED": 2390,
+      "NEED_SLOT_CLARIFICATION": 1332,
+      "AMBIGUOUS_INTENT_CLARIFICATION": 8,
+      "UNSUPPORTED_REJECTION": 1,
+      "ESCALATE_TO_HUMAN": 300
+    },
+    "action_verdict_rates": {
+      "PROCEED_AUTOMATED": 0.592904986355743,
+      "NEED_SLOT_CLARIFICATION": 0.33043909699826346,
+      "AMBIGUOUS_INTENT_CLARIFICATION": 0.0019846192011907715,
+      "UNSUPPORTED_REJECTION": 0.00024807740014884643,
+      "ESCALATE_TO_HUMAN": 0.07442322004465393
+    },
+    "false_confident_count": 0,
+    "false_confident_rate": 0.0,
+    "false_confident_examples": []
+  },
+  "stress_test_suite": [
+    {
+      "query": "I want to cancel my order #98214",
+      "expected_state": "HIGH_CONFIDENCE",
+      "detected_state": "HIGH_CONFIDENCE",
+      "passed": true,
+      "top_intent": "cancel_order",
+      "confidence": 0.8264274506055894,
+      "margin": 0.659263355232945,
+      "retrieval_similarity": 0.6849
+    },
+    {
+      "query": "Please download my invoice for order #1234",
+      "expected_state": "HIGH_CONFIDENCE",
+      "detected_state": "HIGH_CONFIDENCE",
+      "passed": true,
+      "top_intent": "get_invoice",
+      "confidence": 0.9851400023893291,
+      "margin": 0.9783986035637494,
+      "retrieval_similarity": 0.6345
+    },
+    {
+      "query": "Where can I track my package #TX8819?",
+      "expected_state": "HIGH_CONFIDENCE",
+      "detected_state": "UNCERTAIN",
+      "passed": false,
+      "top_intent": "track_refund",
+      "confidence": 0.5727373899279037,
+      "margin": 0.290883479101267,
+      "retrieval_similarity": 0.4327
+    },
+    {
+      "query": "I want to change my delivery address to 452 Elm Street",
+      "expected_state": "HIGH_CONFIDENCE",
+      "detected_state": "HIGH_CONFIDENCE",
+      "passed": true,
+      "top_intent": "change_shipping_address",
+      "confidence": 0.9935825791780744,
+      "margin": 0.9927776927752047,
+      "retrieval_similarity": 0.6999
+    },
+    {
+      "query": "I need to cancel or change my order right now",
+      "expected_state": "UNCERTAIN",
+      "detected_state": "UNCERTAIN",
+      "passed": true,
+      "top_intent": "cancel_order",
+      "confidence": 0.9723389586781914,
+      "margin": 0.9613419639496203,
+      "retrieval_similarity": 0.4041
+    },
+    {
+      "query": "order change cancellation details",
+      "expected_state": "UNCERTAIN",
+      "detected_state": "HIGH_CONFIDENCE",
+      "passed": false,
+      "top_intent": "edit_account",
+      "confidence": 0.6770613756835699,
+      "margin": 0.4916937450307575,
+      "retrieval_similarity": 0.519
+    },
+    {
+      "query": "refund or payment status issue",
+      "expected_state": "UNCERTAIN",
+      "detected_state": "UNCERTAIN",
+      "passed": true,
+      "top_intent": "payment_issue",
+      "confidence": 0.5616610911267357,
+      "margin": 0.131875905695039,
+      "retrieval_similarity": 0.5529
+    },
+    {
+      "query": "What is the weather in London today?",
+      "expected_state": "UNSUPPORTED",
+      "detected_state": "UNSUPPORTED",
+      "passed": true,
+      "top_intent": "check_refund_policy",
+      "confidence": 0.4281165959761573,
+      "margin": 0.33919289782365736,
+      "retrieval_similarity": 0.1463
+    },
+    {
+      "query": "How do I bake chocolate chip cookies?",
+      "expected_state": "UNSUPPORTED",
+      "detected_state": "UNSUPPORTED",
+      "passed": true,
+      "top_intent": "place_order",
+      "confidence": 0.12745412601980452,
+      "margin": 0.022335320919645046,
+      "retrieval_similarity": 0.2002
+    },
+    {
+      "query": "Where can I buy Bitcoin and Ethereum crypto?",
+      "expected_state": "UNSUPPORTED",
+      "detected_state": "HIGH_CONFIDENCE",
+      "passed": false,
+      "top_intent": "place_order",
+      "confidence": 0.9431914858761481,
+      "margin": 0.9327111846672242,
+      "retrieval_similarity": 0.5101
+    },
+    {
+      "query": "asdfgh qwerty zxcvbnm 123456 gibberish",
+      "expected_state": "UNSUPPORTED",
+      "detected_state": "UNSUPPORTED",
+      "passed": true,
+      "top_intent": "get_refund",
+      "confidence": 0.11407398636704222,
+      "margin": 0.024505178800218075,
+      "retrieval_similarity": 0.1137
+    },
+    {
+      "query": "I want to speak with a human agent right now",
+      "expected_state": "HUMAN_ESCALATION",
+      "detected_state": "HUMAN_ESCALATION",
+      "passed": true,
+      "top_intent": "contact_human_agent",
+      "confidence": 0.9857043407917143,
+      "margin": 0.9839291824345606,
+      "retrieval_similarity": 0.8149
+    },
+    {
+      "query": "Connect me to a customer care supervisor immediately",
+      "expected_state": "HUMAN_ESCALATION",
+      "detected_state": "HUMAN_ESCALATION",
+      "passed": true,
+      "top_intent": "contact_customer_service",
+      "confidence": 0.9856430684439038,
+      "margin": 0.9823660373277291,
+      "retrieval_similarity": 0.4134
+    },
+    {
+      "query": "I need a live representative to handle this problem",
+      "expected_state": "HUMAN_ESCALATION",
+      "detected_state": "HUMAN_ESCALATION",
+      "passed": true,
+      "top_intent": "contact_human_agent",
+      "confidence": 0.2016964797779201,
+      "margin": 0.05263960616548344,
+      "retrieval_similarity": 0.261
+    }
+  ]
+}

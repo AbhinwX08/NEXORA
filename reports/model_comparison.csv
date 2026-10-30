@@ -1,0 +1,12 @@
+model_id,phase,val_accuracy,val_macro_f1,notes
+Baseline_Word_LogisticRegression,Phase 1 Baseline,0.9936,0.9936,Unigram word TF-IDF
+Baseline_Word_LinearSVC,Phase 1 Baseline,0.9945,0.9946,Unigram word TF-IDF
+Baseline_Char_LinearSVC,Phase 1 Baseline,0.9988,0.9988,"Char wb (3,5) TF-IDF"
+Baseline_Combined_LinearSVC,Phase 1 Baseline,0.9998,0.9998,Word+Char equal weights
+Baseline_ComplementNB,Phase 1 Baseline,0.9859,0.9859,Complement Naive Bayes
+Optimized_Word_Bigram,Phase 2 Optimization,0.9938,0.9938,"Ngram (1,2) with sublinear TF"
+Optimized_Char_3to5,Phase 2 Optimization,0.9985,0.9985,"Char wb ngrams (3,5)"
+Optimized_Combined_w1_c1,Phase 2 Optimization,0.9998,0.9998,FeatureUnion 1.0:1.0
+Optimized_Combined_w1_c15,Phase 2 Optimization,1.0,1.0,FeatureUnion 1.0:1.5 winning model
+Calibrated_Combined_w1_c15,Phase 4 Calibration,1.0,1.0,5-fold Platt Sigmoid Scaling
+Final_Production_Calibrated_Pipeline,Phase 6 Final,1.0,1.0,"Fully trained on 18,810 records strictly"

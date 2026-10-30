@@ -1,0 +1,354 @@
+{
+  "model_metadata": {
+    "model_version": "2.0.0-optimized",
+    "model_architecture": "Combined_w1_c15",
+    "training_date": "2026-10-30T17:07:15.273777",
+    "target_threshold": 0.7,
+    "target_achieved": true
+  },
+  "cv_leaderboard": [
+    {
+      "experiment": "Word_unigram",
+      "cv_accuracy": 0.9937799043062201,
+      "cv_accuracy_std": 0.0006849600599002951,
+      "cv_macro_f1": 0.9937898907519674,
+      "cv_macro_f1_std": 0.0006825553328275715,
+      "cv_weighted_f1": 0.9937840031977055,
+      "cv_time_sec": 3.793139934539795
+    },
+    {
+      "experiment": "Word_bigram",
+      "cv_accuracy": 0.9939393939393939,
+      "cv_accuracy_std": 0.0006597380992020362,
+      "cv_macro_f1": 0.9939512317030138,
+      "cv_macro_f1_std": 0.0006604583830829071,
+      "cv_weighted_f1": 0.9939438267768619,
+      "cv_time_sec": 2.911163091659546
+    },
+    {
+      "experiment": "Word_trigram",
+      "cv_accuracy": 0.9933545986177565,
+      "cv_accuracy_std": 0.0006724673386854799,
+      "cv_macro_f1": 0.9933711295463586,
+      "cv_macro_f1_std": 0.0006663422405722128,
+      "cv_weighted_f1": 0.9933597434198462,
+      "cv_time_sec": 2.7762560844421387
+    },
+    {
+      "experiment": "Word_min_df2",
+      "cv_accuracy": 0.9931419457735247,
+      "cv_accuracy_std": 0.000926932258062878,
+      "cv_macro_f1": 0.9931534181144812,
+      "cv_macro_f1_std": 0.000924112185135477,
+      "cv_weighted_f1": 0.9931429250890333,
+      "cv_time_sec": 1.4276049137115479
+    },
+    {
+      "experiment": "Char_3to5",
+      "cv_accuracy": 0.9985114300903775,
+      "cv_accuracy_std": 0.0002710802505897358,
+      "cv_macro_f1": 0.9985109806670416,
+      "cv_macro_f1_std": 0.0002699639585629304,
+      "cv_weighted_f1": 0.998510828772503,
+      "cv_time_sec": 4.38270902633667
+    },
+    {
+      "experiment": "Char_2to5",
+      "cv_accuracy": 0.9985645933014353,
+      "cv_accuracy_std": 0.00021265284423179764,
+      "cv_macro_f1": 0.9985646659140576,
+      "cv_macro_f1_std": 0.00021437791726596343,
+      "cv_weighted_f1": 0.9985639905677253,
+      "cv_time_sec": 5.406978130340576
+    },
+    {
+      "experiment": "Char_3to6",
+      "cv_accuracy": 0.9983519404572035,
+      "cv_accuracy_std": 0.00030999212625441077,
+      "cv_macro_f1": 0.9983514857498322,
+      "cv_macro_f1_std": 0.0003094928339397422,
+      "cv_weighted_f1": 0.9983511437648589,
+      "cv_time_sec": 3.4273571968078613
+    },
+    {
+      "experiment": "LinearSVC_C05",
+      "cv_accuracy": 0.9983519404572035,
+      "cv_accuracy_std": 0.0001989185213595985,
+      "cv_macro_f1": 0.9983514850749506,
+      "cv_macro_f1_std": 0.00020049568911546553,
+      "cv_weighted_f1": 0.998351143086748,
+      "cv_time_sec": 3.188056230545044
+    },
+    {
+      "experiment": "LinearSVC_C15",
+      "cv_accuracy": 0.9987240829346092,
+      "cv_accuracy_std": 0.00026044548035972866,
+      "cv_macro_f1": 0.9987234021469298,
+      "cv_macro_f1_std": 0.0002604576684213915,
+      "cv_weighted_f1": 0.9987234863041042,
+      "cv_time_sec": 3.450471878051758
+    },
+    {
+      "experiment": "LinearSVC_balanced",
+      "cv_accuracy": 0.9985114300903775,
+      "cv_accuracy_std": 0.0002710802505897358,
+      "cv_macro_f1": 0.9985109806670416,
+      "cv_macro_f1_std": 0.0002699639585629304,
+      "cv_weighted_f1": 0.998510828772503,
+      "cv_time_sec": 3.344125986099243
+    },
+    {
+      "experiment": "LogisticRegression_C5",
+      "cv_accuracy": 0.9980329611908558,
+      "cv_accuracy_std": 0.0002710802505896879,
+      "cv_macro_f1": 0.9980352058634743,
+      "cv_macro_f1_std": 0.00026986265423979927,
+      "cv_weighted_f1": 0.9980321347904825,
+      "cv_time_sec": 5.635040998458862
+    },
+    {
+      "experiment": "SGD_modified_huber",
+      "cv_accuracy": 0.9984051036682615,
+      "cv_accuracy_std": 0.0006724673386854361,
+      "cv_macro_f1": 0.9984049123374037,
+      "cv_macro_f1_std": 0.0006703641037876293,
+      "cv_weighted_f1": 0.9984044784098964,
+      "cv_time_sec": 2.2694168090820312
+    },
+    {
+      "experiment": "Combined_w1_c1",
+      "cv_accuracy": 0.9985645933014353,
+      "cv_accuracy_std": 0.0004318999683485126,
+      "cv_macro_f1": 0.9985640837378715,
+      "cv_macro_f1_std": 0.0004360595753882049,
+      "cv_weighted_f1": 0.9985647547041594,
+      "cv_time_sec": 3.906869888305664
+    },
+    {
+      "experiment": "Combined_w05_c1",
+      "cv_accuracy": 0.9986709197235513,
+      "cv_accuracy_std": 0.0004755062153109736,
+      "cv_macro_f1": 0.9986706776418522,
+      "cv_macro_f1_std": 0.0004778214186476829,
+      "cv_weighted_f1": 0.9986705150077825,
+      "cv_time_sec": 3.794985055923462
+    },
+    {
+      "experiment": "Combined_w1_c15",
+      "cv_accuracy": 0.9987772461456672,
+      "cv_accuracy_std": 0.0003189792663476965,
+      "cv_macro_f1": 0.9987763080318033,
+      "cv_macro_f1_std": 0.00032187008278795366,
+      "cv_weighted_f1": 0.9987772307686,
+      "cv_time_sec": 3.9513039588928223
+    },
+    {
+      "experiment": "Combined_w15_c1",
+      "cv_accuracy": 0.9982456140350877,
+      "cv_accuracy_std": 0.00046346612903140275,
+      "cv_macro_f1": 0.9982465707709574,
+      "cv_macro_f1_std": 0.0004649409573124956,
+      "cv_weighted_f1": 0.9982457225364467,
+      "cv_time_sec": 4.2511067390441895
+    },
+    {
+      "experiment": "Combined_C15",
+      "cv_accuracy": 0.9987240829346092,
+      "cv_accuracy_std": 0.00030999212625441077,
+      "cv_macro_f1": 0.9987233973040114,
+      "cv_macro_f1_std": 0.00031272246183896055,
+      "cv_weighted_f1": 0.9987240668794314,
+      "cv_time_sec": 4.080398082733154
+    }
+  ],
+  "evaluation_summary": {
+    "validation_all_samples": 4031,
+    "validation_unseen_samples": 3572,
+    "overall_intent_accuracy": 1.0,
+    "unseen_intent_accuracy": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "top3_accuracy_all": 1.0,
+    "top3_accuracy_unseen": 1.0,
+    "total_misclassified": 0
+  },
+  "classification_report": {
+    "cancel_order": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "change_order": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 149.0
+    },
+    "change_shipping_address": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 146.0
+    },
+    "check_cancellation_fee": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 143.0
+    },
+    "check_invoice": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "check_payment_methods": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "check_refund_policy": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 149.0
+    },
+    "complaint": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "contact_customer_service": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "contact_human_agent": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "create_account": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 149.0
+    },
+    "delete_account": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "delivery_options": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 149.0
+    },
+    "delivery_period": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "edit_account": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "get_invoice": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "get_refund": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 149.0
+    },
+    "newsletter_subscription": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "payment_issue": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "place_order": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 149.0
+    },
+    "recover_password": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "registration_problems": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "review": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "set_up_shipping_address": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "switch_account": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 150.0
+    },
+    "track_order": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 149.0
+    },
+    "track_refund": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 149.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 4031.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 4031.0
+    }
+  }
+}

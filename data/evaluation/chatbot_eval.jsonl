@@ -1,0 +1,16 @@
+{"id": "eval_01", "query": "Cancel my order #98214 please", "expected_intent": "cancel_order", "category": "CANCEL", "expected_action": "PROCEED_AUTOMATED", "slots": {"Order Number": "98214"}}
+{"id": "eval_02", "query": "I want to cancel my order", "expected_intent": "cancel_order", "category": "CANCEL", "expected_action": "NEED_SLOT_CLARIFICATION", "slots": {}}
+{"id": "eval_03", "query": "Can I get a refund on my purchase?", "expected_intent": "get_refund", "category": "REFUND", "expected_action": "NEED_SLOT_CLARIFICATION", "slots": {}}
+{"id": "eval_04", "query": "Where is my shipment? Tracking TRK-88219", "expected_intent": "track_order", "category": "DELIVERY", "expected_action": "PROCEED_AUTOMATED", "slots": {"Tracking Number": "TRK-88219"}}
+{"id": "eval_05", "query": "Where can I view my recent invoices?", "expected_intent": "get_invoice", "category": "INVOICE", "expected_action": "PROCEED_AUTOMATED", "slots": {}}
+{"id": "eval_06", "query": "How do I update my delivery address?", "expected_intent": "change_shipping_address", "category": "SHIPPING", "expected_action": "PROCEED_AUTOMATED", "slots": {}}
+{"id": "eval_07", "query": "How do I reset my account password?", "expected_intent": "recover_password", "category": "ACCOUNT", "expected_action": "PROCEED_AUTOMATED", "slots": {}}
+{"id": "eval_08", "query": "I want to cancel my monthly subscription", "expected_intent": "cancel_subscription", "category": "SUBSCRIPTION", "expected_action": "PROCEED_AUTOMATED", "slots": {}}
+{"id": "eval_09", "query": "What payment methods do you accept?", "expected_intent": "check_payment_methods", "category": "PAYMENT", "expected_action": "PROCEED_AUTOMATED", "slots": {}}
+{"id": "eval_10", "query": "I would like to submit feedback about my experience", "expected_intent": "leave_feedback", "category": "FEEDBACK", "expected_action": "PROCEED_AUTOMATED", "slots": {}}
+{"id": "eval_11", "query": "I need to talk to a human representative right now", "expected_intent": "contact_human_agent", "category": "CONTACT", "expected_action": "ESCALATE_TO_HUMAN", "slots": {}}
+{"id": "eval_12", "query": "What is the recipe for vanilla ice cream?", "expected_intent": "unsupported", "category": "UNSUPPORTED", "expected_action": "UNSUPPORTED_REJECTION", "slots": {}}
+{"id": "eval_13", "query": "Hello there, good morning", "expected_intent": "greeting", "category": "CONTACT", "expected_action": "SMALLTALK", "slots": {}}
+{"id": "eval_14", "query": "Thanks a lot for your help!", "expected_intent": "gratitude", "category": "FEEDBACK", "expected_action": "SMALLTALK", "slots": {}}
+{"id": "eval_15", "query": "What is RELAY AI and how does its architecture work?", "expected_intent": "product_guide_inquiry", "category": "PRODUCT_DOCUMENTATION", "expected_action": "PRODUCT_GUIDE", "slots": {}}
+
